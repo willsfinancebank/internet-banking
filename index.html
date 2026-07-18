@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wills Finance Bank — Premium Internet Banking</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap 5 (CSS + JS Bundle) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ============================================================
+                   CUSTOM STYLES — Wells Fargo palette
+                ============================================================ */
+        :root {
+            --wf-red: #C8102E;
+            --wf-gold: #FFB81C;
+            --wf-dark: #002856;
+            --wf-light: #f0f4f8;
+            --wf-text: #1a1a1a;
+            --wf-muted: #6b7a8f;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--wf-light);
+            color: var(--wf-text);
+            overflow-x: hidden;
+        }
+        /* WF color utilities */
+        .bg-wf-red {
+            background-color: var(--wf-red);
+        }
+        .bg-wf-gold {
+            background-color: var(--wf-gold);
+        }
+        .bg-wf-dark {
+            background-color: var(--wf-dark);
+        }
+        .text-wf-red {
+            color: var(--wf-red);
+        }
+        .text-wf-gold {
+            color: var(--wf-gold);
+        }
+        .text-wf-dark {
+            color: var(--wf-dark);
+        }
+        .border-wf-red {
+            border-color: var(--wf-red);
+        }
+        .hover\:bg-wf-red:hover {
+            background-color: var(--wf-red);
+        }
+
+        /* Buttons */
+        .btn-wf-red {
+            background-color: var(--wf-red);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .btn-wf-red:hover {
+            background-color: #a00f24;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200, 16, 46, 0.3);
+        }
+        .btn-wf-gold {
+            background-color: var(--wf-gold);
+            color: var(--wf-dark);
+            transition: all 0.3s ease;
+        }
+        .btn-wf-gold:hover {
+            background-color: #e5a50f;
+            color: var(--wf-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 184, 28, 0.4);
+        }
+        .btn-outline-wf {
+            border: 2px solid var(--wf-red);
+            color: var(--wf-red);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-wf:hover {
+            background: var(--wf-red);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .btn-outline-white {
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Scroll Progress Bar */
+        #scrollProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        /* Hero Slideshow */
+        .hero-slide {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1.2s ease-in-out;
+            opacity: 0;
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 40, 86, 0.80) 0%, rgba(200, 16, 46, 0.30) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 0.9s ease-out;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(36px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .hero-arrow:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) scale(1.06);
+        }
+        .hero-arrow.prev {
+            left: 24px;
+        }
+        .hero-arrow.next {
+            right: 24px;
+        }
+        .hero-indicators {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 12px;
+        }
+        .hero-indicators button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .hero-indicators button.active {
+            background: var(--wf-gold);
+            border-color: var(--wf-gold);
+            transform: scale(1.25);
+        }
+
+        /* Cards & Hovers */
+        .service-card,
+        .insight-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .service-card:hover,
+        .insight-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 40, 86, 0.08);
+            border-color: var(--wf-gold);
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+            background: var(--wf-dark);
+            border-radius: 44px;
+            padding: 18px 10px;
+            max-width: 240px;
+            box-shadow: 0 24px 60px rgba(0, 40, 86, 0.25);
+            border: 3px solid rgba(255, 255, 255, 0.06);
+        }
+        .phone-mockup .screen {
+            background: #fff;
+            border-radius: 28px;
+            padding: 20px 16px;
+            min-height: 380px;
+        }
+
+        /* Footer */
+        .footer-link {
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s ease;
+        }
+        .footer-link:hover {
+            color: var(--wf-gold);
+        }
+
+        /* Scroll animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Back to top */
+        #backToTop {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--wf-red);
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 20px rgba(200, 16, 46, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #backToTop:hover {
+            background: var(--wf-dark);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(0, 40, 86, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            .hero-arrow.prev {
+                left: 12px;
+            }
+            .hero-arrow.next {
+                right: 12px;
+            }
+            .phone-mockup {
+                max-width: 200px;
+            }
+            .phone-mockup .screen {
+                min-height: 300px;
+                padding: 14px 12px;
+            }
+        }
+        @media (max-width: 576px) {
+            .hero-arrow {
+                display: none;
+            }
+        }
+        /* Bootstrap toggler fix */
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,40,86,1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    SCROLL PROGRESS BAR
+    ============================================================ -->
+    <div id="scrollProgress"></div>
+
+    <!-- ============================================================
+    HEADER (Fixed)
+    ============================================================ -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/60 shadow-sm transition-shadow duration-300" id="header">
+        <div class="container mx-auto px-4 lg:px-6 flex items-center justify-between h-20">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 text-2xl font-extrabold text-wf-dark">
+                <i class="fas fa-crown text-wf-gold"></i>
+                <span>Wills<span class="text-wf-red">Finance</span></span>
+                <span class="text-sm font-medium text-wf-muted ml-1">Bank</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium">
+                <a href="#products" class="text-wf-dark/70 hover:text-wf-red transition">Products</a>
+                <a href="#rates" class="text-wf-dark/70 hover:text-wf-red transition">Rates</a>
+                <a href="#security" class="text-wf-dark/70 hover:text-wf-red transition">Security</a>
+                <a href="#insights" class="text-wf-dark/70 hover:text-wf-red transition">Insights</a>
+                <a href="#contact" class="text-wf-dark/70 hover:text-wf-red transition">Contact</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <a href="#" class="hidden sm:inline-block btn btn-outline-wf px-5 py-2 text-sm font-semibold rounded-full">
+                    <i class="fas fa-lock"></i> Log In
+                </a>
+                <a href="#" class="btn btn-wf-red px-6 py-2 text-sm font-semibold rounded-full shadow-md">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+                <button class="navbar-toggler lg:hidden border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-expanded="false">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav (Bootstrap collapse) -->
+        <div class="collapse lg:hidden bg-white border-t border-gray-200" id="mobileNav">
+            <div class="container mx-auto px-4 py-6 flex flex-col gap-4 text-sm font-medium">
+                <a href="#products" class="text-wf-dark/70 hover:text-wf-red py-2 border-b border-gray-100">Products</a>
+                <a href="#rates" class="text-wf-dark/70 hover:text-wf-red py-2 border-b border-gray-100">Rates</a>
+                <a href="#security" class="text-wf-dark/70 hover:text-wf-red py-2 border-b border-gray-100">Security</a>
+                <a href="#insights" class="text-wf-dark/70 hover:text-wf-red py-2 border-b border-gray-100">Insights</a>
+                <a href="#contact" class="text-wf-dark/70 hover:text-wf-red py-2 border-b border-gray-100">Contact</a>
+                <div class="pt-4 flex flex-col gap-3">
+                    <a href="#" class="btn btn-outline-wf w-full text-center rounded-full py-2.5"><i class="fas fa-lock"></i> Log In</a>
+                    <a href="#" class="btn btn-wf-red w-full text-center rounded-full py-2.5"><i class="fas fa-user-plus"></i> Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    HERO SLIDESHOW (5 slides)
+    ============================================================ -->
+    <section class="relative w-full h-screen max-h-[1000px] min-h-[600px] mt-20 overflow-hidden" id="hero">
+        <div class="relative w-full h-full" id="heroSlides">
+            <!-- Slide 1: Mobile Banking -->
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1600&q=80');">
+                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
+                    <span class="inline-flex items-center gap-2 bg-wf-red/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-wf-gold/20 mb-4"><i class="fas fa-mobile-alt"></i> Mobile First</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Banking that moves <br /><span class="text-wf-gold">with you</span></h1>
+                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6">Seamless banking across every device. Real-time balances, instant transfers, and AI-driven insights.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-arrow-right"></i> Open Account</a>
+                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-play"></i> See Demo</a>
+                    </div>
+                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
+                        <div><span class="text-2xl font-extrabold text-wf-gold">12M+</span><p class="text-sm opacity-70">Active Users</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">$8.2B</span><p class="text-sm opacity-70">Total Assets</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">4.9★</span><p class="text-sm opacity-70">App Store Rating</p></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2: Wealth Management -->
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80');">
+                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
+                    <span class="inline-flex items-center gap-2 bg-wf-red/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-wf-gold/20 mb-4"><i class="fas fa-chart-line"></i> Wealth Management</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Grow your <span class="text-wf-gold">financial future</span></h1>
+                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6">Expert guidance, premium portfolios, and tools designed to help you reach your goals.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-arrow-right"></i> Start Investing</a>
+                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-calculator"></i> Plan Now</a>
+                    </div>
+                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
+                        <div><span class="text-2xl font-extrabold text-wf-gold">15%</span><p class="text-sm opacity-70">Avg. Portfolio Growth</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">200+</span><p class="text-sm opacity-70">Investment Options</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">24/7</span><p class="text-sm opacity-70">Expert Support</p></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 3: Security & Payments -->
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=80');">
+                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
+                    <span class="inline-flex items-center gap-2 bg-wf-red/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-wf-gold/20 mb-4"><i class="fas fa-shield-alt"></i> Bank-Grade Security</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Payments you can <span class="text-wf-gold">trust</span></h1>
+                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6">Multi-layer encryption, AI fraud detection, and zero-liability protection.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-arrow-right"></i> Explore Cards</a>
+                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-lock"></i> Security Center</a>
+                    </div>
+                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
+                        <div><span class="text-2xl font-extrabold text-wf-gold">256-bit</span><p class="text-sm opacity-70">Encryption</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">99.99%</span><p class="text-sm opacity-70">Uptime</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">FDIC</span><p class="text-sm opacity-70">Insured</p></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 4: Global Banking -->
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80');">
+                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
+                    <span class="inline-flex items-center gap-2 bg-wf-red/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-wf-gold/20 mb-4"><i class="fas fa-globe-americas"></i> Global Reach</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Banking without <span class="text-wf-gold">borders</span></h1>
+                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6">Send and receive in 40+ currencies with competitive rates and zero hidden fees.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-arrow-right"></i> Global Transfer</a>
+                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-flag"></i> View Rates</a>
+                    </div>
+                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
+                        <div><span class="text-2xl font-extrabold text-wf-gold">200+</span><p class="text-sm opacity-70">Countries</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">40+</span><p class="text-sm opacity-70">Currencies</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">0%</span><p class="text-sm opacity-70">Hidden Fees</p></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 5: Smart Savings -->
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1600&q=80');">
+                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
+                    <span class="inline-flex items-center gap-2 bg-wf-red/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-wf-gold/20 mb-4"><i class="fas fa-piggy-bank"></i> Smart Savings</span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">Save smarter, <span class="text-wf-gold">earn more</span></h1>
+                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6">High-yield savings with AI-powered goals, automatic round-ups, and 4.50% APY.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-arrow-right"></i> Start Saving</a>
+                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full"><i class="fas fa-chart-bar"></i> Compare Rates</a>
+                    </div>
+                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
+                        <div><span class="text-2xl font-extrabold text-wf-gold">4.50%</span><p class="text-sm opacity-70">APY</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">$0</span><p class="text-sm opacity-70">Monthly Fees</p></div>
+                        <div><span class="text-2xl font-extrabold text-wf-gold">24/7</span><p class="text-sm opacity-70">Access</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arrows -->
+        <button class="hero-arrow prev" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
+        <button class="hero-arrow next" id="heroNext"><i class="fas fa-chevron-right"></i></button>
+
+        <!-- Indicators -->
+        <div class="hero-indicators" id="heroIndicators"></div>
+    </section>
+
+    <!-- ============================================================
+    TRUST BANNER
+    ============================================================ -->
+    <div class="bg-white border-b border-gray-200 py-4">
+        <div class="container mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+            <div class="trust-item flex items-center gap-2 text-sm font-medium text-wf-dark"><i class="fas fa-shield-alt text-wf-red"></i> FDIC Insured</div>
+            <div class="trust-item flex items-center gap-2 text-sm font-medium text-wf-dark"><i class="fas fa-lock text-wf-red"></i> 256-bit SSL</div>
+            <div class="trust-item flex items-center gap-2 text-sm font-medium text-wf-dark"><i class="fas fa-robot text-wf-red"></i> AI Fraud Protection</div>
+            <div class="trust-item flex items-center gap-2 text-sm font-medium text-wf-dark"><i class="fas fa-clock text-wf-red"></i> 24/7 Support</div>
+            <div class="trust-item flex items-center gap-2 text-sm font-medium text-wf-dark"><i class="fas fa-mobile-alt text-wf-red"></i> #1 Mobile Banking</div>
+            <div class="trust-item flex items-center gap-2 text-sm font-medium text-wf-dark"><i class="fas fa-star text-wf-gold"></i> 4.9★ App Store</div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    PRODUCTS & SERVICES (Feature Rich)
+    ============================================================ -->
+    <section class="py-20 bg-wf-light" id="products">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <span class="inline-block text-wf-red font-semibold text-sm tracking-widest uppercase mb-2"><i class="fas fa-star"></i> Premium Products</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Comprehensive <span class="text-wf-red">banking solutions</span></h2>
+                <p class="text-wf-muted mt-4 text-lg">From everyday checking to wealth management, we provide the tools and expertise to help you thrive.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Checking & Savings -->
+                <div class="service-card bg-white rounded-2xl p-8 fade-up">
+                    <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-5"><i class="fas fa-wallet"></i></div>
+                    <h4 class="text-xl font-bold text-wf-dark">Checking & Savings</h4>
+                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Our premium checking accounts offer zero monthly fees, early paycheck access, and 1.5% cashback on purchases. Pair it with our high-yield savings account earning <span class="text-wf-red font-bold">4.50% APY</span> to accelerate your financial goals.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-sm"></i></a>
+                </div>
+                <!-- Credit Cards -->
+                <div class="service-card bg-white rounded-2xl p-8 fade-up">
+                    <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-5"><i class="fas fa-credit-card"></i></div>
+                    <h4 class="text-xl font-bold text-wf-dark">Credit Cards & Rewards</h4>
+                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Earn unlimited <span class="text-wf-red font-bold">5% cashback</span> in rotating categories, 2% on dining and travel, and 1% on all other purchases. Enjoy a <span class="text-wf-red font-bold">0% introductory APR</span> for the first 15 months on balance transfers.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-sm"></i></a>
+                </div>
+                <!-- Home & Personal Loans -->
+                <div class="service-card bg-white rounded-2xl p-8 fade-up">
+                    <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-5"><i class="fas fa-home"></i></div>
+                    <h4 class="text-xl font-bold text-wf-dark">Home & Personal Loans</h4>
+                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Whether you're buying a home, refinancing, or funding a major expense, we offer competitive fixed and adjustable-rate mortgages with personalized support. Unlock <span class="text-wf-red font-bold">low APR</span> options tailored to your needs.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-sm"></i></a>
+                </div>
+                <!-- Wealth Management -->
+                <div class="service-card bg-white rounded-2xl p-8 fade-up">
+                    <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-5"><i class="fas fa-chart-pie"></i></div>
+                    <h4 class="text-xl font-bold text-wf-dark">Wealth & Investment</h4>
+                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Our certified financial planners provide tailored investment strategies, retirement planning, and tax-efficient portfolio management. Grow your wealth with confidence using our <span class="text-wf-red font-bold">AI-powered insights</span> and dedicated advisor support.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-sm"></i></a>
+                </div>
+                <!-- Global Transfers -->
+                <div class="service-card bg-white rounded-2xl p-8 fade-up">
+                    <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-5"><i class="fas fa-exchange-alt"></i></div>
+                    <h4 class="text-xl font-bold text-wf-dark">Global Transfers & FX</h4>
+                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Send money to <span class="text-wf-red font-bold">200+ countries</span> with transparent FX rates, low fees, and fast settlement. Ideal for expats, travelers, and global businesses. Benefit from 24/7 tracking and secure, regulated transfers.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-sm"></i></a>
+                </div>
+                <!-- Business Banking -->
+                <div class="service-card bg-white rounded-2xl p-8 fade-up">
+                    <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-5"><i class="fas fa-building"></i></div>
+                    <h4 class="text-xl font-bold text-wf-dark">Business Banking</h4>
+                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Empower your business with comprehensive solutions including business checking, merchant services, payroll management, and commercial lending. Access <span class="text-wf-red font-bold">dedicated relationship managers</span> and seamless integrations.</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-sm"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    RATES & OFFERS
+    ============================================================ -->
+    <section class="py-20 bg-white" id="rates">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <span class="inline-block text-wf-red font-semibold text-sm tracking-widest uppercase mb-2"><i class="fas fa-percent"></i> Competitive Rates</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Earn more, <span class="text-wf-red">pay less</span></h2>
+                <p class="text-wf-muted mt-4 text-lg">Transparent, competitive rates across all our products to help you maximize your money.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="bg-wf-light rounded-2xl p-8 text-center border border-gray-200/50 fade-up"><div class="text-4xl font-extrabold text-wf-red">4.50<small class="text-xl">%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Premium Savings APY</p><p class="text-xs text-wf-muted mt-1">No monthly maintenance fees</p></div>
+                <div class="bg-wf-light rounded-2xl p-8 text-center border border-gray-200/50 fade-up"><div class="text-4xl font-extrabold text-wf-red">0.25<small class="text-xl">%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Checking APY</p><p class="text-xs text-wf-muted mt-1">With early direct deposit</p></div>
+                <div class="bg-wf-light rounded-2xl p-8 text-center border border-gray-200/50 fade-up"><div class="text-4xl font-extrabold text-wf-red">5.99<small class="text-xl">%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Personal Loan APR</p><p class="text-xs text-wf-muted mt-1">Fixed rates for 36 months</p></div>
+                <div class="bg-wf-light rounded-2xl p-8 text-center border border-gray-200/50 fade-up"><div class="text-4xl font-extrabold text-wf-red">2.99<small class="text-xl">%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Mortgage APR</p><p class="text-xs text-wf-muted mt-1">15-year fixed rate</p></div>
+                <div class="bg-wf-light rounded-2xl p-8 text-center border border-gray-200/50 fade-up"><div class="text-4xl font-extrabold text-wf-red">0%</div><p class="text-wf-muted mt-1 text-sm font-medium">Intro APR on Balance Transfers</p><p class="text-xs text-wf-muted mt-1">For the first 15 months</p></div>
+                <div class="bg-wf-light rounded-2xl p-8 text-center border border-gray-200/50 fade-up"><div class="text-4xl font-extrabold text-wf-red">1.5<small class="text-xl">%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Cashback on All Purchases</p><p class="text-xs text-wf-muted mt-1">Unlimited with Elite Card</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SECURITY & TRUST
+    ============================================================ -->
+    <section class="py-20 bg-wf-dark text-white" id="security">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block text-wf-gold font-semibold text-sm tracking-widest uppercase mb-2"><i class="fas fa-shield-alt"></i> Security First</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">Bank-grade protection you can <span class="text-wf-gold">count on</span></h2>
+                    <p class="text-white/70 text-lg mt-4 max-w-lg">At Wills Finance Bank, your security is our top priority. We use advanced technology and rigorous protocols to ensure your money and data are always safe.</p>
+                    <div class="grid gap-5 mt-8">
+                        <div class="flex gap-4 items-start"><div class="w-10 h-10 bg-wf-gold/10 rounded-lg flex items-center justify-center text-wf-gold text-lg"><i class="fas fa-fingerprint"></i></div><div><h5 class="font-bold">Biometric Authentication</h5><p class="text-white/60 text-sm">Secure access with Face ID, Touch ID, and voice recognition.</p></div></div>
+                        <div class="flex gap-4 items-start"><div class="w-10 h-10 bg-wf-gold/10 rounded-lg flex items-center justify-center text-wf-gold text-lg"><i class="fas fa-robot"></i></div><div><h5 class="font-bold">AI-Powered Fraud Shield</h5><p class="text-white/60 text-sm">Real-time transaction monitoring with machine learning anomaly detection.</p></div></div>
+                        <div class="flex gap-4 items-start"><div class="w-10 h-10 bg-wf-gold/10 rounded-lg flex items-center justify-center text-wf-gold text-lg"><i class="fas fa-lock"></i></div><div><h5 class="font-bold">256-bit SSL Encryption</h5><p class="text-white/60 text-sm">Military-grade encryption protecting all your data and communications.</p></div></div>
+                        <div class="flex gap-4 items-start"><div class="w-10 h-10 bg-wf-gold/10 rounded-lg flex items-center justify-center text-wf-gold text-lg"><i class="fas fa-user-shield"></i></div><div><h5 class="font-bold">Zero-Liability Guarantee</h5><p class="text-white/60 text-sm">You are fully protected from unauthorized transactions on your accounts.</p></div></div>
+                    </div>
+                    <a href="#" class="btn btn-wf-gold mt-8 px-8 py-3 text-lg font-semibold rounded-full inline-flex items-center gap-2"><i class="fas fa-arrow-right"></i> Visit Security Center</a>
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-2xl"><img src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?w=800&q=80" alt="Security" class="w-full h-80 object-cover" /></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TESTIMONIALS
+    ============================================================ -->
+    <section class="py-20 bg-wf-light" id="testimonials">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <span class="inline-block text-wf-red font-semibold text-sm tracking-widest uppercase mb-2"><i class="fas fa-quote-left"></i> Testimonials</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">What our <span class="text-wf-red">clients say</span></h2>
+                <p class="text-wf-muted mt-4 text-lg">Real stories from individuals and businesses who trust Wills Finance Bank.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-sm fade-up"><div class="text-wf-gold text-lg"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote class="text-wf-dark/80 text-base mt-3">"The mobile app is incredible — I can manage everything from my phone. The savings rate is unbeatable."</blockquote><div class="flex items-center gap-4 mt-4"><div class="w-10 h-10 rounded-full bg-wf-red flex items-center justify-center text-white font-bold">JD</div><div><h6 class="font-bold text-sm">James Delaney</h6><p class="text-xs text-wf-muted">Premium Savings Client</p></div></div></div>
+                <div class="bg-white rounded-2xl p-8 shadow-sm fade-up"><div class="text-wf-gold text-lg"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote class="text-wf-dark/80 text-base mt-3">"Their wealth management team helped me grow my portfolio by 22% in just one year. Outstanding."</blockquote><div class="flex items-center gap-4 mt-4"><div class="w-10 h-10 rounded-full bg-wf-red flex items-center justify-center text-white font-bold">SK</div><div><h6 class="font-bold text-sm">Sarah Kim</h6><p class="text-xs text-wf-muted">Wealth Management Client</p></div></div></div>
+                <div class="bg-white rounded-2xl p-8 shadow-sm fade-up"><div class="text-wf-gold text-lg"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><blockquote class="text-wf-dark/80 text-base mt-3">"International transfers are so fast and the rates are transparent. I've switched all my banking."</blockquote><div class="flex items-center gap-4 mt-4"><div class="w-10 h-10 rounded-full bg-wf-red flex items-center justify-center text-white font-bold">MR</div><div><h6 class="font-bold text-sm">Miguel Rojas</h6><p class="text-xs text-wf-muted">Global Transfers Client</p></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    MOBILE APP
+    ============================================================ -->
+    <section class="py-20 bg-white" id="mobile">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block text-wf-red font-semibold text-sm tracking-widest uppercase mb-2"><i class="fas fa-mobile-alt"></i> Mobile Banking</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Banking in your <span class="text-wf-red">pocket</span></h2>
+                    <p class="text-wf-muted text-lg mt-4 max-w-lg">Download the Wills Finance app and take control of your finances anywhere, anytime. Secure, fast, and intuitive.</p>
+                    <ul class="space-y-3 mt-6">
+                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Check balances & transaction history</li>
+                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Deposit checks with your camera</li>
+                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Send & receive money instantly</li>
+                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Manage bills and set up auto-pay</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-4 mt-8">
+                        <a href="#" class="btn btn-wf-dark px-6 py-3 text-sm font-semibold rounded-full flex items-center gap-2"><i class="fab fa-apple text-xl"></i> App Store</a>
+                        <a href="#" class="btn btn-wf-dark px-6 py-3 text-sm font-semibold rounded-full flex items-center gap-2"><i class="fab fa-google-play text-xl"></i> Google Play</a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="flex justify-between text-xs text-wf-muted font-semibold"><span>9:41</span><span><i class="fas fa-wifi"></i> <i class="fas fa-battery-three-quarters"></i></span></div>
+                            <div class="text-center mt-2"><div class="text-xs text-wf-muted">Total Balance</div><div class="text-2xl font-extrabold text-wf-dark">$47,058.50</div></div>
+                            <div class="grid grid-cols-3 gap-2 mt-4">
+                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium"><i class="fas fa-paper-plane block text-wf-red text-lg"></i> Send</div>
+                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium"><i class="fas fa-arrow-down block text-wf-red text-lg"></i> Deposit</div>
+                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium"><i class="fas fa-receipt block text-wf-red text-lg"></i> Bills</div>
+                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium"><i class="fas fa-exchange-alt block text-wf-red text-lg"></i> Transfer</div>
+                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium"><i class="fas fa-chart-line block text-wf-red text-lg"></i> Invest</div>
+                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium"><i class="fas fa-credit-card block text-wf-red text-lg"></i> Cards</div>
+                            </div>
+                            <div class="mt-4 bg-wf-light rounded-xl p-3 flex justify-between text-xs"><span>Last transaction</span><span class="font-bold text-wf-dark">+$4,250.00</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    INSIGHTS & EDUCATION
+    ============================================================ -->
+    <section class="py-20 bg-wf-light" id="insights">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <span class="inline-block text-wf-red font-semibold text-sm tracking-widest uppercase mb-2"><i class="fas fa-newspaper"></i> Insights</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Financial <span class="text-wf-red">intelligence</span></h2>
+                <p class="text-wf-muted mt-4 text-lg">Expert advice, market updates, and tips to help you make smarter financial decisions.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="insight-card bg-white rounded-2xl overflow-hidden shadow-sm fade-up"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Investing" class="w-full h-48 object-cover" /><div class="p-6"><span class="text-xs font-bold text-wf-red uppercase">Investing</span><h5 class="text-lg font-bold mt-2">5 Smart Investment Strategies for 2026</h5><p class="text-wf-muted text-sm mt-2">From AI-powered portfolios to ESG investing, discover how to build a resilient portfolio.</p><a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="insight-card bg-white rounded-2xl overflow-hidden shadow-sm fade-up"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80" alt="Security" class="w-full h-48 object-cover" /><div class="p-6"><span class="text-xs font-bold text-wf-red uppercase">Security</span><h5 class="text-lg font-bold mt-2">How to Spot a Phishing Scam</h5><p class="text-wf-muted text-sm mt-2">Protect yourself from online fraud with these simple but powerful security habits.</p><a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="insight-card bg-white rounded-2xl overflow-hidden shadow-sm fade-up"><img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&q=80" alt="Savings" class="w-full h-48 object-cover" /><div class="p-6"><span class="text-xs font-bold text-wf-red uppercase">Savings</span><h5 class="text-lg font-bold mt-2">Maximize Your Savings with High-Yield Accounts</h5><p class="text-wf-muted text-sm mt-2">How to take advantage of 4.50% APY and other strategies to grow your wealth.</p><a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right"></i></a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CTA BANNER
+    ============================================================ -->
+    <section class="py-20 bg-wf-red text-white" id="contact">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-extrabold">Ready to take control of your <span class="text-wf-gold">financial future</span>?</h2>
+            <p class="text-white/80 text-lg mt-4 max-w-2xl mx-auto">Join millions of satisfied clients and experience the Wills Finance difference. Open your account in minutes.</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="#" class="btn btn-wf-gold px-10 py-4 text-lg font-semibold rounded-full shadow-lg"><i class="fas fa-user-plus"></i> Open an Account</a>
+                <a href="#" class="btn btn-outline-white px-10 py-4 text-lg font-semibold rounded-full"><i class="fas fa-phone-alt"></i> Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER with Newsletter
+    ============================================================ -->
+    <footer class="bg-wf-dark text-white/70 py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="flex items-center gap-2 text-2xl font-extrabold text-white"><i class="fas fa-crown text-wf-gold"></i> Wills<span class="text-wf-red">Finance</span></a>
+                    <p class="mt-4 text-sm max-w-xs">Building a better financial future since 1992. Trust, innovation, and human care.</p>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="text-white/50 hover:text-wf-gold transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white/50 hover:text-wf-gold transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white/50 hover:text-wf-gold transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white/50 hover:text-wf-gold transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white/50 hover:text-wf-gold transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Personal</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Checking</a></li><li><a href="#" class="footer-link">Savings</a></li><li><a href="#" class="footer-link">Credit Cards</a></li><li><a href="#" class="footer-link">Loans</a></li><li><a href="#" class="footer-link">Investments</a></li></ul></div>
+                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Business</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Business Checking</a></li><li><a href="#" class="footer-link">Merchant Services</a></li><li><a href="#" class="footer-link">Payroll</a></li><li><a href="#" class="footer-link">Business Loans</a></li><li><a href="#" class="footer-link">Treasury</a></li></ul></div>
+                <div>
+                    <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Stay Informed</h5>
+                    <p class="text-sm mb-3">Get financial tips & updates.</p>
+                    <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-wf-gold text-sm" required />
+                        <button type="submit" class="btn btn-wf-gold text-sm font-semibold rounded-full py-2">Subscribe <i class="fas fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-12 pt-8 flex flex-wrap justify-between text-sm"><span>&copy; 2026 Wills Finance Bank. All rights reserved. Member FDIC.</span><span><i class="fas fa-globe"></i> English · <i class="fas fa-universal-access"></i> Accessibility</span></div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BACK TO TOP
+    ============================================================ -->
+    <button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- ============================================================
+    CUSTOM JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 1. HERO SLIDESHOW
+        // ============================================================
+        (function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            const indicators = document.getElementById('heroIndicators');
+            const prevBtn = document.getElementById('heroPrev');
+            const nextBtn = document.getElementById('heroNext');
+            let current = 0,
+                interval;
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                if (i === 0) dot.classList.add('active');
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => goTo(i));
+                indicators.appendChild(dot);
+            });
+            const dots = indicators.querySelectorAll('button');
+
+            function goTo(index) {
+                slides.forEach((s, i) => { s.classList.toggle('active', i === index); });
+                dots.forEach((d, i) => { d.classList.toggle('active', i === index); });
+                current = index;
+                resetInterval();
+            }
+
+            function next() { goTo((current + 1) % slides.length); }
+
+            function prev() { goTo((current - 1 + slides.length) % slides.length); }
+
+            function resetInterval() { clearInterval(interval);
+                interval = setInterval(next, 6500); }
+
+            prevBtn.addEventListener('click', prev);
+            nextBtn.addEventListener('click', next);
+            document.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') prev(); if (e.key === 'ArrowRight')
+                    next(); });
+            const hero = document.getElementById('hero');
+            hero.addEventListener('mouseenter', () => clearInterval(interval));
+            hero.addEventListener('mouseleave', resetInterval);
+            resetInterval();
+        })();
+
+        // ============================================================
+        // 2. SCROLL PROGRESS BAR
+        // ============================================================
+        const progress = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = (scrollTop / docHeight) * 100 + '%';
+        });
+
+        // ============================================================
+        // 3. HEADER SHADOW
+        // ============================================================
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('shadow-md', window.scrollY > 20);
+        });
+
+        // ============================================================
+        // 4. BACK TO TOP
+        // ============================================================
+        const backBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+        backBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ============================================================
+        // 5. SCROLL ANIMATIONS (Intersection Observer)
+        // ============================================================
+        const fadeElements = document.querySelectorAll('.fade-up');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            fadeElements.forEach(el => observer.observe(el));
+        } else {
+            fadeElements.forEach(el => el.classList.add('visible'));
+        }
+
+        // ============================================================
+        // 6. SMOOTH SCROLL for anchor links (including mobile nav)
+        // ============================================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const mobileNav = document.getElementById('mobileNav');
+                    if (mobileNav.classList.contains('show')) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(mobileNav);
+                        if (bsCollapse) bsCollapse.hide();
+                    }
+                }
+            });
+        });
+
+        console.log('🏦 Wills Finance Bank — Premium Banking Landing Page');
+        console.log('🔒 Built with Tailwind + Bootstrap + vanilla JS');
+    </script>
+</body>
+</html>
