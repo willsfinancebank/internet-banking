@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wills Finance BK — Premium Banking</title>
+    <title>Wills Finance BK — Premium Internet Banking</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23C8102E'/%3E%3Cpath d='M50 18 L28 52 L40 52 L28 82 L72 82 L60 52 L72 52 L50 18Z' fill='%23FFB81C'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23FFFFFF'/%3E%3Cpath d='M50 34 L44 48 L30 48 L42 58 L37 74 L50 64 L63 74 L58 58 L70 48 L56 48 L50 34Z' fill='%23C8102E'/%3E%3C/svg%3E" />
@@ -15,12 +15,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Google Fonts: Inter + Playfair Display -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
 
     <style>
         /* ============================================================
-                   THEME VARIABLES — Light & Dark
+                   PREMIUM CUSTOM STYLES — WILLS FINANCE BK
                 ============================================================ */
         :root {
             --wf-red: #C8102E;
@@ -35,43 +35,7 @@
             --wf-muted: #6b7a8f;
             --wf-shadow: 0 20px 60px rgba(0, 40, 86, 0.10);
             --wf-shadow-hover: 0 30px 80px rgba(0, 40, 86, 0.18);
-            --wf-bg: #f0f4f8;
-            --wf-card-bg: #ffffff;
-            --wf-card-border: rgba(0, 0, 0, 0.04);
-            --wf-input-bg: rgba(255, 255, 255, 0.6);
-            --wf-auth-bg: rgba(255, 255, 255, 0.92);
-            --wf-header-bg: rgba(255, 255, 255, 0.85);
-            --wf-header-border: rgba(0, 0, 0, 0.04);
-            --wf-footer-bg: #002856;
-            --wf-footer-text: rgba(255, 255, 255, 0.7);
-            --wf-sidebar-bg: #ffffff;
-            --wf-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        [data-theme="dark"] {
-            --wf-light: #0f1218;
-            --wf-cream: #151a22;
-            --wf-text: #e8edf2;
-            --wf-muted: #9aa9b9;
-            --wf-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            --wf-shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.5);
-            --wf-bg: #0f1218;
-            --wf-card-bg: #1a1f2a;
-            --wf-card-border: rgba(255, 255, 255, 0.06);
-            --wf-input-bg: rgba(255, 255, 255, 0.05);
-            --wf-auth-bg: rgba(20, 25, 35, 0.92);
-            --wf-header-bg: rgba(15, 18, 24, 0.85);
-            --wf-header-border: rgba(255, 255, 255, 0.06);
-            --wf-footer-bg: #0a0d12;
-            --wf-footer-text: rgba(255, 255, 255, 0.5);
-            --wf-sidebar-bg: #1a1f2a;
-            --wf-dark: #0a0d12;
-            --wf-dark-light: #1a1f2a;
-            --wf-red: #e0203e;
-            --wf-red-dark: #b0102a;
-            --wf-gold: #ffc82e;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -82,15 +46,14 @@
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--wf-bg);
+            background-color: var(--wf-light);
             color: var(--wf-text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            transition: background-color var(--wf-transition), color var(--wf-transition);
         }
 
         /* ============================================================
-                   PRELOADER — Ultra Premium
+                   PRELOADER
                 ============================================================ */
         #preloader {
             position: fixed;
@@ -111,25 +74,24 @@
             pointer-events: none;
         }
         #preloader .loader-ring {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 3px solid rgba(255, 184, 28, 0.08);
+            border: 3px solid rgba(255, 184, 28, 0.1);
             border-top-color: var(--wf-gold);
             border-right-color: var(--wf-red);
-            animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             position: relative;
-            box-shadow: 0 0 60px rgba(255, 184, 28, 0.05);
         }
         #preloader .loader-ring::after {
             content: '';
             position: absolute;
-            inset: 10px;
+            inset: 8px;
             border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.03);
+            border: 3px solid rgba(255, 255, 255, 0.05);
             border-top-color: var(--wf-red);
             border-left-color: var(--wf-gold);
-            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+            animation: spin 0.7s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
         }
         @keyframes spin {
             to {
@@ -137,73 +99,62 @@
             }
         }
         #preloader .loader-logo {
-            margin-bottom: 36px;
+            margin-bottom: 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         #preloader .loader-logo .icon {
-            width: 72px;
-            height: 72px;
+            width: 64px;
+            height: 64px;
             background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
-            border-radius: 20px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.4rem;
+            font-size: 2rem;
             color: var(--wf-gold);
-            box-shadow: 0 8px 50px rgba(200, 16, 46, 0.35);
-            animation: pulse-logo 2s ease-in-out infinite;
-            position: relative;
-        }
-        #preloader .loader-logo .icon::after {
-            content: '';
-            position: absolute;
-            inset: 3px;
-            border-radius: 16px;
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 40px rgba(200, 16, 46, 0.35);
+            animation: pulse-logo 1.8s ease-in-out infinite;
         }
         @keyframes pulse-logo {
             0%,
             100% {
-                transform: scale(1) rotate(0deg);
-                box-shadow: 0 8px 50px rgba(200, 16, 46, 0.35);
+                transform: scale(1);
+                box-shadow: 0 8px 40px rgba(200, 16, 46, 0.35);
             }
             50% {
-                transform: scale(1.05) rotate(-2deg);
-                box-shadow: 0 12px 70px rgba(200, 16, 46, 0.55);
+                transform: scale(1.04);
+                box-shadow: 0 12px 60px rgba(200, 16, 46, 0.55);
             }
         }
         #preloader .loader-logo .name {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #fff;
-            letter-spacing: 0.12em;
-            margin-top: 6px;
-            opacity: 0.9;
-            text-shadow: 0 2px 20px rgba(255, 184, 28, 0.1);
+            letter-spacing: 0.1em;
+            margin-top: 8px;
+            opacity: 0.8;
         }
         #preloader .loader-logo .name span {
             color: var(--wf-gold);
         }
         #preloader .loader-bar {
-            width: 200px;
+            width: 160px;
             height: 2px;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 4px;
             overflow: hidden;
-            margin-top: 20px;
-            position: relative;
+            margin-top: 16px;
         }
         #preloader .loader-bar .fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red), var(--wf-gold));
-            background-size: 200% 100%;
+            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red));
             border-radius: 4px;
-            animation: load-fill 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards, shimmer 1.5s infinite linear;
+            animation: load-fill 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
         @keyframes load-fill {
             0% {
@@ -213,60 +164,57 @@
                 width: 100%;
             }
         }
-        @keyframes shimmer {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 200% 0%;
-            }
-        }
         #preloader .loader-text {
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 0.7rem;
-            letter-spacing: 0.25em;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-top: 16px;
+            margin-top: 14px;
             font-weight: 500;
-            animation: pulse-text 1.8s ease-in-out infinite;
-        }
-        @keyframes pulse-text {
-            0%,
-            100% {
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 0.8;
-            }
         }
 
-        /* ============================================================
-                   THEME TOGGLE
-                ============================================================ */
-        .theme-toggle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--wf-card-bg);
-            border: 1px solid var(--wf-card-border);
-            color: var(--wf-text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all var(--wf-transition);
-            box-shadow: var(--wf-shadow);
-            backdrop-filter: blur(8px);
+        /* Color utilities */
+        .bg-wf-red {
+            background-color: var(--wf-red);
         }
-        .theme-toggle:hover {
-            transform: rotate(20deg) scale(1.05);
+        .bg-wf-red-dark {
+            background-color: var(--wf-red-dark);
+        }
+        .bg-wf-gold {
+            background-color: var(--wf-gold);
+        }
+        .bg-wf-gold-light {
+            background-color: var(--wf-gold-light);
+        }
+        .bg-wf-dark {
+            background-color: var(--wf-dark);
+        }
+        .bg-wf-dark-light {
+            background-color: var(--wf-dark-light);
+        }
+        .bg-wf-cream {
+            background-color: var(--wf-cream);
+        }
+        .text-wf-red {
+            color: var(--wf-red);
+        }
+        .text-wf-gold {
+            color: var(--wf-gold);
+        }
+        .text-wf-dark {
+            color: var(--wf-dark);
+        }
+        .text-wf-muted {
+            color: var(--wf-muted);
+        }
+        .border-wf-red {
+            border-color: var(--wf-red);
+        }
+        .border-wf-gold {
             border-color: var(--wf-gold);
         }
 
-        /* ============================================================
-                   BUTTONS & COMPONENTS (theme-aware)
-                ============================================================ */
+        /* Buttons */
         .btn-wf-red {
             background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
             color: #fff;
@@ -339,11 +287,11 @@
                    HEADER
                 ============================================================ */
         #header {
-            background: var(--wf-header-bg);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--wf-header-border);
-            transition: all var(--wf-transition);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: fixed;
             top: 0;
             left: 0;
@@ -352,10 +300,9 @@
         }
         #header.scrolled {
             box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06);
-            background: var(--wf-header-bg);
+            background: rgba(255, 255, 255, 0.92);
         }
 
-        /* Premium Logo */
         .logo-premium {
             display: flex;
             align-items: center;
@@ -399,7 +346,7 @@
             font-size: 1.3rem;
             font-weight: 900;
             letter-spacing: 0.04em;
-            color: var(--wf-text);
+            color: var(--wf-dark);
             text-transform: uppercase;
             display: flex;
             align-items: center;
@@ -430,8 +377,45 @@
         .logo-premium .logo-divider {
             width: 1px;
             height: 30px;
-            background: var(--wf-card-border);
+            background: rgba(0, 0, 0, 0.08);
             margin: 0 2px 0 4px;
+        }
+
+        .nav-link-premium {
+            position: relative;
+            font-weight: 500;
+            color: var(--wf-dark);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.875rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+        .nav-link-premium::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--wf-red);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+        .nav-link-premium:hover {
+            opacity: 1;
+            color: var(--wf-red);
+        }
+        .nav-link-premium:hover::after {
+            width: 100%;
+        }
+        .nav-link-premium.active-link {
+            opacity: 1;
+            color: var(--wf-red);
+        }
+        .nav-link-premium.active-link::after {
+            width: 100%;
         }
 
         /* ============================================================
@@ -464,7 +448,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem 1rem;
-            background: var(--wf-bg);
+            background: var(--wf-light);
             position: relative;
             overflow: hidden;
         }
@@ -477,15 +461,15 @@
             pointer-events: none;
         }
         .auth-card {
-            background: var(--wf-auth-bg);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(24px) saturate(180%);
             -webkit-backdrop-filter: blur(24px) saturate(180%);
             border-radius: 32px;
             padding: 3rem 2.5rem;
             max-width: 440px;
             width: 100%;
-            border: 1px solid var(--wf-card-border);
-            box-shadow: var(--wf-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 30px 80px rgba(0, 40, 86, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.3);
             position: relative;
             z-index: 1;
         }
@@ -511,7 +495,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--wf-text);
+            color: var(--wf-dark);
             margin-top: 10px;
         }
         .auth-card .auth-logo h2 span {
@@ -526,21 +510,20 @@
         .auth-card .form-control {
             border-radius: 12px;
             padding: 0.8rem 1rem;
-            border: 1.5px solid var(--wf-card-border);
-            background: var(--wf-input-bg);
-            color: var(--wf-text);
+            border: 1.5px solid rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         .auth-card .form-control:focus {
             border-color: var(--wf-red);
             box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.08);
-            background: var(--wf-card-bg);
+            background: #fff;
         }
         .auth-card .form-label {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--wf-text);
+            color: var(--wf-dark);
             letter-spacing: 0.03em;
             text-transform: uppercase;
             margin-bottom: 4px;
@@ -569,7 +552,7 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: var(--wf-card-border);
+            background: rgba(0, 0, 0, 0.06);
         }
 
         /* ============================================================
@@ -577,18 +560,17 @@
                 ============================================================ */
         .dashboard-page {
             min-height: 100vh;
-            background: var(--wf-bg);
+            background: var(--wf-light);
             padding-top: 80px;
         }
         .dashboard-sidebar {
-            background: var(--wf-sidebar-bg);
+            background: #fff;
             border-radius: 24px;
             padding: 1.5rem 1rem;
-            border: 1px solid var(--wf-card-border);
+            border: 1px solid rgba(0, 0, 0, 0.04);
             box-shadow: var(--wf-shadow);
             position: sticky;
             top: 100px;
-            transition: background var(--wf-transition), border var(--wf-transition);
         }
         .dashboard-sidebar .user-avatar {
             width: 64px;
@@ -606,7 +588,7 @@
         }
         .dashboard-sidebar .user-name {
             font-weight: 700;
-            color: var(--wf-text);
+            color: var(--wf-dark);
             text-align: center;
             font-size: 1rem;
         }
@@ -629,7 +611,7 @@
             text-decoration: none;
         }
         .dashboard-sidebar .nav-item:hover {
-            background: rgba(200, 16, 46, 0.08);
+            background: rgba(200, 16, 46, 0.04);
             color: var(--wf-red);
         }
         .dashboard-sidebar .nav-item.active {
@@ -642,19 +624,18 @@
             text-align: center;
         }
         .dashboard-sidebar .logout-btn {
-            border-top: 1px solid var(--wf-card-border);
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
             padding-top: 1rem;
             margin-top: 0.5rem;
         }
 
-        /* Dashboard Cards */
         .dash-card {
-            background: var(--wf-card-bg);
+            background: #fff;
             border-radius: 20px;
             padding: 1.5rem;
-            border: 1px solid var(--wf-card-border);
+            border: 1px solid rgba(0, 0, 0, 0.04);
             box-shadow: var(--wf-shadow);
-            transition: all var(--wf-transition);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .dash-card:hover {
             transform: translateY(-4px);
@@ -670,7 +651,7 @@
         .dash-card .card-value {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--wf-text);
+            color: var(--wf-dark);
             margin-top: 4px;
         }
         .dash-card .card-change {
@@ -740,13 +721,12 @@
             font-weight: 600;
         }
 
-        /* Transaction list */
         .transaction-item {
             display: flex;
             align-items: center;
             gap: 1rem;
             padding: 0.8rem 0;
-            border-bottom: 1px solid var(--wf-card-border);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
         }
         .transaction-item:last-child {
             border-bottom: none;
@@ -775,7 +755,7 @@
         .transaction-item .tx-info .tx-name {
             font-weight: 600;
             font-size: 0.9rem;
-            color: var(--wf-text);
+            color: var(--wf-dark);
         }
         .transaction-item .tx-info .tx-date {
             font-size: 0.7rem;
@@ -792,7 +772,6 @@
             color: var(--wf-red);
         }
 
-        /* Quick action buttons */
         .quick-action {
             display: flex;
             flex-direction: column;
@@ -834,7 +813,7 @@
         }
 
         /* ============================================================
-                   HERO, TRUST, SERVICE CARDS (theme-aware)
+                   HERO SLIDESHOW
                 ============================================================ */
         .hero-slide {
             background-size: cover;
@@ -856,6 +835,13 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(135deg, rgba(0, 40, 86, 0.82) 0%, rgba(200, 16, 46, 0.35) 100%);
+            z-index: 1;
+        }
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(255, 184, 28, 0.08) 0%, transparent 70%);
             z-index: 1;
         }
         .hero-content {
@@ -886,10 +872,9 @@
         }
 
         .trust-banner {
-            background: var(--wf-card-bg);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--wf-card-border);
-            transition: background var(--wf-transition), border var(--wf-transition);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
         .trust-item {
             display: flex;
@@ -897,7 +882,7 @@
             gap: 8px;
             font-size: 0.8rem;
             font-weight: 500;
-            color: var(--wf-text);
+            color: var(--wf-dark);
             opacity: 0.75;
             transition: opacity 0.3s ease;
             white-space: nowrap;
@@ -911,11 +896,11 @@
         }
 
         .service-card {
-            background: var(--wf-card-bg);
+            background: #ffffff;
             border-radius: 20px;
             padding: 2rem;
-            border: 1px solid var(--wf-card-border);
-            transition: all var(--wf-transition);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -958,111 +943,54 @@
             box-shadow: 0 8px 24px rgba(200, 16, 46, 0.2);
         }
 
-        .rate-card {
-            background: var(--wf-card-bg);
-            border-radius: 16px;
-            padding: 1.75rem 1.5rem;
-            text-align: center;
-            border: 1px solid var(--wf-card-border);
-            transition: all var(--wf-transition);
-        }
-        .rate-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--wf-shadow);
-            border-color: var(--wf-gold);
-        }
-        .rate-card .rate-number {
-            font-size: 2.75rem;
-            font-weight: 900;
-            color: var(--wf-red);
-            letter-spacing: -0.02em;
-        }
-        .rate-card .rate-number small {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .insight-card {
-            background: var(--wf-card-bg);
+        .loan-card {
+            background: #ffffff;
             border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--wf-card-border);
-            transition: all var(--wf-transition);
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
         }
-        .insight-card:hover {
-            transform: translateY(-8px);
+        .loan-card:hover {
+            transform: translateY(-6px);
             box-shadow: var(--wf-shadow-hover);
             border-color: rgba(255, 184, 28, 0.2);
         }
-        .insight-card img {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .loan-card .loan-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.08), rgba(200, 16, 46, 0.02));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--wf-red);
+            margin: 0 auto 1rem;
         }
-        .insight-card:hover img {
-            transform: scale(1.04);
-        }
-
-        /* Nav links */
-        .nav-link-premium {
-            position: relative;
-            font-weight: 500;
-            color: var(--wf-text);
-            opacity: 0.7;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 0.875rem;
-            padding: 0.5rem 0;
-        }
-        .nav-link-premium::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--wf-red);
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 2px;
-        }
-        .nav-link-premium:hover {
-            opacity: 1;
+        .loan-card .loan-rate {
+            font-size: 2rem;
+            font-weight: 800;
             color: var(--wf-red);
         }
-        .nav-link-premium:hover::after {
-            width: 100%;
+        .loan-card .loan-rate small {
+            font-size: 1rem;
+            font-weight: 600;
         }
 
-        .footer-link {
-            color: var(--wf-footer-text);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 0.875rem;
-        }
-        .footer-link:hover {
-            color: var(--wf-gold);
-            transform: translateX(4px);
-        }
-
-        .fade-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Toast */
+        /* ============================================================
+                   TOAST NOTIFICATION
+                ============================================================ */
         .toast-notification {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: var(--wf-card-bg);
-            color: var(--wf-text);
+            background: var(--wf-dark);
+            color: #fff;
             padding: 1rem 1.5rem;
             border-radius: 16px;
-            box-shadow: var(--wf-shadow-hover);
-            border: 1px solid var(--wf-card-border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -1097,7 +1025,9 @@
             opacity: 0.6;
         }
 
-        /* Scroll Progress Bar */
+        /* ============================================================
+                   SCROLL PROGRESS BAR
+                ============================================================ */
         #scrollProgress {
             position: fixed;
             top: 0;
@@ -1110,41 +1040,45 @@
             transition: width 0.1s;
             animation: shimmer 2s infinite linear;
         }
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 200% 0%;
+            }
+        }
 
-        /* Back to top */
-        #backToTop {
-            position: fixed;
-            bottom: 32px;
-            right: 32px;
-            z-index: 999;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
-            color: #fff;
-            border: none;
-            box-shadow: 0 8px 32px rgba(200, 16, 46, 0.35);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* ============================================================
+                   FADE-UP ANIMATION
+                ============================================================ */
+        .fade-up {
             opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px) scale(0.8);
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        #backToTop.visible {
+        .fade-up.visible {
             opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-        #backToTop:hover {
-            transform: translateY(-4px) scale(1.06);
-            box-shadow: 0 12px 40px rgba(200, 16, 46, 0.45);
+            transform: translateY(0);
         }
 
-        /* Responsive */
+        /* ============================================================
+                   FOOTER
+                ============================================================ */
+        .footer-link {
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        .footer-link:hover {
+            color: var(--wf-gold);
+            transform: translateX(4px);
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                ============================================================ */
         @media (max-width: 992px) {
             .dashboard-sidebar {
                 position: relative;
@@ -1189,12 +1123,6 @@
                 flex-direction: column;
                 gap: 0.8rem;
             }
-            .hero-stat .number {
-                font-size: 1.5rem;
-            }
-            .rate-card .rate-number {
-                font-size: 2rem;
-            }
         }
         @media (max-width: 576px) {
             .auth-card {
@@ -1212,9 +1140,6 @@
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,40,86,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
 
         ::selection {
             background: var(--wf-red);
@@ -1224,7 +1149,7 @@
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--wf-bg);
+            background: var(--wf-light);
         }
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, var(--wf-red), var(--wf-gold));
@@ -1234,24 +1159,75 @@
             background: var(--wf-red);
         }
 
-        /* Footer */
-        footer {
-            background: var(--wf-footer-bg);
-            color: var(--wf-footer-text);
-            transition: background var(--wf-transition), color var(--wf-transition);
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
         }
-        footer .logo-premium .logo-line1 {
+
+        .team-member {
+            text-align: center;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+        .team-member:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--wf-shadow);
+        }
+        .team-member .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--wf-red), var(--wf-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
             color: #fff;
+            margin: 0 auto 1rem;
         }
-        footer .logo-premium .logo-line2 {
-            color: rgba(255, 255, 255, 0.5);
+
+        /* Notification badge */
+        .notification-badge {
+            position: relative;
+        }
+        .notification-badge .badge-dot {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 10px;
+            height: 10px;
+            background: var(--wf-red);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- ============================================================
-    PRELOADER — Ultra Premium
+    PRELOADER
     ============================================================ -->
     <div id="preloader">
         <div class="loader-logo">
@@ -1260,7 +1236,7 @@
         </div>
         <div class="loader-ring"></div>
         <div class="loader-bar"><div class="fill"></div></div>
-        <div class="loader-text">Crafting your experience</div>
+        <div class="loader-text">Loading your experience</div>
     </div>
 
     <!-- ============================================================
@@ -1280,62 +1256,68 @@
     </div>
 
     <!-- ============================================================
-    HEADER — Premium
+    HEADER — Full Navigation
     ============================================================ -->
     <header id="header">
         <div class="container mx-auto px-4 lg:px-6 flex items-center justify-between h-20">
-            <!-- Premium Logo -->
+            <!-- Logo -->
             <a href="#" class="logo-premium" onclick="showPage('home')">
                 <span class="logo-icon"><i class="fas fa-crown"></i></span>
                 <span class="logo-divider"></span>
                 <span class="logo-text-group">
-                    <span class="logo-line1">
-                        WILLS<span class="spacer"></span><span class="highlight">FINANCE</span>
-                    </span>
+                    <span class="logo-line1">WILLS<span class="spacer"></span><span class="highlight">FINANCE</span></span>
                     <span class="logo-line2">BK <span class="gold-dot">•</span> EST. 1992</span>
                 </span>
             </a>
 
-            <!-- Desktop Nav -->
+            <!-- Desktop Nav — Full Menu -->
             <nav class="hidden lg:flex items-center gap-6" id="desktopNav">
-                <a href="#" class="nav-link-premium" onclick="showPage('home')">Home</a>
-                <a href="#" class="nav-link-premium" onclick="showPage('login')">Login</a>
-                <a href="#" class="nav-link-premium" onclick="showPage('signup')">Sign Up</a>
-                <a href="#" class="nav-link-premium" id="dashNavLink" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
+                <a href="#" class="nav-link-premium active-link" data-page="home" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link-premium" data-page="about" onclick="showPage('about')">About Us</a>
+                <a href="#" class="nav-link-premium" data-page="loans" onclick="showPage('loans')">Loans</a>
+                <a href="#" class="nav-link-premium" data-page="login" id="navLogin" onclick="showPage('login')">Login</a>
+                <a href="#" class="nav-link-premium" data-page="signup" id="navSignup" onclick="showPage('signup')">Sign Up</a>
+                <a href="#" class="nav-link-premium" data-page="dashboard" id="navDashboard" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
             </nav>
 
             <!-- Actions -->
             <div class="flex items-center gap-3">
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
-                <a href="#" class="hidden sm:inline-flex btn btn-outline-wf px-5 py-2 text-sm font-semibold rounded-full items-center gap-2" onclick="showPage('login')">
+                <a href="#" class="hidden sm:inline-flex btn btn-outline-wf px-5 py-2 text-sm font-semibold rounded-full items-center gap-2" id="headerLoginBtn" onclick="showPage('login')">
                     <i class="fas fa-lock"></i> Log In
                 </a>
-                <a href="#" class="btn btn-wf-red px-6 py-2 text-sm font-semibold rounded-full shadow-md flex items-center gap-2" onclick="showPage('signup')">
+                <a href="#" class="btn btn-wf-red px-6 py-2 text-sm font-semibold rounded-full shadow-md flex items-center gap-2" id="headerSignupBtn" onclick="showPage('signup')">
                     <i class="fas fa-user-plus"></i> Sign Up
                 </a>
-                <a href="#" class="btn btn-outline-white px-4 py-2 text-sm font-semibold rounded-full" id="logoutBtn" style="display:none;" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
+                <div class="flex items-center gap-2" id="loggedInActions" style="display:none;">
+                    <a href="#" class="text-wf-dark/60 hover:text-wf-red transition relative notification-badge" onclick="showToast('Notifications','You have 3 new notifications.')">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span class="badge-dot"></span>
+                    </a>
+                    <a href="#" class="btn btn-outline-white px-4 py-2 text-sm font-semibold rounded-full" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
                 <button class="navbar-toggler lg:hidden border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-expanded="false">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Nav -->
+        <!-- Mobile Nav — Full Menu -->
         <div class="collapse lg:hidden bg-white/98 backdrop-blur-lg border-t border-gray-100" id="mobileNav">
             <div class="container mx-auto px-4 py-6 flex flex-col gap-3 text-sm font-medium">
                 <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('home')">Home</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('login')">Login</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('signup')">Sign Up</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileDashLink" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
-                <div class="pt-4 flex flex-col gap-3">
-                    <a href="#" class="btn btn-outline-wf w-full text-center rounded-full py-2.5" onclick="showPage('login')"><i class="fas fa-lock"></i> Log In</a>
-                    <a href="#" class="btn btn-wf-red w-full text-center rounded-full py-2.5" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Sign Up</a>
-                    <a href="#" class="btn btn-outline-white w-full text-center rounded-full py-2.5 bg-wf-red/10 text-wf-red border-wf-red" id="mobileLogoutBtn" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('about')">About Us</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('loans')">Loans</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileLogin" onclick="showPage('login')">Login</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileSignup" onclick="showPage('signup')">Sign Up</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileDashboard" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
+                <div class="pt-4 flex flex-col gap-3" id="mobileAuthButtons">
+                    <a href="#" class="btn btn-outline-wf w-full text-center rounded-full py-2.5" id="mobileLoginBtn" onclick="showPage('login')"><i class="fas fa-lock"></i> Log In</a>
+                    <a href="#" class="btn btn-wf-red w-full text-center rounded-full py-2.5" id="mobileSignupBtn" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Sign Up</a>
+                </div>
+                <div class="pt-4 flex flex-col gap-3" id="mobileLoggedInActions" style="display:none;">
+                    <a href="#" class="btn btn-outline-white w-full text-center rounded-full py-2.5 bg-wf-red/10 text-wf-red border-wf-red" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
         </div>
@@ -1346,7 +1328,7 @@
     ============================================================ -->
     <section class="page-section active" id="page-home">
         <!-- Hero -->
-        <section class="relative w-full h-screen max-h-[900px] min-h-[600px] mt-20 overflow-hidden" id="hero">
+        <section class="relative w-full h-screen max-h-[900px] min-h-[600px] mt-20 overflow-hidden">
             <div class="relative w-full h-full" id="heroSlides">
                 <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1600&q=80');">
                     <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
@@ -1368,7 +1350,7 @@
         </section>
 
         <!-- Trust Banner -->
-        <div class="trust-banner py-4 border-b border-gray-200/60">
+        <div class="trust-banner py-4 border-b border-gray-200/60 bg-white/80 backdrop-blur-sm">
             <div class="container mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
                 <span class="trust-item"><i class="fas fa-shield-alt"></i> FDIC Insured</span>
                 <span class="trust-item"><i class="fas fa-lock"></i> 256-bit SSL</span>
@@ -1380,28 +1362,31 @@
         </div>
 
         <!-- Features -->
-        <section class="py-20">
+        <section class="py-20 bg-wf-light">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center mb-16">
                     <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-star"></i> Premium Features</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold">Everything you need to <span class="text-wf-red">succeed</span></h2>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Everything you need to <span class="text-wf-red">succeed</span></h2>
                     <p class="text-wf-muted mt-4 text-lg">From smart savings to global transfers, we've got you covered.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="service-card fade-up">
                         <div class="icon-wrap"><i class="fas fa-wallet"></i></div>
-                        <h4 class="text-xl font-bold">Smart Savings</h4>
-                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Earn up to <span class="text-wf-red font-bold">4.50% APY</span> with our high-yield savings accounts. Zero monthly fees.</p>
+                        <h4 class="text-xl font-bold text-wf-dark">Smart Savings</h4>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Earn up to <span class="text-wf-red font-bold">4.50% APY</span> with our high-yield savings accounts. Zero monthly fees, unlimited transfers, and AI-powered goal tracking to help you save smarter.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="service-card fade-up">
                         <div class="icon-wrap"><i class="fas fa-globe-americas"></i></div>
-                        <h4 class="text-xl font-bold">Global Transfers</h4>
-                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Send money to <span class="text-wf-red font-bold">200+ countries</span> with transparent FX rates and low fees.</p>
+                        <h4 class="text-xl font-bold text-wf-dark">Global Transfers</h4>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Send money to <span class="text-wf-red font-bold">200+ countries</span> with transparent FX rates and low fees. Instant settlement, 24/7 tracking, and secure, regulated transfers for peace of mind.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="service-card fade-up">
                         <div class="icon-wrap"><i class="fas fa-chart-line"></i></div>
-                        <h4 class="text-xl font-bold">Wealth Management</h4>
-                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Expert guidance and <span class="text-wf-red font-bold">AI-powered insights</span> to grow your portfolio.</p>
+                        <h4 class="text-xl font-bold text-wf-dark">Wealth Management</h4>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Expert guidance and <span class="text-wf-red font-bold">AI-powered insights</span> to grow your portfolio. Our certified financial planners provide tailored investment strategies for your unique goals.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1411,13 +1396,186 @@
         <section class="py-20 bg-wf-red text-white">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-3xl md:text-5xl font-extrabold">Ready to take control of your <span class="text-wf-gold">financial future</span>?</h2>
-                <p class="text-white/80 text-lg mt-4 max-w-2xl mx-auto">Join millions of satisfied clients and experience the WILLS FINANCE BK difference.</p>
+                <p class="text-white/80 text-lg mt-4 max-w-2xl mx-auto">Join millions of satisfied clients and experience the WILLS FINANCE BK difference. Open your account in minutes.</p>
                 <div class="flex flex-wrap justify-center gap-4 mt-8">
                     <a href="#" class="btn btn-wf-gold px-10 py-4 text-lg font-semibold rounded-full shadow-lg flex items-center gap-2" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Open an Account</a>
                     <a href="#" class="btn btn-outline-white px-10 py-4 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('login')"><i class="fas fa-arrow-right"></i> Log In</a>
                 </div>
             </div>
         </section>
+    </section>
+
+    <!-- ============================================================
+    PAGE: ABOUT US
+    ============================================================ -->
+    <section class="page-section" id="page-about">
+        <div style="padding-top:80px;min-height:100vh;background:var(--wf-light);">
+            <div class="container mx-auto px-4 py-16">
+                <!-- About Hero -->
+                <div class="max-w-4xl mx-auto text-center mb-16">
+                    <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-building"></i> About Us</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-wf-dark">Building a <span class="text-wf-red">better financial future</span></h1>
+                    <p class="text-wf-muted text-lg mt-4 max-w-2xl mx-auto">Since 1992, WILLS FINANCE BK has been committed to providing innovative, secure, and personalized banking solutions to individuals and businesses around the world.</p>
+                </div>
+
+                <!-- Mission & Values -->
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
+                        <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-4"><i class="fas fa-bullseye"></i></div>
+                        <h3 class="text-xl font-bold text-wf-dark">Our Mission</h3>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">To empower individuals and businesses with intelligent, secure, and accessible financial tools that drive prosperity and peace of mind.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
+                        <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-4"><i class="fas fa-heart"></i></div>
+                        <h3 class="text-xl font-bold text-wf-dark">Our Values</h3>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Trust, innovation, integrity, and customer-centricity are at the heart of everything we do. We put our clients first, always.</p>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
+                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
+                        <div class="text-3xl font-extrabold text-wf-red">33+</div>
+                        <div class="text-sm text-wf-muted">Years of Excellence</div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
+                        <div class="text-3xl font-extrabold text-wf-red">12M+</div>
+                        <div class="text-sm text-wf-muted">Satisfied Clients</div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
+                        <div class="text-3xl font-extrabold text-wf-red">200+</div>
+                        <div class="text-sm text-wf-muted">Countries Served</div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
+                        <div class="text-3xl font-extrabold text-wf-red">$8.2B</div>
+                        <div class="text-sm text-wf-muted">Total Assets</div>
+                    </div>
+                </div>
+
+                <!-- Team -->
+                <div class="max-w-5xl mx-auto">
+                    <h3 class="text-2xl font-bold text-wf-dark text-center mb-8">Meet Our Leadership <span class="text-wf-red">Team</span></h3>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="team-member fade-up">
+                            <div class="avatar">JI</div>
+                            <h5 class="font-bold text-wf-dark">John Irwin</h5>
+                            <p class="text-xs text-wf-muted">CEO & Founder</p>
+                        </div>
+                        <div class="team-member fade-up">
+                            <div class="avatar">SK</div>
+                            <h5 class="font-bold text-wf-dark">Sarah Kim</h5>
+                            <p class="text-xs text-wf-muted">Chief Investment Officer</p>
+                        </div>
+                        <div class="team-member fade-up">
+                            <div class="avatar">MR</div>
+                            <h5 class="font-bold text-wf-dark">Miguel Rojas</h5>
+                            <p class="text-xs text-wf-muted">Head of Global Banking</p>
+                        </div>
+                        <div class="team-member fade-up">
+                            <div class="avatar">AL</div>
+                            <h5 class="font-bold text-wf-dark">Amara Lin</h5>
+                            <p class="text-xs text-wf-muted">Chief Technology Officer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <a href="#" class="btn btn-wf-red px-8 py-3 text-lg font-semibold rounded-full inline-flex items-center gap-2" onclick="showPage('signup')"><i class="fas fa-arrow-right"></i> Join Our Community</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PAGE: LOANS
+    ============================================================ -->
+    <section class="page-section" id="page-loans">
+        <div style="padding-top:80px;min-height:100vh;background:var(--wf-light);">
+            <div class="container mx-auto px-4 py-16">
+                <div class="max-w-4xl mx-auto text-center mb-16">
+                    <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-hand-holding-usd"></i> Loans</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-wf-dark">Flexible <span class="text-wf-red">financing</span> for your goals</h1>
+                    <p class="text-wf-muted text-lg mt-4 max-w-2xl mx-auto">Whether you're buying a home, starting a business, or funding your education, we offer competitive rates and personalized loan solutions.</p>
+                </div>
+
+                <!-- Loan Products -->
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
+                    <div class="loan-card fade-up">
+                        <div class="loan-icon"><i class="fas fa-home"></i></div>
+                        <h4 class="text-xl font-bold text-wf-dark">Home Mortgage</h4>
+                        <div class="loan-rate">2.99<small>%</small></div>
+                        <p class="text-xs text-wf-muted mt-1">APR (15-year fixed)</p>
+                        <p class="text-sm text-wf-muted mt-3 leading-relaxed">Competitive rates for buying or refinancing your home. Flexible terms from 5 to 30 years with personalized support.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showToast('Mortgage','Our mortgage specialists will contact you shortly.')">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="loan-card fade-up">
+                        <div class="loan-icon"><i class="fas fa-briefcase"></i></div>
+                        <h4 class="text-xl font-bold text-wf-dark">Business Loan</h4>
+                        <div class="loan-rate">4.49<small>%</small></div>
+                        <p class="text-xs text-wf-muted mt-1">APR (36-month term)</p>
+                        <p class="text-sm text-wf-muted mt-3 leading-relaxed">Fuel your business growth with working capital, equipment financing, or commercial real estate loans. Fast approval and dedicated support.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showToast('Business Loan','A business banking specialist will reach out.')">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="loan-card fade-up">
+                        <div class="loan-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h4 class="text-xl font-bold text-wf-dark">Personal & Student</h4>
+                        <div class="loan-rate">5.99<small>%</small></div>
+                        <p class="text-xs text-wf-muted mt-1">APR (36-month term)</p>
+                        <p class="text-sm text-wf-muted mt-3 leading-relaxed">Fund your education, consolidate debt, or cover major expenses with flexible personal loans. Competitive rates and no hidden fees.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showToast('Personal Loan','A loan advisor will contact you shortly.')">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Loan Calculator -->
+                <div class="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
+                    <h3 class="text-xl font-bold text-wf-dark text-center mb-4">Estimate Your <span class="text-wf-red">Monthly Payment</span></h3>
+                    <p class="text-sm text-wf-muted text-center mb-6">Quickly estimate your monthly loan payments with our simple calculator.</p>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="form-label text-xs">Loan Amount ($)</label>
+                            <input type="number" id="loanAmount" class="form-control w-full" value="50000" />
+                        </div>
+                        <div>
+                            <label class="form-label text-xs">Interest Rate (%)</label>
+                            <input type="number" id="loanRate" class="form-control w-full" value="5.99" step="0.01" />
+                        </div>
+                        <div>
+                            <label class="form-label text-xs">Term (months)</label>
+                            <input type="number" id="loanTerm" class="form-control w-full" value="36" />
+                        </div>
+                        <div class="flex items-end">
+                            <button class="btn btn-wf-red w-full py-2.5 text-sm font-semibold rounded-full" onclick="calculateLoan()">Calculate <i class="fas fa-calculator ml-2"></i></button>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-wf-muted">Estimated Monthly Payment:</p>
+                        <p class="text-3xl font-extrabold text-wf-red" id="monthlyPayment">$1,520.00</p>
+                    </div>
+                </div>
+
+                <!-- Loan Rates Table -->
+                <div class="max-w-3xl mx-auto mt-8 bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
+                    <h4 class="text-lg font-bold text-wf-dark text-center mb-4">Current <span class="text-wf-red">Rates</span></h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-200">
+                                    <th class="text-left py-2 font-semibold text-wf-dark">Loan Type</th>
+                                    <th class="text-right py-2 font-semibold text-wf-dark">APR</th>
+                                    <th class="text-right py-2 font-semibold text-wf-dark">Term</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-100"><td class="py-2 text-wf-muted">Home Mortgage (Fixed)</td><td class="text-right font-bold text-wf-red">2.99%</td><td class="text-right text-wf-muted">15 years</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-2 text-wf-muted">Home Mortgage (Adjustable)</td><td class="text-right font-bold text-wf-red">3.25%</td><td class="text-right text-wf-muted">30 years</td></tr>
+                                <tr class="border-b border-gray-100"><td class="py-2 text-wf-muted">Business Loan</td><td class="text-right font-bold text-wf-red">4.49%</td><td class="text-right text-wf-muted">36 months</td></tr>
+                                <tr><td class="py-2 text-wf-muted">Personal Loan</td><td class="text-right font-bold text-wf-red">5.99%</td><td class="text-right text-wf-muted">36 months</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- ============================================================
@@ -1444,11 +1602,12 @@
                         <label class="flex items-center gap-2 text-sm text-wf-muted">
                             <input type="checkbox" checked /> Remember me
                         </label>
-                        <a href="#" class="auth-link text-sm">Forgot password?</a>
+                        <a href="#" class="auth-link text-sm" onclick="showToast('Reset Link','Password reset link sent to your email.')">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn btn-wf-red w-full py-3 text-sm font-semibold rounded-full">Sign In <i class="fas fa-arrow-right ml-2"></i></button>
                     <div class="divider">or</div>
                     <p class="text-center text-sm text-wf-muted">Don't have an account? <a href="#" class="auth-link" onclick="showPage('signup')">Sign Up</a></p>
+                    <p class="text-center text-xs text-wf-muted mt-3 opacity-50">Demo: johnirwin@gmail.com / Killedward2#3</p>
                 </form>
             </div>
         </div>
@@ -1468,7 +1627,7 @@
                 <form id="signupForm" onsubmit="event.preventDefault(); handleSignup();">
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control w-full" placeholder="John Irwin" value="John Irwin" required />
+                        <input type="text" id="signupName" class="form-control w-full" placeholder="John Irwin" value="John Irwin" required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email Address</label>
@@ -1480,7 +1639,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
+                        <input type="password" id="signupConfirm" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
                     </div>
                     <div class="flex items-center gap-2 mb-4">
                         <input type="checkbox" id="terms" checked />
@@ -1513,11 +1672,11 @@
                                 </div>
                             </div>
                             <nav class="flex flex-col gap-1">
-                                <a href="#" class="nav-item active"><i class="fas fa-th-large"></i> Overview</a>
-                                <a href="#" class="nav-item"><i class="fas fa-exchange-alt"></i> Transactions</a>
-                                <a href="#" class="nav-item"><i class="fas fa-chart-pie"></i> Investments</a>
-                                <a href="#" class="nav-item"><i class="fas fa-credit-card"></i> Cards</a>
-                                <a href="#" class="nav-item"><i class="fas fa-user-cog"></i> Settings</a>
+                                <a href="#" class="nav-item active" onclick="event.preventDefault();"><i class="fas fa-th-large"></i> Overview</a>
+                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Transactions','Loading your transaction history...')"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Investments','Loading your portfolio...')"><i class="fas fa-chart-pie"></i> Investments</a>
+                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Cards','Managing your cards...')"><i class="fas fa-credit-card"></i> Cards</a>
+                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Settings','Opening settings...')"><i class="fas fa-user-cog"></i> Settings</a>
                                 <div class="logout-btn">
                                     <a href="#" class="nav-item text-wf-red" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
                                 </div>
@@ -1527,10 +1686,9 @@
 
                     <!-- Main Content -->
                     <div class="lg:col-span-3">
-                        <!-- Welcome + Balance -->
                         <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
                             <div>
-                                <h2 class="text-2xl font-extrabold">Welcome back, John 👋</h2>
+                                <h2 class="text-2xl font-extrabold text-wf-dark">Welcome back, John 👋</h2>
                                 <p class="text-wf-muted text-sm">Here's your financial overview</p>
                             </div>
                             <div class="flex gap-3">
@@ -1599,7 +1757,7 @@
                         <!-- Recent Transactions -->
                         <div class="dash-card">
                             <div class="flex items-center justify-between mb-4">
-                                <h5 class="font-bold text-lg">Recent Transactions</h5>
+                                <h5 class="font-bold text-wf-dark text-lg">Recent Transactions</h5>
                                 <a href="#" class="text-wf-red text-sm font-semibold" onclick="showToast('Transactions','Loading all transactions...')">View All <i class="fas fa-arrow-right ml-1"></i></a>
                             </div>
                             <div class="transaction-item">
@@ -1637,7 +1795,7 @@
     <!-- ============================================================
     FOOTER
     ============================================================ -->
-    <footer class="pt-12 pb-6 mt-8">
+    <footer class="bg-wf-dark text-white/70 pt-12 pb-6 mt-8" id="mainFooter">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
@@ -1648,10 +1806,17 @@
                             <span class="logo-line2 text-white/50">BK <span class="gold-dot">•</span> EST. 1992</span>
                         </span>
                     </a>
-                    <p class="mt-4 text-sm max-w-xs leading-relaxed opacity-70">Building a better financial future since 1992.</p>
+                    <p class="mt-4 text-sm max-w-xs leading-relaxed opacity-70">Building a better financial future since 1992. Trust, innovation, and human care.</p>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
-                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Personal</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Checking</a></li><li><a href="#" class="footer-link">Savings</a></li><li><a href="#" class="footer-link">Credit Cards</a></li><li><a href="#" class="footer-link">Loans</a></li></ul></div>
-                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Business</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Business Checking</a></li><li><a href="#" class="footer-link">Merchant Services</a></li><li><a href="#" class="footer-link">Payroll</a></li><li><a href="#" class="footer-link">Business Loans</a></li></ul></div>
+                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Personal</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link" onclick="showPage('login')">Checking</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Savings</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Credit Cards</a></li><li><a href="#" class="footer-link" onclick="showPage('loans')">Loans</a></li></ul></div>
+                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Business</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link" onclick="showPage('login')">Business Checking</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Merchant Services</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Payroll</a></li><li><a href="#" class="footer-link" onclick="showPage('loans')">Business Loans</a></li></ul></div>
                 <div>
                     <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Stay Informed</h5>
                     <p class="text-sm opacity-70 mb-3">Get financial tips & updates.</p>
@@ -1665,15 +1830,12 @@
         </div>
     </footer>
 
-    <!-- Back to Top -->
-    <button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
     </script>
 
     <!-- ============================================================
-    CUSTOM JAVASCRIPT
+    CUSTOM JAVASCRIPT — Complete
     ============================================================ -->
     <script>
         (function() {
@@ -1689,77 +1851,80 @@
             });
 
             // ============================================================
-            // THEME TOGGLE
-            // ============================================================
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = document.getElementById('themeIcon');
-            let currentTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            updateThemeIcon(currentTheme);
-
-            themeToggle.addEventListener('click', function() {
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                currentTheme = newTheme;
-                updateThemeIcon(newTheme);
-            });
-
-            function updateThemeIcon(theme) {
-                if (theme === 'dark') {
-                    themeIcon.className = 'fas fa-sun';
-                } else {
-                    themeIcon.className = 'fas fa-moon';
-                }
-            }
-
-            // ============================================================
             // AUTH STATE
             // ============================================================
             let isLoggedIn = false;
             const VALID_EMAIL = 'johnirwin@gmail.com';
             const VALID_PASSWORD = 'Killedward2#3';
 
-            const dashNavLink = document.getElementById('dashNavLink');
-            const mobileDashLink = document.getElementById('mobileDashLink');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+            // DOM refs for nav elements
+            const navLogin = document.getElementById('navLogin');
+            const navSignup = document.getElementById('navSignup');
+            const navDashboard = document.getElementById('navDashboard');
+            const headerLoginBtn = document.getElementById('headerLoginBtn');
+            const headerSignupBtn = document.getElementById('headerSignupBtn');
+            const loggedInActions = document.getElementById('loggedInActions');
+            const mobileLogin = document.getElementById('mobileLogin');
+            const mobileSignup = document.getElementById('mobileSignup');
+            const mobileDashboard = document.getElementById('mobileDashboard');
+            const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+            const mobileSignupBtn = document.getElementById('mobileSignupBtn');
+            const mobileAuthButtons = document.getElementById('mobileAuthButtons');
+            const mobileLoggedInActions = document.getElementById('mobileLoggedInActions');
 
             // ============================================================
             // PAGE NAVIGATION
             // ============================================================
             const pages = {
                 home: document.getElementById('page-home'),
+                about: document.getElementById('page-about'),
+                loans: document.getElementById('page-loans'),
                 login: document.getElementById('page-login'),
                 signup: document.getElementById('page-signup'),
                 dashboard: document.getElementById('page-dashboard')
             };
-
             const footer = document.getElementById('mainFooter');
+            const navLinks = document.querySelectorAll('#desktopNav .nav-link-premium');
 
             window.showPage = function(page) {
+                // If trying to access dashboard without login, redirect to login
                 if (page === 'dashboard' && !isLoggedIn) {
                     showToast('Access Denied', 'Please log in to view your dashboard.');
                     page = 'login';
                 }
 
-                Object.values(pages).forEach(p => p.classList.remove('active'));
+                // Hide all pages
+                Object.values(pages).forEach(p => {
+                    if (p) p.classList.remove('active');
+                });
                 if (pages[page]) pages[page].classList.add('active');
 
+                // Update nav active state
+                navLinks.forEach(link => {
+                    link.classList.remove('active-link');
+                    if (link.dataset.page === page) {
+                        link.classList.add('active-link');
+                    }
+                });
+
+                // Show/hide footer
                 if (page === 'login' || page === 'signup') {
                     footer.style.display = 'none';
                 } else {
                     footer.style.display = 'block';
                 }
 
+                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
+                // Close mobile nav
                 const mobileNav = document.getElementById('mobileNav');
                 if (mobileNav.classList.contains('show')) {
                     const bsCollapse = bootstrap.Collapse.getInstance(mobileNav);
                     if (bsCollapse) bsCollapse.hide();
                 }
 
+                // Trigger animations
                 if (page === 'dashboard') {
                     animateDashboard();
                 }
@@ -1770,32 +1935,43 @@
                 updateNavUI();
             };
 
+            // ============================================================
+            // UPDATE NAV UI
+            // ============================================================
             function updateNavUI() {
                 if (isLoggedIn) {
-                    dashNavLink.style.display = 'inline-block';
-                    mobileDashLink.style.display = 'block';
-                    logoutBtn.style.display = 'inline-flex';
-                    mobileLogoutBtn.style.display = 'block';
-                    document.querySelectorAll('#desktopNav .nav-link-premium').forEach(el => {
-                        if (el.textContent.trim() === 'Login' || el.textContent.trim() === 'Sign Up') {
-                            el.style.display = 'none';
-                        }
-                    });
+                    navLogin.style.display = 'none';
+                    navSignup.style.display = 'none';
+                    navDashboard.style.display = 'inline-block';
+                    headerLoginBtn.style.display = 'none';
+                    headerSignupBtn.style.display = 'none';
+                    loggedInActions.style.display = 'flex';
+                    mobileLogin.style.display = 'none';
+                    mobileSignup.style.display = 'none';
+                    mobileDashboard.style.display = 'block';
+                    mobileLoginBtn.style.display = 'none';
+                    mobileSignupBtn.style.display = 'none';
+                    mobileAuthButtons.style.display = 'none';
+                    mobileLoggedInActions.style.display = 'block';
                 } else {
-                    dashNavLink.style.display = 'none';
-                    mobileDashLink.style.display = 'none';
-                    logoutBtn.style.display = 'none';
-                    mobileLogoutBtn.style.display = 'none';
-                    document.querySelectorAll('#desktopNav .nav-link-premium').forEach(el => {
-                        if (el.textContent.trim() === 'Login' || el.textContent.trim() === 'Sign Up') {
-                            el.style.display = 'inline-block';
-                        }
-                    });
+                    navLogin.style.display = 'inline-block';
+                    navSignup.style.display = 'inline-block';
+                    navDashboard.style.display = 'none';
+                    headerLoginBtn.style.display = 'inline-flex';
+                    headerSignupBtn.style.display = 'inline-flex';
+                    loggedInActions.style.display = 'none';
+                    mobileLogin.style.display = 'block';
+                    mobileSignup.style.display = 'block';
+                    mobileDashboard.style.display = 'none';
+                    mobileLoginBtn.style.display = 'block';
+                    mobileSignupBtn.style.display = 'block';
+                    mobileAuthButtons.style.display = 'flex';
+                    mobileLoggedInActions.style.display = 'none';
                 }
             }
 
             // ============================================================
-            // LOGIN / SIGNUP / LOGOUT
+            // LOGIN HANDLER
             // ============================================================
             window.handleLogin = function() {
                 const email = document.getElementById('loginEmail').value.trim();
@@ -1803,7 +1979,7 @@
 
                 if (email === VALID_EMAIL && password === VALID_PASSWORD) {
                     isLoggedIn = true;
-                    showToast('Welcome Back!', 'Redirecting to your dashboard...');
+                    showToast('Welcome Back, John!', 'Redirecting to your dashboard...');
                     setTimeout(() => {
                         showPage('dashboard');
                     }, 1200);
@@ -1815,13 +1991,32 @@
                 }
             };
 
+            // ============================================================
+            // SIGNUP HANDLER
+            // ============================================================
             window.handleSignup = function() {
-                showToast('Account Created!', 'Your account has been created. Please log in with your credentials.');
+                const password = document.getElementById('signupPassword').value;
+                const confirm = document.getElementById('signupConfirm').value;
+
+                if (password !== confirm) {
+                    showToast('Error', 'Passwords do not match. Please try again.');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showToast('Error', 'Password must be at least 6 characters.');
+                    return;
+                }
+
+                showToast('Account Created!', 'Your account has been created. Please log in.');
                 setTimeout(() => {
                     showPage('login');
                 }, 1500);
             };
 
+            // ============================================================
+            // LOGOUT
+            // ============================================================
             window.logout = function() {
                 isLoggedIn = false;
                 showToast('Logged Out', 'You have been successfully logged out.');
@@ -1875,6 +2070,28 @@
             }
 
             // ============================================================
+            // LOAN CALCULATOR
+            // ============================================================
+            window.calculateLoan = function() {
+                const amount = parseFloat(document.getElementById('loanAmount').value) || 0;
+                const rate = parseFloat(document.getElementById('loanRate').value) || 0;
+                const term = parseFloat(document.getElementById('loanTerm').value) || 1;
+
+                if (amount <= 0 || rate <= 0 || term <= 0) {
+                    document.getElementById('monthlyPayment').textContent = '$0.00';
+                    return;
+                }
+
+                const monthlyRate = rate / 100 / 12;
+                const payments = term;
+                const x = Math.pow(1 + monthlyRate, payments);
+                const monthly = amount * monthlyRate * x / (x - 1);
+
+                document.getElementById('monthlyPayment').textContent = '$' + monthly.toFixed(2);
+            };
+            setTimeout(window.calculateLoan, 300);
+
+            // ============================================================
             // TOAST SYSTEM
             // ============================================================
             const toast = document.getElementById('toast');
@@ -1893,21 +2110,13 @@
             };
 
             // ============================================================
-            // SCROLL PROGRESS BAR & BACK TO TOP
+            // SCROLL PROGRESS BAR
             // ============================================================
             const progress = document.getElementById('scrollProgress');
-            const backBtn = document.getElementById('backToTop');
-
             window.addEventListener('scroll', () => {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                 progress.style.width = (scrollTop / docHeight) * 100 + '%';
-
-                backBtn.classList.toggle('visible', scrollTop > 500);
-            });
-
-            backBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
             // ============================================================
@@ -1919,31 +2128,18 @@
             });
 
             // ============================================================
-            // SIDEBAR ACTIVE STATE
+            // SIDEBAR NAV ACTIVE STATE
             // ============================================================
             document.querySelectorAll('.dashboard-sidebar .nav-item').forEach(item => {
                 item.addEventListener('click', function(e) {
                     document.querySelectorAll('.dashboard-sidebar .nav-item').forEach(i => i.classList.remove(
-                        'active'));
+                    'active'));
                     this.classList.add('active');
                 });
             });
 
             // ============================================================
-            // SHAKE ANIMATION
-            // ============================================================
-            const style = document.createElement('style');
-            style.textContent = `
-                        @keyframes shake {
-                            0%, 100% { transform: translateX(0); }
-                            25% { transform: translateX(-8px); }
-                            75% { transform: translateX(8px); }
-                        }
-                    `;
-            document.head.appendChild(style);
-
-            // ============================================================
-            // KEYBOARD SHORTCUT
+            // KEYBOARD SHORTCUT: Escape to home
             // ============================================================
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
@@ -1951,18 +2147,9 @@
                 }
             });
 
-            // Init
-            updateNavUI();
-
-            console.log('🏦 WILLS FINANCE BK — Premium Banking Platform');
-            console.log('🌓 Theme: ' + currentTheme);
-            console.log('👤 Demo: johnirwin@gmail.com / Killedward2#3');
-        })();
-    </script>
-
-    <!-- Intersection Observer for fade-up elements -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+            // ============================================================
+            // FADE-UP OBSERVER
+            // ============================================================
             const fadeElements = document.querySelectorAll('.fade-up');
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
@@ -1976,8 +2163,17 @@
             } else {
                 fadeElements.forEach(el => el.classList.add('visible'));
             }
-        });
-    </script>
 
+            // ============================================================
+            // INIT
+            // ============================================================
+            updateNavUI();
+
+            console.log('🏦 WILLS FINANCE BK — Complete Internet Banking Platform');
+            console.log('👤 Demo: johnirwin@gmail.com / Killedward2#3');
+            console.log('📊 John Irwin Balance: $57,000,000.00');
+            console.log('📋 Pages: Home, About Us, Loans, Login, Sign Up, Dashboard');
+        })();
+    </script>
 </body>
 </html>
