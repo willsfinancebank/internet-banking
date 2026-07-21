@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply for Loan — Wills Finance Bank</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23C8102E'/%3E%3Cpath d='M50 18 L28 52 L40 52 L28 82 L72 82 L60 52 L72 52 L50 18Z' fill='%23FFB81C'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23FFFFFF'/%3E%3Cpath d='M50 34 L44 48 L30 48 L42 58 L37 74 L50 64 L63 74 L58 58 L70 48 L56 48 L50 34Z' fill='%23C8102E'/%3E%3C/svg%3E" />
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ============================================================
+                   ROOT VARIABLES — Light & Dark Mode
+                ============================================================ */
+        :root {
+            --wf-red: #C8102E;
+            --wf-red-dark: #a00f24;
+            --wf-gold: #FFB81C;
+            --wf-gold-light: #FFD966;
+            --wf-dark: #002856;
+            --wf-dark-light: #003b7a;
+            --wf-light: #f0f4f8;
+            --wf-text: #1a1a1a;
+            --wf-muted: #6b7a8f;
+            --wf-shadow: 0 20px 60px rgba(0, 40, 86, 0.10);
+            --wf-shadow-hover: 0 30px 80px rgba(0, 40, 86, 0.18);
+            --wf-card-bg: #ffffff;
+            --wf-body-bg: #f0f4f8;
+            --wf-border: rgba(0, 0, 0, 0.04);
+            --wf-input-bg: rgba(255, 255, 255, 0.6);
+            --wf-header-bg: rgba(255, 255, 255, 0.85);
+            --wf-nav-text: #1a1a1a;
+            --wf-card-radius: 32px;
+            --wf-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-bs-theme="dark"] {
+            --wf-dark: #0a1628;
+            --wf-dark-light: #142a4a;
+            --wf-light: #0f1a2e;
+            --wf-text: #e8edf5;
+            --wf-muted: #94a3b8;
+            --wf-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --wf-shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.5);
+            --wf-card-bg: #162033;
+            --wf-body-bg: #0f1a2e;
+            --wf-border: rgba(255, 255, 255, 0.06);
+            --wf-input-bg: rgba(255, 255, 255, 0.05);
+            --wf-header-bg: rgba(22, 32, 51, 0.92);
+            --wf-nav-text: #e8edf5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--wf-body-bg);
+            color: var(--wf-text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+        }
+
+        /* ============================================================
+                   HEADER
+                ============================================================ */
+        #header {
+            background: var(--wf-header-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--wf-border);
+            transition: all var(--wf-transition);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            padding: 0 1.5rem;
+        }
+        #header.scrolled {
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo-premium {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            padding: 0.75rem 0;
+        }
+        .logo-premium .logo-mark {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+        }
+        .logo-premium .logo-mark .shield-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
+            border-radius: 12px;
+            transform: rotate(6deg);
+            box-shadow: 0 4px 20px rgba(200, 16, 46, 0.3);
+            transition: all var(--wf-transition);
+        }
+        .logo-premium:hover .logo-mark .shield-bg {
+            transform: rotate(6deg) scale(1.06);
+            box-shadow: 0 6px 30px rgba(200, 16, 46, 0.45);
+        }
+        .logo-premium .logo-mark .shield-inner {
+            position: absolute;
+            inset: 3px;
+            background: var(--wf-dark);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid rgba(255, 184, 28, 0.12);
+            transition: all var(--wf-transition);
+        }
+        .logo-premium:hover .logo-mark .shield-inner {
+            border-color: rgba(255, 184, 28, 0.25);
+        }
+        .logo-premium .logo-mark .shield-inner i {
+            font-size: 1.2rem;
+            color: var(--wf-gold);
+        }
+        .logo-premium .logo-text-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.05;
+        }
+        .logo-premium .logo-line1 {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            color: var(--wf-nav-text);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+            transition: color var(--wf-transition);
+        }
+        .logo-premium .logo-line1 .highlight {
+            color: var(--wf-red);
+        }
+        .logo-premium .logo-line1 .spacer {
+            width: 4px;
+            height: 4px;
+            background: var(--wf-gold);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+        }
+        .logo-premium .logo-line2 {
+            font-size: clamp(0.45rem, 1vw, 0.6rem);
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: var(--wf-muted);
+            text-transform: uppercase;
+            margin-top: -1px;
+            transition: color var(--wf-transition);
+        }
+        .logo-premium .logo-line2 .gold-dot {
+            color: var(--wf-gold);
+        }
+        .logo-premium .logo-divider {
+            width: 1px;
+            height: 28px;
+            background: var(--wf-border);
+            margin: 0 2px 0 4px;
+            transition: background var(--wf-transition);
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--wf-border);
+            color: var(--wf-nav-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-left: 0.5rem;
+        }
+        .theme-toggle:hover {
+            background: var(--wf-red);
+            color: #fff;
+            transform: rotate(30deg);
+        }
+
+        /* ============================================================
+                   BUTTONS
+                ============================================================ */
+        .btn-wf-red {
+            background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
+            color: #fff !important;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-wf-red:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(200, 16, 46, 0.40);
+            color: #fff !important;
+        }
+        .btn-wf-gold {
+            background: linear-gradient(135deg, var(--wf-gold), #e5a50f);
+            color: var(--wf-dark) !important;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-wf-gold:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 184, 28, 0.45);
+            color: var(--wf-dark) !important;
+        }
+        .btn-outline-wf {
+            border: 2px solid var(--wf-red);
+            color: var(--wf-red) !important;
+            background: transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-outline-wf:hover {
+            background: var(--wf-red);
+            color: #fff !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(200, 16, 46, 0.25);
+        }
+
+        /* ============================================================
+                   LOAN PAGE
+                ============================================================ */
+        .loan-page {
+            min-height: 100vh;
+            padding: 6rem 1rem 2rem;
+            background: var(--wf-body-bg);
+            transition: background var(--wf-transition);
+        }
+        .loan-page .loan-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .loan-page .loan-header .badge-label {
+            display: inline-block;
+            color: var(--wf-red);
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .loan-page .loan-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--wf-text);
+        }
+        .loan-page .loan-header h1 span {
+            color: var(--wf-red);
+        }
+        .loan-page .loan-header p {
+            color: var(--wf-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0.75rem auto 0;
+        }
+
+        .rate-card {
+            background: var(--wf-card-bg);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border: 1px solid var(--wf-border);
+            transition: all var(--wf-transition);
+        }
+        .rate-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--wf-shadow);
+            border-color: var(--wf-gold);
+        }
+        .rate-card .rate-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--wf-red);
+            letter-spacing: -0.02em;
+        }
+        .rate-card .rate-number small {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .rate-card .rate-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--wf-muted);
+            margin-top: 0.25rem;
+        }
+        .rate-card .rate-sub {
+            font-size: 0.7rem;
+            color: var(--wf-muted);
+        }
+
+        .loan-card {
+            background: var(--wf-card-bg);
+            border-radius: var(--wf-card-radius);
+            padding: 2.5rem;
+            border: 1px solid var(--wf-border);
+            box-shadow: var(--wf-shadow);
+            max-width: 640px;
+            margin: 0 auto;
+            transition: all var(--wf-transition);
+        }
+        .loan-card .form-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--wf-text);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .loan-card .form-control,
+        .loan-card .form-select {
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid var(--wf-border);
+            background: var(--wf-input-bg);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            color: var(--wf-text);
+        }
+        .loan-card .form-control:focus,
+        .loan-card .form-select:focus {
+            border-color: var(--wf-red);
+            box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.08);
+            background: var(--wf-card-bg);
+        }
+        .loan-card .form-control::placeholder {
+            color: var(--wf-muted);
+            opacity: 0.5;
+        }
+        .loan-card .auth-link {
+            color: var(--wf-red);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .loan-card .auth-link:hover {
+            color: var(--wf-red-dark);
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+                   TOAST
+                ============================================================ */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--wf-dark);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9998;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            max-width: 420px;
+            width: 90%;
+        }
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .toast-notification .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 184, 28, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--wf-gold);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .toast-notification .toast-content .toast-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .toast-notification .toast-content .toast-msg {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .loan-card {
+                padding: 1.5rem;
+            }
+            .rate-card .rate-number {
+                font-size: 2rem;
+            }
+            .loan-page .loan-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    HEADER
+    ============================================================ -->
+    <header id="header">
+        <div class="container-fluid d-flex align-items-center justify-content-between" style="max-width:1200px;margin:0 auto;">
+            <a href="index.html" class="logo-premium">
+                <span class="logo-mark">
+                    <span class="shield-bg"></span>
+                    <span class="shield-inner"><i class="fas fa-crown"></i></span>
+                </span>
+                <span class="logo-divider"></span>
+                <span class="logo-text-group">
+                    <span class="logo-line1">WILLS<span class="spacer"></span><span class="highlight">FINANCE</span></span>
+                    <span class="logo-line2">BK <span class="gold-dot">•</span> EST. 1992</span>
+                </span>
+            </a>
+            <div class="d-flex align-items-center gap-2">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <a href="login.html" class="btn btn-outline-wf px-4 py-2 text-sm rounded-full d-none d-sm-inline-flex align-items-center gap-2">
+                    <i class="fas fa-lock"></i> Log In
+                </a>
+                <a href="signup.html" class="btn btn-wf-red px-4 py-2 text-sm rounded-full d-none d-sm-inline-flex align-items-center gap-2">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    LOAN PAGE
+    ============================================================ -->
+    <section class="loan-page">
+        <div class="container" style="max-width:1200px;margin:0 auto;">
+
+            <!-- Header -->
+            <div class="loan-header">
+                <span class="badge-label"><i class="fas fa-hand-holding-usd"></i> Lending Solutions</span>
+                <h1>Apply for a <span>Loan</span></h1>
+                <p>Competitive rates, flexible terms, and a simple application process. Get the funding you need to achieve your goals.</p>
+            </div>
+
+            <!-- Rate Cards -->
+            <div class="row g-4 mb-5 justify-content-center">
+                <div class="col-6 col-md-3">
+                    <div class="rate-card">
+                        <div class="rate-number">2.99<small>%</small></div>
+                        <div class="rate-label">Mortgage</div>
+                        <div class="rate-sub">15-year fixed</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="rate-card">
+                        <div class="rate-number">5.99<small>%</small></div>
+                        <div class="rate-label">Personal Loan</div>
+                        <div class="rate-sub">36-month term</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="rate-card">
+                        <div class="rate-number">4.49<small>%</small></div>
+                        <div class="rate-label">Auto Loan</div>
+                        <div class="rate-sub">60-month term</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="rate-card">
+                        <div class="rate-number">6.99<small>%</small></div>
+                        <div class="rate-label">Business Loan</div>
+                        <div class="rate-sub">Flexible terms</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Application Form -->
+            <div class="loan-card">
+                <h3 class="h5 fw-bold mb-4" style="color:var(--wf-text);">Loan Application</h3>
+                <form id="loanForm" onsubmit="event.preventDefault(); handleLoanApply();">
+                    <div class="mb-4">
+                        <label class="form-label">Loan Type</label>
+                        <select id="loanType" class="form-select" required>
+                            <option value="Personal Loan">Personal Loan</option>
+                            <option value="Home Mortgage">Home Mortgage</option>
+                            <option value="Auto Loan">Auto Loan</option>
+                            <option value="Business Loan">Business Loan</option>
+                            <option value="Education Loan">Education Loan</option>
+                            <option value="Debt Consolidation">Debt Consolidation</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Loan Amount ($)</label>
+                        <input type="number" id="loanAmount" class="form-control" placeholder="50,000" min="1000" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Loan Term (months)</label>
+                        <select id="loanTerm" class="form-select" required>
+                            <option value="12">12 months</option>
+                            <option value="24">24 months</option>
+                            <option value="36" selected>36 months</option>
+                            <option value="48">48 months</option>
+                            <option value="60">60 months</option>
+                            <option value="120">120 months</option>
+                            <option value="180">180 months</option>
+                            <option value="360">360 months</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Purpose of Loan</label>
+                        <textarea id="loanPurpose" class="form-control" rows="3" placeholder="Briefly describe why you need this loan..." required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Annual Income ($)</label>
+                        <input type="number" id="loanIncome" class="form-control" placeholder="75,000" min="0" required />
+                    </div>
+                    <button type="submit" class="btn btn-wf-red w-100 py-3 text-sm fw-semibold rounded-pill">
+                        Submit Application <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </form>
+                <p class="text-center text-sm mt-4" style="color:var(--wf-muted);">
+                    Already have an account? <a href="login.html" class="auth-link">Log In</a> to track your applications.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TOAST
+    ============================================================ -->
+    <div class="toast-notification" id="toast">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">Success</div>
+            <div class="toast-msg" id="toastMsg">Action completed</div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // DATABASE (localStorage)
+        // ============================================================
+        const DB = {
+            get(key) { try { return JSON.parse(localStorage.getItem('wf_' + key)) || null; } catch { return null; } },
+            set(key, val) { localStorage.setItem('wf_' + key, JSON.stringify(val)); },
+            getUsers() { return this.get('users') || []; },
+            setUsers(users) { this.set('users', users); },
+            getLoans() { return this.get('loans') || []; },
+            setLoans(loans) { this.set('loans', loans); },
+            getTransactions() { return this.get('transactions') || []; },
+            setTransactions(txns) { this.set('transactions', txns); },
+            getSession() { return this.get('session') || null; },
+            setSession(session) { this.set('session', session); },
+            clearSession() { localStorage.removeItem('wf_session'); }
+        };
+
+        // ============================================================
+        // DARK MODE
+        // ============================================================
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+        let darkMode = localStorage.getItem('wf-theme') === 'dark' ||
+            (!localStorage.getItem('wf-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        function setTheme(dark) {
+            darkMode = dark;
+            html.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+            themeIcon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('wf-theme', dark ? 'dark' : 'light');
+        }
+        setTheme(darkMode);
+        themeToggle.addEventListener('click', () => setTheme(!darkMode));
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        const toast = document.getElementById('toast');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastMsg = document.getElementById('toastMsg');
+        let toastTimeout;
+
+        function showToast(title, msg, icon) {
+            clearTimeout(toastTimeout);
+            toastTitle.textContent = title || 'Success';
+            toastMsg.textContent = msg || 'Action completed';
+            const iconEl = toast.querySelector('.toast-icon i');
+            if (icon) iconEl.className = icon;
+            else iconEl.className = 'fas fa-check-circle';
+            toast.classList.add('show');
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ============================================================
+        // LOAN APPLICATION HANDLER
+        // ============================================================
+        function handleLoanApply() {
+            // Check if user is logged in
+            const session = DB.getSession();
+            let currentUser = null;
+            if (session) {
+                const users = DB.getUsers();
+                currentUser = users.find(u => u.id === session.userId);
+            }
+
+            if (!currentUser) {
+                showToast('Please Log In', 'You need to be logged in to apply for a loan. Redirecting to login...',
+                    'fas fa-exclamation-circle');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                return;
+            }
+
+            const type = document.getElementById('loanType').value;
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const term = parseInt(document.getElementById('loanTerm').value);
+            const purpose = document.getElementById('loanPurpose').value.trim();
+            const income = parseFloat(document.getElementById('loanIncome').value);
+
+            if (!amount || amount < 1000) {
+                showToast('Error', 'Please enter a valid loan amount (minimum $1,000).', 'fas fa-exclamation-circle');
+                document.getElementById('loanForm').style.animation = 'shake 0.4s ease';
+                setTimeout(() => document.getElementById('loanForm').style.animation = '', 500);
+                return;
+            }
+            if (!purpose) {
+                showToast('Error', 'Please describe the purpose of your loan.', 'fas fa-exclamation-circle');
+                document.getElementById('loanForm').style.animation = 'shake 0.4s ease';
+                setTimeout(() => document.getElementById('loanForm').style.animation = '', 500);
+                return;
+            }
+            if (!income || income < 0) {
+                showToast('Error', 'Please enter your annual income.', 'fas fa-exclamation-circle');
+                return;
+            }
+
+            const loans = DB.getLoans();
+            const newLoan = {
+                id: 'loan_' + Date.now(),
+                userId: currentUser.id,
+                type,
+                amount,
+                term,
+                purpose,
+                income,
+                status: 'pending',
+                appliedAt: new Date().toISOString()
+            };
+            loans.push(newLoan);
+            DB.setLoans(loans);
+
+            showToast('Application Submitted!', 'Your loan application has been received and is being reviewed.',
+                'fas fa-check-circle');
+            document.getElementById('loanForm').reset();
+
+            // Redirect to dashboard after a moment
+            setTimeout(() => {
+                window.location.href = 'index.html#dashboard';
+            }, 1800);
+        }
+
+        // ============================================================
+        // HEADER SHADOW
+        // ============================================================
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        console.log('📋 Loan page loaded. localStorage database ready.');
+        console.log('🔐 You must be logged in to apply for a loan.');
+        console.log('👤 Demo user: johnirwin@gmail.com / Killedward2#3');
+    </script>
+
+</body>
+</html>
