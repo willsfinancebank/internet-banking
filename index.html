@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wills Finance BK — Premium Internet Banking</title>
+    <title>Wills Finance Bank — Premium Internet Banking</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23C8102E'/%3E%3Cpath d='M50 18 L28 52 L40 52 L28 82 L72 82 L60 52 L72 52 L50 18Z' fill='%23FFB81C'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23FFFFFF'/%3E%3Cpath d='M50 34 L44 48 L30 48 L42 58 L37 74 L50 64 L63 74 L58 58 L70 48 L56 48 L50 34Z' fill='%23C8102E'/%3E%3C/svg%3E" />
@@ -35,7 +36,35 @@
             --wf-muted: #6b7a8f;
             --wf-shadow: 0 20px 60px rgba(0, 40, 86, 0.10);
             --wf-shadow-hover: 0 30px 80px rgba(0, 40, 86, 0.18);
+            --wf-card-bg: #ffffff;
+            --wf-body-bg: #f0f4f8;
+            --wf-border: rgba(0, 0, 0, 0.04);
+            --wf-input-bg: rgba(255, 255, 255, 0.6);
+            --wf-header-bg: rgba(255, 255, 255, 0.85);
+            --wf-nav-text: #1a1a1a;
+            --wf-gradient-start: #002856;
+            --wf-gradient-end: #0a1628;
         }
+
+        [data-bs-theme="dark"] {
+            --wf-dark: #0a1628;
+            --wf-dark-light: #142a4a;
+            --wf-light: #0f1a2e;
+            --wf-cream: #111d33;
+            --wf-text: #e8edf5;
+            --wf-muted: #94a3b8;
+            --wf-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --wf-shadow-hover: 0 30px 80px rgba(0, 0, 0, 0.5);
+            --wf-card-bg: #162033;
+            --wf-body-bg: #0f1a2e;
+            --wf-border: rgba(255, 255, 255, 0.06);
+            --wf-input-bg: rgba(255, 255, 255, 0.05);
+            --wf-header-bg: rgba(22, 32, 51, 0.92);
+            --wf-nav-text: #e8edf5;
+            --wf-gradient-start: #0a1628;
+            --wf-gradient-end: #1a2a4a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -46,14 +75,15 @@
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--wf-light);
+            background-color: var(--wf-body-bg);
             color: var(--wf-text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         /* ============================================================
-                   PRELOADER
+                   PREMIUM PRELOADER
                 ============================================================ */
         #preloader {
             position: fixed;
@@ -73,88 +103,177 @@
             visibility: hidden;
             pointer-events: none;
         }
-        #preloader .loader-ring {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 184, 28, 0.1);
-            border-top-color: var(--wf-gold);
-            border-right-color: var(--wf-red);
-            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        #preloader .preloader-container {
             position: relative;
-        }
-        #preloader .loader-ring::after {
-            content: '';
-            position: absolute;
-            inset: 8px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.05);
-            border-top-color: var(--wf-red);
-            border-left-color: var(--wf-gold);
-            animation: spin 0.7s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        #preloader .loader-logo {
-            margin-bottom: 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 2rem;
+            max-width: 400px;
+            width: 100%;
+            padding: 0 1.5rem;
         }
-        #preloader .loader-logo .icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
-            border-radius: 18px;
+        #preloader .preloader-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+        #preloader .preloader-logo .logo-mark {
+            position: relative;
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: var(--wf-gold);
-            box-shadow: 0 8px 40px rgba(200, 16, 46, 0.35);
-            animation: pulse-logo 1.8s ease-in-out infinite;
         }
-        @keyframes pulse-logo {
+        #preloader .preloader-logo .logo-mark .shield-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
+            border-radius: 28px;
+            transform: rotate(8deg);
+            box-shadow: 0 12px 60px rgba(200, 16, 46, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            animation: float-shield 3s ease-in-out infinite;
+        }
+        @keyframes float-shield {
             0%,
             100% {
-                transform: scale(1);
-                box-shadow: 0 8px 40px rgba(200, 16, 46, 0.35);
+                transform: rotate(8deg) translateY(0) scale(1);
             }
             50% {
-                transform: scale(1.04);
-                box-shadow: 0 12px 60px rgba(200, 16, 46, 0.55);
+                transform: rotate(8deg) translateY(-8px) scale(1.02);
             }
         }
-        #preloader .loader-logo .name {
+        #preloader .preloader-logo .logo-mark .shield-inner {
+            position: absolute;
+            inset: 6px;
+            background: var(--wf-dark);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 184, 28, 0.15);
+        }
+        #preloader .preloader-logo .logo-mark .shield-inner .icon-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        #preloader .preloader-logo .logo-mark .shield-inner .icon-wrap i {
+            font-size: 2.6rem;
+            color: var(--wf-gold);
+            filter: drop-shadow(0 0 20px rgba(255, 184, 28, 0.2));
+        }
+        #preloader .preloader-logo .logo-mark .shield-inner .icon-wrap .initials {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.25em;
+            margin-top: -2px;
+        }
+        #preloader .preloader-logo .logo-mark .ring-glow {
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 184, 28, 0.06) 0%, transparent 70%);
+            animation: glow-pulse 2.2s ease-in-out infinite;
+        }
+        @keyframes glow-pulse {
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+        #preloader .preloader-logo .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            background: linear-gradient(135deg, #fff 20%, var(--wf-gold) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(255, 184, 28, 0.1);
+        }
+        #preloader .preloader-logo .brand-tagline {
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.2);
+        }
+        #preloader .preloader-ring {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        #preloader .preloader-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        #preloader .preloader-ring .bg-circle {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.04);
+            stroke-width: 3;
+        }
+        #preloader .preloader-ring .progress-circle {
+            fill: none;
+            stroke: url(#preloaderGradient);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            animation: fill-progress 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes fill-progress {
+            0% {
+                stroke-dashoffset: 283;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        #preloader .preloader-percent {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #fff;
-            letter-spacing: 0.1em;
-            margin-top: 8px;
-            opacity: 0.8;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.05em;
         }
-        #preloader .loader-logo .name span {
+        #preloader .preloader-percent span {
             color: var(--wf-gold);
         }
-        #preloader .loader-bar {
-            width: 160px;
+        #preloader .preloader-bar {
+            width: 200px;
             height: 2px;
             background: rgba(255, 255, 255, 0.06);
             border-radius: 4px;
             overflow: hidden;
-            margin-top: 16px;
+            margin-top: 4px;
         }
-        #preloader .loader-bar .fill {
+        #preloader .preloader-bar .fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red));
+            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red), var(--wf-gold));
+            background-size: 200% 100%;
             border-radius: 4px;
-            animation: load-fill 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: load-fill 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards, shimmer-bar 1.5s linear infinite;
         }
         @keyframes load-fill {
             0% {
@@ -164,133 +283,54 @@
                 width: 100%;
             }
         }
-        #preloader .loader-text {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-top: 14px;
-            font-weight: 500;
+        @keyframes shimmer-bar {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 200% 0%;
+            }
         }
-
-        /* Color utilities */
-        .bg-wf-red {
-            background-color: var(--wf-red);
+        #preloader .preloader-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
         }
-        .bg-wf-red-dark {
-            background-color: var(--wf-red-dark);
+        #preloader .preloader-dots .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: dot-bounce 1.4s ease-in-out infinite;
         }
-        .bg-wf-gold {
-            background-color: var(--wf-gold);
+        #preloader .preloader-dots .dot:nth-child(2) {
+            animation-delay: 0.2s;
         }
-        .bg-wf-gold-light {
-            background-color: var(--wf-gold-light);
+        #preloader .preloader-dots .dot:nth-child(3) {
+            animation-delay: 0.4s;
         }
-        .bg-wf-dark {
-            background-color: var(--wf-dark);
-        }
-        .bg-wf-dark-light {
-            background-color: var(--wf-dark-light);
-        }
-        .bg-wf-cream {
-            background-color: var(--wf-cream);
-        }
-        .text-wf-red {
-            color: var(--wf-red);
-        }
-        .text-wf-gold {
-            color: var(--wf-gold);
-        }
-        .text-wf-dark {
-            color: var(--wf-dark);
-        }
-        .text-wf-muted {
-            color: var(--wf-muted);
-        }
-        .border-wf-red {
-            border-color: var(--wf-red);
-        }
-        .border-wf-gold {
-            border-color: var(--wf-gold);
-        }
-
-        /* Buttons */
-        .btn-wf-red {
-            background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
-            color: #fff;
-            border: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-wf-red::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.15) 100%);
-            pointer-events: none;
-        }
-        .btn-wf-red:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 40px rgba(200, 16, 46, 0.40);
-            color: #fff;
-        }
-        .btn-wf-gold {
-            background: linear-gradient(135deg, var(--wf-gold), #e5a50f);
-            color: var(--wf-dark);
-            border: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-wf-gold:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 40px rgba(255, 184, 28, 0.45);
-            color: var(--wf-dark);
-        }
-        .btn-wf-dark {
-            background: linear-gradient(135deg, var(--wf-dark), #001b3f);
-            color: #fff;
-            border: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-wf-dark:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 40px rgba(0, 40, 86, 0.35);
-            color: #fff;
-        }
-        .btn-outline-wf {
-            border: 2px solid var(--wf-red);
-            color: var(--wf-red);
-            background: transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-outline-wf:hover {
-            background: var(--wf-red);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(200, 16, 46, 0.25);
-        }
-        .btn-outline-white {
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            color: #fff;
-            background: transparent;
-            backdrop-filter: blur(4px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-outline-white:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
+        @keyframes dot-bounce {
+            0%,
+            80%,
+            100% {
+                transform: scale(0.6);
+                opacity: 0.2;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+                background: var(--wf-gold);
+            }
         }
 
         /* ============================================================
-                   HEADER
+                   HEADER — Premium with Dark Mode Support
                 ============================================================ */
         #header {
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--wf-header-bg);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid var(--wf-border);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: fixed;
             top: 0;
@@ -300,9 +340,12 @@
         }
         #header.scrolled {
             box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06);
-            background: rgba(255, 255, 255, 0.92);
+        }
+        [data-bs-theme="dark"] #header.scrolled {
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
         }
 
+        /* Premium Logo — Shield Design */
         .logo-premium {
             display: flex;
             align-items: center;
@@ -310,32 +353,43 @@
             text-decoration: none;
             position: relative;
         }
-        .logo-premium .logo-icon {
-            width: 46px;
-            height: 46px;
+        .logo-premium .logo-mark {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+        }
+        .logo-premium .logo-mark .shield-bg {
+            position: absolute;
+            inset: 0;
             background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
-            border-radius: 14px;
+            border-radius: 12px;
+            transform: rotate(6deg);
+            box-shadow: 0 4px 20px rgba(200, 16, 46, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .logo-premium:hover .logo-mark .shield-bg {
+            transform: rotate(6deg) scale(1.06);
+            box-shadow: 0 6px 30px rgba(200, 16, 46, 0.45);
+        }
+        .logo-premium .logo-mark .shield-inner {
+            position: absolute;
+            inset: 3px;
+            background: var(--wf-dark);
+            border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 1.5px solid rgba(255, 184, 28, 0.12);
+            transition: all 0.4s ease;
+        }
+        .logo-premium:hover .logo-mark .shield-inner {
+            border-color: rgba(255, 184, 28, 0.25);
+        }
+        .logo-premium .logo-mark .shield-inner i {
+            font-size: 1.2rem;
             color: var(--wf-gold);
-            font-size: 1.4rem;
-            box-shadow: 0 4px 20px rgba(200, 16, 46, 0.30);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            flex-shrink: 0;
-            position: relative;
-        }
-        .logo-premium .logo-icon::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            border-radius: 10px;
-            border: 1.5px solid rgba(255, 255, 255, 0.10);
-            pointer-events: none;
-        }
-        .logo-premium:hover .logo-icon {
-            transform: rotate(-6deg) scale(1.06);
-            box-shadow: 0 6px 30px rgba(200, 16, 46, 0.45);
+            filter: drop-shadow(0 0 12px rgba(255, 184, 28, 0.15));
         }
         .logo-premium .logo-text-group {
             display: flex;
@@ -343,14 +397,16 @@
             line-height: 1.05;
         }
         .logo-premium .logo-line1 {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
             font-weight: 900;
             letter-spacing: 0.04em;
-            color: var(--wf-dark);
+            color: var(--wf-nav-text);
             text-transform: uppercase;
             display: flex;
             align-items: center;
             gap: 4px;
+            flex-wrap: wrap;
+            transition: color 0.4s ease;
         }
         .logo-premium .logo-line1 .highlight {
             color: var(--wf-red);
@@ -364,33 +420,41 @@
             margin: 0 2px;
         }
         .logo-premium .logo-line2 {
-            font-size: 0.6rem;
+            font-size: clamp(0.45rem, 1vw, 0.6rem);
             font-weight: 600;
             letter-spacing: 0.18em;
             color: var(--wf-muted);
             text-transform: uppercase;
             margin-top: -1px;
+            transition: color 0.4s ease;
         }
         .logo-premium .logo-line2 .gold-dot {
             color: var(--wf-gold);
         }
         .logo-premium .logo-divider {
             width: 1px;
-            height: 30px;
-            background: rgba(0, 0, 0, 0.08);
+            height: 28px;
+            background: var(--wf-border);
             margin: 0 2px 0 4px;
+            transition: background 0.4s ease;
         }
 
+        /* Enhanced Menu */
         .nav-link-premium {
             position: relative;
             font-weight: 500;
-            color: var(--wf-dark);
+            color: var(--wf-nav-text);
             opacity: 0.7;
             transition: all 0.3s ease;
             text-decoration: none;
             font-size: 0.875rem;
             padding: 0.5rem 0;
             cursor: pointer;
+        }
+        .nav-link-premium .nav-icon {
+            margin-right: 6px;
+            font-size: 0.8rem;
+            opacity: 0.6;
         }
         .nav-link-premium::after {
             content: '';
@@ -418,25 +482,25 @@
             width: 100%;
         }
 
-        /* ============================================================
-                   PAGE SECTIONS
-                ============================================================ */
-        .page-section {
-            display: none;
-            animation: fadeSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--wf-border);
+            color: var(--wf-nav-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
-        .page-section.active {
-            display: block;
-        }
-        @keyframes fadeSlideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .theme-toggle:hover {
+            background: var(--wf-red);
+            color: #fff;
+            transform: rotate(30deg);
         }
 
         /* ============================================================
@@ -448,9 +512,10 @@
             align-items: center;
             justify-content: center;
             padding: 2rem 1rem;
-            background: var(--wf-light);
+            background: var(--wf-body-bg);
             position: relative;
             overflow: hidden;
+            transition: background 0.4s ease;
         }
         .auth-page::before {
             content: '';
@@ -461,42 +526,56 @@
             pointer-events: none;
         }
         .auth-card {
-            background: rgba(255, 255, 255, 0.92);
+            background: var(--wf-card-bg);
             backdrop-filter: blur(24px) saturate(180%);
             -webkit-backdrop-filter: blur(24px) saturate(180%);
             border-radius: 32px;
             padding: 3rem 2.5rem;
-            max-width: 440px;
+            max-width: 480px;
             width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 30px 80px rgba(0, 40, 86, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            border: 1px solid var(--wf-border);
+            box-shadow: var(--wf-shadow);
             position: relative;
             z-index: 1;
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
-        .auth-card .auth-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 2rem;
+        .auth-card .auth-logo .logo-mark {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+            margin: 0 auto;
         }
-        .auth-card .auth-logo .icon {
-            width: 56px;
-            height: 56px;
+        .auth-card .auth-logo .logo-mark .shield-bg {
+            position: absolute;
+            inset: 0;
             background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
-            border-radius: 16px;
+            border-radius: 18px;
+            transform: rotate(8deg);
+            box-shadow: 0 4px 24px rgba(200, 16, 46, 0.25);
+        }
+        .auth-card .auth-logo .logo-mark .shield-inner {
+            position: absolute;
+            inset: 4px;
+            background: var(--wf-card-bg);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
-            color: var(--wf-gold);
-            box-shadow: 0 4px 24px rgba(200, 16, 46, 0.25);
+            border: 1.5px solid rgba(200, 16, 46, 0.08);
+            transition: background 0.4s ease;
+        }
+        .auth-card .auth-logo .logo-mark .shield-inner i {
+            font-size: 1.8rem;
+            color: var(--wf-red);
         }
         .auth-card .auth-logo h2 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--wf-dark);
+            color: var(--wf-text);
             margin-top: 10px;
+            transition: color 0.4s ease;
         }
         .auth-card .auth-logo h2 span {
             color: var(--wf-red);
@@ -510,23 +589,25 @@
         .auth-card .form-control {
             border-radius: 12px;
             padding: 0.8rem 1rem;
-            border: 1.5px solid rgba(0, 0, 0, 0.06);
-            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid var(--wf-border);
+            background: var(--wf-input-bg);
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            color: var(--wf-text);
         }
         .auth-card .form-control:focus {
             border-color: var(--wf-red);
             box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.08);
-            background: #fff;
+            background: var(--wf-card-bg);
         }
         .auth-card .form-label {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--wf-dark);
+            color: var(--wf-text);
             letter-spacing: 0.03em;
             text-transform: uppercase;
             margin-bottom: 4px;
+            transition: color 0.4s ease;
         }
         .auth-card .auth-link {
             color: var(--wf-red);
@@ -552,7 +633,7 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: rgba(0, 0, 0, 0.06);
+            background: var(--wf-border);
         }
 
         /* ============================================================
@@ -560,17 +641,19 @@
                 ============================================================ */
         .dashboard-page {
             min-height: 100vh;
-            background: var(--wf-light);
+            background: var(--wf-body-bg);
             padding-top: 80px;
+            transition: background 0.4s ease;
         }
         .dashboard-sidebar {
-            background: #fff;
+            background: var(--wf-card-bg);
             border-radius: 24px;
             padding: 1.5rem 1rem;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--wf-border);
             box-shadow: var(--wf-shadow);
             position: sticky;
             top: 100px;
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
         .dashboard-sidebar .user-avatar {
             width: 64px;
@@ -588,9 +671,10 @@
         }
         .dashboard-sidebar .user-name {
             font-weight: 700;
-            color: var(--wf-dark);
+            color: var(--wf-text);
             text-align: center;
             font-size: 1rem;
+            transition: color 0.4s ease;
         }
         .dashboard-sidebar .user-email {
             font-size: 0.75rem;
@@ -624,18 +708,18 @@
             text-align: center;
         }
         .dashboard-sidebar .logout-btn {
-            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            border-top: 1px solid var(--wf-border);
             padding-top: 1rem;
             margin-top: 0.5rem;
         }
 
         .dash-card {
-            background: #fff;
+            background: var(--wf-card-bg);
             border-radius: 20px;
             padding: 1.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--wf-border);
             box-shadow: var(--wf-shadow);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease, border-color 0.4s ease;
         }
         .dash-card:hover {
             transform: translateY(-4px);
@@ -651,8 +735,9 @@
         .dash-card .card-value {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--wf-dark);
+            color: var(--wf-text);
             margin-top: 4px;
+            transition: color 0.4s ease;
         }
         .dash-card .card-change {
             font-size: 0.75rem;
@@ -692,7 +777,7 @@
             opacity: 0.6;
         }
         .balance-card .balance-amount {
-            font-size: 3rem;
+            font-size: clamp(1.8rem, 4vw, 3rem);
             font-weight: 900;
             letter-spacing: -0.02em;
             margin-top: 4px;
@@ -705,7 +790,8 @@
         }
         .balance-card .balance-sub {
             display: flex;
-            gap: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
             margin-top: 1.2rem;
             padding-top: 1.2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -726,7 +812,7 @@
             align-items: center;
             gap: 1rem;
             padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid var(--wf-border);
         }
         .transaction-item:last-child {
             border-bottom: none;
@@ -751,11 +837,12 @@
         }
         .transaction-item .tx-info {
             flex: 1;
+            min-width: 0;
         }
         .transaction-item .tx-info .tx-name {
             font-weight: 600;
             font-size: 0.9rem;
-            color: var(--wf-dark);
+            color: var(--wf-text);
         }
         .transaction-item .tx-info .tx-date {
             font-size: 0.7rem;
@@ -764,6 +851,7 @@
         .transaction-item .tx-amount {
             font-weight: 700;
             font-size: 0.95rem;
+            white-space: nowrap;
         }
         .transaction-item .tx-amount.credit {
             color: #0f973d;
@@ -813,7 +901,7 @@
         }
 
         /* ============================================================
-                   HERO SLIDESHOW
+                   HERO
                 ============================================================ */
         .hero-slide {
             background-size: cover;
@@ -876,13 +964,17 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
+        [data-bs-theme="dark"] .trust-banner {
+            background: rgba(22, 32, 51, 0.92);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
         .trust-item {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 0.8rem;
             font-weight: 500;
-            color: var(--wf-dark);
+            color: var(--wf-text);
             opacity: 0.75;
             transition: opacity 0.3s ease;
             white-space: nowrap;
@@ -896,10 +988,10 @@
         }
 
         .service-card {
-            background: #ffffff;
+            background: var(--wf-card-bg);
             border-radius: 20px;
             padding: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--wf-border);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -942,12 +1034,18 @@
             transform: scale(1.05);
             box-shadow: 0 8px 24px rgba(200, 16, 46, 0.2);
         }
+        .service-card h4 {
+            color: var(--wf-text);
+        }
+        .service-card p {
+            color: var(--wf-muted);
+        }
 
         .loan-card {
-            background: #ffffff;
+            background: var(--wf-card-bg);
             border-radius: 20px;
             padding: 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--wf-border);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
         }
@@ -977,6 +1075,12 @@
             font-size: 1rem;
             font-weight: 600;
         }
+        .loan-card h4 {
+            color: var(--wf-text);
+        }
+        .loan-card p {
+            color: var(--wf-muted);
+        }
 
         /* ============================================================
                    TOAST NOTIFICATION
@@ -999,6 +1103,7 @@
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
+            max-width: 90vw;
         }
         .toast-notification.show {
             transform: translateY(0);
@@ -1015,6 +1120,7 @@
             justify-content: center;
             color: var(--wf-gold);
             font-size: 1rem;
+            flex-shrink: 0;
         }
         .toast-notification .toast-content .toast-title {
             font-weight: 600;
@@ -1026,7 +1132,7 @@
         }
 
         /* ============================================================
-                   SCROLL PROGRESS BAR
+                   SCROLL PROGRESS
                 ============================================================ */
         #scrollProgress {
             position: fixed;
@@ -1049,9 +1155,6 @@
             }
         }
 
-        /* ============================================================
-                   FADE-UP ANIMATION
-                ============================================================ */
         .fade-up {
             opacity: 0;
             transform: translateY(40px);
@@ -1062,9 +1165,6 @@
             transform: translateY(0);
         }
 
-        /* ============================================================
-                   FOOTER
-                ============================================================ */
         .footer-link {
             color: rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
@@ -1076,108 +1176,12 @@
             transform: translateX(4px);
         }
 
-        /* ============================================================
-                   RESPONSIVE
-                ============================================================ */
-        @media (max-width: 992px) {
-            .dashboard-sidebar {
-                position: relative;
-                top: 0;
-                margin-bottom: 1.5rem;
-            }
-            .auth-card {
-                padding: 2rem 1.5rem;
-                max-width: 400px;
-            }
-            .balance-card .balance-amount {
-                font-size: 2.2rem;
-            }
-        }
-        @media (max-width: 768px) {
-            .logo-premium .logo-line1 {
-                font-size: 1rem;
-            }
-            .logo-premium .logo-line2 {
-                font-size: 0.5rem;
-            }
-            .logo-premium .logo-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-                border-radius: 10px;
-            }
-            .logo-premium .logo-divider {
-                display: none;
-            }
-            .logo-premium {
-                gap: 8px;
-            }
-            .auth-card {
-                padding: 1.5rem 1.2rem;
-                border-radius: 24px;
-            }
-            .balance-card .balance-amount {
-                font-size: 1.8rem;
-            }
-            .balance-card .balance-sub {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-        }
-        @media (max-width: 576px) {
-            .auth-card {
-                padding: 1.2rem 1rem;
-            }
-            .dash-card .card-value {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* Bootstrap toggler fix */
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,40,86,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        ::selection {
-            background: var(--wf-red);
-            color: #fff;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--wf-light);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--wf-red), var(--wf-gold));
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--wf-red);
-        }
-
-        @keyframes shake {
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(-8px);
-            }
-            75% {
-                transform: translateX(8px);
-            }
-        }
-
         .team-member {
             text-align: center;
             padding: 1.5rem;
-            background: #fff;
+            background: var(--wf-card-bg);
             border-radius: 20px;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--wf-border);
             transition: all 0.3s ease;
         }
         .team-member:hover {
@@ -1197,8 +1201,13 @@
             color: #fff;
             margin: 0 auto 1rem;
         }
+        .team-member h5 {
+            color: var(--wf-text);
+        }
+        .team-member p {
+            color: var(--wf-muted);
+        }
 
-        /* Notification badge */
         .notification-badge {
             position: relative;
         }
@@ -1222,21 +1231,434 @@
                 transform: scale(1.3);
             }
         }
+
+        .db-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: var(--wf-muted);
+            background: rgba(0, 0, 0, 0.03);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .db-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse-dot 2s infinite;
+        }
+
+        /* ============================================================
+                   BACK TO TOP
+                ============================================================ */
+        #backToTop {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 999;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
+            color: #fff;
+            border: none;
+            box-shadow: 0 8px 32px rgba(200, 16, 46, 0.35);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        #backToTop:hover {
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 12px 40px rgba(200, 16, 46, 0.45);
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                ============================================================ */
+        @media (max-width: 992px) {
+            .dashboard-sidebar {
+                position: relative;
+                top: 0;
+                margin-bottom: 1.5rem;
+            }
+            .auth-card {
+                padding: 2rem 1.5rem;
+                max-width: 400px;
+            }
+            .balance-card .balance-amount {
+                font-size: 2.2rem;
+            }
+            .hero-stat .number {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .logo-premium .logo-line1 {
+                font-size: 1rem;
+            }
+            .logo-premium .logo-line2 {
+                font-size: 0.5rem;
+            }
+            .logo-premium .logo-mark {
+                width: 36px;
+                height: 36px;
+            }
+            .logo-premium .logo-mark .shield-inner i {
+                font-size: 1rem;
+            }
+            .logo-premium .logo-divider {
+                display: none;
+            }
+            .logo-premium {
+                gap: 8px;
+            }
+            .auth-card {
+                padding: 1.5rem 1.2rem;
+                border-radius: 24px;
+            }
+            .balance-card .balance-amount {
+                font-size: 1.8rem;
+            }
+            .balance-card .balance-sub {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .auth-card {
+                max-width: 100%;
+                margin: 0 0.5rem;
+            }
+            #preloader .preloader-logo .logo-mark {
+                width: 80px;
+                height: 80px;
+            }
+            #preloader .preloader-logo .brand-name {
+                font-size: 1.4rem;
+            }
+            #preloader .preloader-ring {
+                width: 80px;
+                height: 80px;
+            }
+            #preloader .preloader-bar {
+                width: 160px;
+            }
+        }
+        @media (max-width: 576px) {
+            .auth-card {
+                padding: 1.2rem 1rem;
+                border-radius: 20px;
+            }
+            .dash-card .card-value {
+                font-size: 1.3rem;
+            }
+            .dash-card {
+                padding: 1rem;
+            }
+            .balance-card {
+                padding: 1.5rem;
+            }
+            .transaction-item {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .transaction-item .tx-amount {
+                margin-left: auto;
+            }
+            .quick-action {
+                padding: 0.5rem 0.3rem;
+            }
+            .quick-action .qa-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .quick-action .qa-label {
+                font-size: 0.6rem;
+            }
+            #preloader .preloader-logo .logo-mark {
+                width: 64px;
+                height: 64px;
+            }
+            #preloader .preloader-logo .brand-name {
+                font-size: 1.1rem;
+            }
+            #preloader .preloader-ring {
+                width: 70px;
+                height: 70px;
+            }
+            #preloader .preloader-bar {
+                width: 140px;
+            }
+            #preloader .preloader-percent {
+                font-size: 1rem;
+            }
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,40,86,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        [data-bs-theme="dark"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(232,237,245,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        ::selection {
+            background: var(--wf-red);
+            color: #fff;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--wf-body-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--wf-red), var(--wf-gold));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--wf-red);
+        }
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        /* ============================================================
+                   LOAN APPLICATION FORM STYLES
+                ============================================================ */
+        .loan-application-form .form-control {
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid var(--wf-border);
+            background: var(--wf-input-bg);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            color: var(--wf-text);
+        }
+        .loan-application-form .form-control:focus {
+            border-color: var(--wf-red);
+            box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.08);
+            background: var(--wf-card-bg);
+        }
+        .loan-application-form .form-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--wf-text);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            transition: color 0.4s ease;
+        }
+        .loan-application-form .form-select {
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid var(--wf-border);
+            background: var(--wf-input-bg);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            color: var(--wf-text);
+        }
+        .loan-application-form .form-select:focus {
+            border-color: var(--wf-red);
+            box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.08);
+            background: var(--wf-card-bg);
+        }
+
+        /* ============================================================
+                   ADDITIONAL SECTIONS
+                ============================================================ */
+        .section-badge {
+            display: inline-block;
+            background: rgba(200, 16, 46, 0.08);
+            color: var(--wf-red);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-card {
+            background: var(--wf-card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--wf-border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+        }
+        .value-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--wf-shadow-hover);
+            border-color: var(--wf-gold);
+        }
+        .value-card .value-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.08), rgba(200, 16, 46, 0.02));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--wf-red);
+            margin: 0 auto 1rem;
+        }
+        .value-card h5 {
+            color: var(--wf-text);
+        }
+        .value-card p {
+            color: var(--wf-muted);
+            font-size: 0.9rem;
+        }
+
+        .stat-card {
+            background: var(--wf-card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--wf-border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--wf-shadow);
+            border-color: var(--wf-gold);
+        }
+        .stat-card .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--wf-red);
+            letter-spacing: -0.02em;
+        }
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            color: var(--wf-muted);
+            margin-top: 4px;
+        }
+
+        .testimonial-card {
+            background: var(--wf-card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--wf-border);
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--wf-shadow);
+        }
+        .testimonial-card .stars {
+            color: var(--wf-gold);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+        .testimonial-card blockquote {
+            color: var(--wf-text);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0.75rem 0;
+        }
+        .testimonial-card .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1rem;
+        }
+        .testimonial-card .testimonial-author .avatar-sm {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--wf-red), var(--wf-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .testimonial-card .testimonial-author .author-info h6 {
+            color: var(--wf-text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .testimonial-card .testimonial-author .author-info p {
+            color: var(--wf-muted);
+            font-size: 0.75rem;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
 
     <!-- ============================================================
-    PRELOADER
+    PREMIUM PRELOADER
     ============================================================ -->
     <div id="preloader">
-        <div class="loader-logo">
-            <div class="icon"><i class="fas fa-crown"></i></div>
-            <div class="name">WILLS <span>FINANCE</span> BK</div>
+        <div class="preloader-container">
+            <div class="preloader-logo">
+                <div class="logo-mark">
+                    <div class="shield-bg"></div>
+                    <div class="shield-inner">
+                        <div class="icon-wrap">
+                            <i class="fas fa-crown"></i>
+                            <span class="initials">WFB</span>
+                        </div>
+                    </div>
+                    <div class="ring-glow"></div>
+                </div>
+                <div class="brand-name">WILLS FINANCE BANK</div>
+                <div class="brand-tagline">Premium Internet Banking</div>
+            </div>
+            <div class="preloader-ring">
+                <svg viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="preloaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#FFB81C" />
+                            <stop offset="50%" stop-color="#C8102E" />
+                            <stop offset="100%" stop-color="#FFB81C" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="bg-circle" cx="50" cy="50" r="45" />
+                    <circle class="progress-circle" cx="50" cy="50" r="45" />
+                </svg>
+                <div class="preloader-percent" id="preloaderPercent">0<span>%</span></div>
+            </div>
+            <div class="preloader-bar">
+                <div class="fill" id="preloaderFill"></div>
+            </div>
+            <div class="preloader-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
         </div>
-        <div class="loader-ring"></div>
-        <div class="loader-bar"><div class="fill"></div></div>
-        <div class="loader-text">Loading your experience</div>
     </div>
 
     <!-- ============================================================
@@ -1256,13 +1678,18 @@
     </div>
 
     <!-- ============================================================
-    HEADER — Full Navigation
+    HEADER — Premium with Dark Mode
     ============================================================ -->
     <header id="header">
         <div class="container mx-auto px-4 lg:px-6 flex items-center justify-between h-20">
-            <!-- Logo -->
+            <!-- Logo — Redesigned Shield -->
             <a href="#" class="logo-premium" onclick="showPage('home')">
-                <span class="logo-icon"><i class="fas fa-crown"></i></span>
+                <div class="logo-mark">
+                    <div class="shield-bg"></div>
+                    <div class="shield-inner">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
                 <span class="logo-divider"></span>
                 <span class="logo-text-group">
                     <span class="logo-line1">WILLS<span class="spacer"></span><span class="highlight">FINANCE</span></span>
@@ -1270,18 +1697,36 @@
                 </span>
             </a>
 
-            <!-- Desktop Nav — Full Menu -->
+            <!-- Desktop Nav — Enhanced Menu -->
             <nav class="hidden lg:flex items-center gap-6" id="desktopNav">
-                <a href="#" class="nav-link-premium active-link" data-page="home" onclick="showPage('home')">Home</a>
-                <a href="#" class="nav-link-premium" data-page="about" onclick="showPage('about')">About Us</a>
-                <a href="#" class="nav-link-premium" data-page="loans" onclick="showPage('loans')">Loans</a>
-                <a href="#" class="nav-link-premium" data-page="login" id="navLogin" onclick="showPage('login')">Login</a>
-                <a href="#" class="nav-link-premium" data-page="signup" id="navSignup" onclick="showPage('signup')">Sign Up</a>
-                <a href="#" class="nav-link-premium" data-page="dashboard" id="navDashboard" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
+                <a href="#" class="nav-link-premium active-link" data-page="home" onclick="showPage('home')">
+                    <i class="fas fa-home nav-icon"></i>Home
+                </a>
+                <a href="#" class="nav-link-premium" data-page="about" onclick="showPage('about')">
+                    <i class="fas fa-building nav-icon"></i>About
+                </a>
+                <a href="#" class="nav-link-premium" data-page="services" onclick="showPage('services')">
+                    <i class="fas fa-concierge-bell nav-icon"></i>Services
+                </a>
+                <a href="#" class="nav-link-premium" data-page="loans" onclick="showPage('loans')">
+                    <i class="fas fa-hand-holding-usd nav-icon"></i>Loans
+                </a>
+                <a href="#" class="nav-link-premium" data-page="login" id="navLogin" onclick="showPage('login')">
+                    <i class="fas fa-sign-in-alt nav-icon"></i>Login
+                </a>
+                <a href="#" class="nav-link-premium" data-page="signup" id="navSignup" onclick="showPage('signup')">
+                    <i class="fas fa-user-plus nav-icon"></i>Sign Up
+                </a>
+                <a href="#" class="nav-link-premium" data-page="dashboard" id="navDashboard" style="display:none;" onclick="showPage('dashboard')">
+                    <i class="fas fa-th-large nav-icon"></i>Dashboard
+                </a>
             </nav>
 
             <!-- Actions -->
             <div class="flex items-center gap-3">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
                 <a href="#" class="hidden sm:inline-flex btn btn-outline-wf px-5 py-2 text-sm font-semibold rounded-full items-center gap-2" id="headerLoginBtn" onclick="showPage('login')">
                     <i class="fas fa-lock"></i> Log In
                 </a>
@@ -1303,15 +1748,16 @@
             </div>
         </div>
 
-        <!-- Mobile Nav — Full Menu -->
+        <!-- Mobile Nav — Enhanced Menu -->
         <div class="collapse lg:hidden bg-white/98 backdrop-blur-lg border-t border-gray-100" id="mobileNav">
             <div class="container mx-auto px-4 py-6 flex flex-col gap-3 text-sm font-medium">
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('home')">Home</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('about')">About Us</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('loans')">Loans</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileLogin" onclick="showPage('login')">Login</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileSignup" onclick="showPage('signup')">Sign Up</a>
-                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileDashboard" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('home')"><i class="fas fa-home nav-icon"></i> Home</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('about')"><i class="fas fa-building nav-icon"></i> About</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('services')"><i class="fas fa-concierge-bell nav-icon"></i> Services</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('loans')"><i class="fas fa-hand-holding-usd nav-icon"></i> Loans</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileLogin" onclick="showPage('login')"><i class="fas fa-sign-in-alt nav-icon"></i> Login</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileSignup" onclick="showPage('signup')"><i class="fas fa-user-plus nav-icon"></i> Sign Up</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileDashboard" style="display:none;" onclick="showPage('dashboard')"><i class="fas fa-th-large nav-icon"></i> Dashboard</a>
                 <div class="pt-4 flex flex-col gap-3" id="mobileAuthButtons">
                     <a href="#" class="btn btn-outline-wf w-full text-center rounded-full py-2.5" id="mobileLoginBtn" onclick="showPage('login')"><i class="fas fa-lock"></i> Log In</a>
                     <a href="#" class="btn btn-wf-red w-full text-center rounded-full py-2.5" id="mobileSignupBtn" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Sign Up</a>
@@ -1336,7 +1782,7 @@
                         <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-4">Banking <span class="text-wf-gold">redefined</span> for you</h1>
                         <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6 leading-relaxed">Experience the future of finance with WILLS FINANCE BANK — secure, intelligent, and built for your success.</p>
                         <div class="flex flex-wrap gap-4">
-                            <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('signup')"><i class="fas fa-arrow-right"></i> Get Loan</a>
+                            <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('loan-form')"><i class="fas fa-arrow-right"></i> Apply for Loan</a>
                             <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('login')"><i class="fas fa-sign-in-alt"></i> Log In</a>
                         </div>
                         <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
@@ -1350,7 +1796,7 @@
         </section>
 
         <!-- Trust Banner -->
-        <div class="trust-banner py-4 border-b border-gray-200/60 bg-white/80 backdrop-blur-sm">
+        <div class="trust-banner py-4 border-b border-gray-200/60">
             <div class="container mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
                 <span class="trust-item"><i class="fas fa-shield-alt"></i> FDIC Insured</span>
                 <span class="trust-item"><i class="fas fa-lock"></i> 256-bit SSL</span>
@@ -1361,32 +1807,121 @@
             </div>
         </div>
 
+        <!-- Why Choose Us -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <span class="section-badge"><i class="fas fa-star me-1"></i> Why Wills Finance</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Built on <span class="text-wf-red">trust</span> and <span class="text-wf-red">innovation</span></h2>
+                    <p class="text-wf-muted mt-4 text-lg max-w-2xl mx-auto">For over three decades, we've been delivering exceptional banking experiences with a commitment to security, transparency, and customer-first values.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="value-card fade-up">
+                        <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h5 class="text-xl font-bold">Bank-Grade Security</h5>
+                        <p class="mt-2 leading-relaxed">Multi-layer encryption, real-time fraud monitoring, and biometric authentication keep your money and data safe.</p>
+                    </div>
+                    <div class="value-card fade-up">
+                        <div class="value-icon"><i class="fas fa-robot"></i></div>
+                        <h5 class="text-xl font-bold">AI-Powered Insights</h5>
+                        <p class="mt-2 leading-relaxed">Intelligent tools that analyze your spending, suggest savings goals, and help you make smarter financial decisions.</p>
+                    </div>
+                    <div class="value-card fade-up">
+                        <div class="value-icon"><i class="fas fa-headset"></i></div>
+                        <h5 class="text-xl font-bold">24/7 Human Support</h5>
+                        <p class="mt-2 leading-relaxed">Real people, real help. Our support team is available around the clock via phone, chat, or in-branch.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Features -->
         <section class="py-20 bg-wf-light">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center mb-16">
-                    <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-star"></i> Premium Features</span>
+                    <span class="section-badge"><i class="fas fa-star me-1"></i> Premium Features</span>
                     <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Everything you need to <span class="text-wf-red">succeed</span></h2>
                     <p class="text-wf-muted mt-4 text-lg">From smart savings to global transfers, we've got you covered.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="service-card fade-up">
                         <div class="icon-wrap"><i class="fas fa-wallet"></i></div>
-                        <h4 class="text-xl font-bold text-wf-dark">Smart Savings</h4>
-                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Earn up to <span class="text-wf-red font-bold">4.50% APY</span> with our high-yield savings accounts. Zero monthly fees, unlimited transfers, and AI-powered goal tracking to help you save smarter.</p>
+                        <h4 class="text-xl font-bold">Smart Savings</h4>
+                        <p class="text-sm mt-2 leading-relaxed">Earn up to <span class="text-wf-red font-bold">4.50% APY</span> with our high-yield savings accounts. Zero monthly fees, unlimited transfers, and AI-powered goal tracking to help you save smarter.</p>
                         <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="service-card fade-up">
                         <div class="icon-wrap"><i class="fas fa-globe-americas"></i></div>
-                        <h4 class="text-xl font-bold text-wf-dark">Global Transfers</h4>
-                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Send money to <span class="text-wf-red font-bold">200+ countries</span> with transparent FX rates and low fees. Instant settlement, 24/7 tracking, and secure, regulated transfers for peace of mind.</p>
+                        <h4 class="text-xl font-bold">Global Transfers</h4>
+                        <p class="text-sm mt-2 leading-relaxed">Send money to <span class="text-wf-red font-bold">200+ countries</span> with transparent FX rates and low fees. Instant settlement, 24/7 tracking, and secure, regulated transfers for peace of mind.</p>
                         <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="service-card fade-up">
                         <div class="icon-wrap"><i class="fas fa-chart-line"></i></div>
-                        <h4 class="text-xl font-bold text-wf-dark">Wealth Management</h4>
-                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Expert guidance and <span class="text-wf-red font-bold">AI-powered insights</span> to grow your portfolio. Our certified financial planners provide tailored investment strategies for your unique goals.</p>
+                        <h4 class="text-xl font-bold">Wealth Management</h4>
+                        <p class="text-sm mt-2 leading-relaxed">Expert guidance and <span class="text-wf-red font-bold">AI-powered insights</span> to grow your portfolio. Our certified financial planners provide tailored investment strategies for your unique goals.</p>
                         <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="py-20 bg-wf-red text-white">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                    <div class="text-center fade-up">
+                        <div class="text-4xl md:text-5xl font-extrabold text-wf-gold">33+</div>
+                        <p class="text-white/70 text-sm mt-1">Years of Excellence</p>
+                    </div>
+                    <div class="text-center fade-up">
+                        <div class="text-4xl md:text-5xl font-extrabold text-wf-gold">12M+</div>
+                        <p class="text-white/70 text-sm mt-1">Satisfied Clients</p>
+                    </div>
+                    <div class="text-center fade-up">
+                        <div class="text-4xl md:text-5xl font-extrabold text-wf-gold">200+</div>
+                        <p class="text-white/70 text-sm mt-1">Countries Served</p>
+                    </div>
+                    <div class="text-center fade-up">
+                        <div class="text-4xl md:text-5xl font-extrabold text-wf-gold">$8.2B</div>
+                        <p class="text-white/70 text-sm mt-1">Total Assets</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-20 bg-wf-cream">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <span class="section-badge"><i class="fas fa-quote-left me-1"></i> Testimonials</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">What our <span class="text-wf-red">clients say</span></h2>
+                    <p class="text-wf-muted mt-4 text-lg">Real stories from individuals and businesses who trust Wills Finance Bank.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="testimonial-card fade-up">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <blockquote>"The mobile app is incredible — I can manage everything from my phone. The savings rate is unbeatable."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="avatar-sm">JD</div>
+                            <div class="author-info"><h6>James Delaney</h6><p>Premium Savings Client</p></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card fade-up">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <blockquote>"Their wealth management team helped me grow my portfolio by 22% in just one year. Outstanding."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="avatar-sm">SK</div>
+                            <div class="author-info"><h6>Sarah Kim</h6><p>Wealth Management Client</p></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card fade-up">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <blockquote>"International transfers are so fast and the rates are transparent. I've switched all my banking."</blockquote>
+                        <div class="testimonial-author">
+                            <div class="avatar-sm">MR</div>
+                            <div class="author-info"><h6>Miguel Rojas</h6><p>Global Transfers Client</p></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1396,7 +1931,7 @@
         <section class="py-20 bg-wf-red text-white">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-3xl md:text-5xl font-extrabold">Ready to take control of your <span class="text-wf-gold">financial future</span>?</h2>
-                <p class="text-white/80 text-lg mt-4 max-w-2xl mx-auto">Join millions of satisfied clients and experience the WILLS FINANCE BK difference. Open your account in minutes.</p>
+                <p class="text-white/80 text-lg mt-4 max-w-2xl mx-auto">Join millions of satisfied clients and experience the WILLS FINANCE BANK difference. Open your account in minutes.</p>
                 <div class="flex flex-wrap justify-center gap-4 mt-8">
                     <a href="#" class="btn btn-wf-gold px-10 py-4 text-lg font-semibold rounded-full shadow-lg flex items-center gap-2" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Open an Account</a>
                     <a href="#" class="btn btn-outline-white px-10 py-4 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('login')"><i class="fas fa-arrow-right"></i> Log In</a>
@@ -1409,16 +1944,14 @@
     PAGE: ABOUT US
     ============================================================ -->
     <section class="page-section" id="page-about">
-        <div style="padding-top:80px;min-height:100vh;background:var(--wf-light);">
+        <div style="padding-top:80px;min-height:100vh;background:var(--wf-body-bg);">
             <div class="container mx-auto px-4 py-16">
-                <!-- About Hero -->
                 <div class="max-w-4xl mx-auto text-center mb-16">
-                    <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-building"></i> About Us</span>
+                    <span class="section-badge"><i class="fas fa-building me-1"></i> About Us</span>
                     <h1 class="text-4xl md:text-5xl font-extrabold text-wf-dark">Building a <span class="text-wf-red">better financial future</span></h1>
-                    <p class="text-wf-muted text-lg mt-4 max-w-2xl mx-auto">Since 1992, WILLS FINANCE BK has been committed to providing innovative, secure, and personalized banking solutions to individuals and businesses around the world.</p>
+                    <p class="text-wf-muted text-lg mt-4 max-w-2xl mx-auto">Since 1992, WILLS FINANCE BANK has been committed to providing innovative, secure, and personalized banking solutions to individuals and businesses around the world.</p>
                 </div>
 
-                <!-- Mission & Values -->
                 <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
                         <div class="w-14 h-14 bg-wf-red/10 rounded-xl flex items-center justify-center text-wf-red text-2xl mb-4"><i class="fas fa-bullseye"></i></div>
@@ -1432,49 +1965,47 @@
                     </div>
                 </div>
 
-                <!-- Stats -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
-                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
-                        <div class="text-3xl font-extrabold text-wf-red">33+</div>
-                        <div class="text-sm text-wf-muted">Years of Excellence</div>
+                    <div class="stat-card fade-up">
+                        <div class="stat-number">33+</div>
+                        <div class="stat-label">Years of Excellence</div>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
-                        <div class="text-3xl font-extrabold text-wf-red">12M+</div>
-                        <div class="text-sm text-wf-muted">Satisfied Clients</div>
+                    <div class="stat-card fade-up">
+                        <div class="stat-number">12M+</div>
+                        <div class="stat-label">Satisfied Clients</div>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
-                        <div class="text-3xl font-extrabold text-wf-red">200+</div>
-                        <div class="text-sm text-wf-muted">Countries Served</div>
+                    <div class="stat-card fade-up">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Countries Served</div>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 text-center border border-gray-100/50 fade-up">
-                        <div class="text-3xl font-extrabold text-wf-red">$8.2B</div>
-                        <div class="text-sm text-wf-muted">Total Assets</div>
+                    <div class="stat-card fade-up">
+                        <div class="stat-number">$8.2B</div>
+                        <div class="stat-label">Total Assets</div>
                     </div>
                 </div>
 
-                <!-- Team -->
                 <div class="max-w-5xl mx-auto">
                     <h3 class="text-2xl font-bold text-wf-dark text-center mb-8">Meet Our Leadership <span class="text-wf-red">Team</span></h3>
                     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="team-member fade-up">
                             <div class="avatar">JI</div>
-                            <h5 class="font-bold text-wf-dark">John Irwin</h5>
-                            <p class="text-xs text-wf-muted">CEO & Founder</p>
+                            <h5 class="font-bold">John Irwin</h5>
+                            <p class="text-xs">CEO & Founder</p>
                         </div>
                         <div class="team-member fade-up">
                             <div class="avatar">SK</div>
-                            <h5 class="font-bold text-wf-dark">Sarah Kim</h5>
-                            <p class="text-xs text-wf-muted">Chief Investment Officer</p>
+                            <h5 class="font-bold">Sarah Kim</h5>
+                            <p class="text-xs">Chief Investment Officer</p>
                         </div>
                         <div class="team-member fade-up">
                             <div class="avatar">MR</div>
-                            <h5 class="font-bold text-wf-dark">Miguel Rojas</h5>
-                            <p class="text-xs text-wf-muted">Head of Global Banking</p>
+                            <h5 class="font-bold">Miguel Rojas</h5>
+                            <p class="text-xs">Head of Global Banking</p>
                         </div>
                         <div class="team-member fade-up">
                             <div class="avatar">AL</div>
-                            <h5 class="font-bold text-wf-dark">Amara Lin</h5>
-                            <p class="text-xs text-wf-muted">Chief Technology Officer</p>
+                            <h5 class="font-bold">Amara Lin</h5>
+                            <p class="text-xs">Chief Technology Officer</p>
                         </div>
                     </div>
                 </div>
@@ -1487,707 +2018,31 @@
     </section>
 
     <!-- ============================================================
-    PAGE: LOANS
+    PAGE: SERVICES
     ============================================================ -->
-    <section class="page-section" id="page-loans">
-        <div style="padding-top:80px;min-height:100vh;background:var(--wf-light);">
+    <section class="page-section" id="page-services">
+        <div style="padding-top:80px;min-height:100vh;background:var(--wf-body-bg);">
             <div class="container mx-auto px-4 py-16">
                 <div class="max-w-4xl mx-auto text-center mb-16">
-                    <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-hand-holding-usd"></i> Loans</span>
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-wf-dark">Flexible <span class="text-wf-red">financing</span> for your goals</h1>
-                    <p class="text-wf-muted text-lg mt-4 max-w-2xl mx-auto">Whether you're buying a home, starting a business, or funding your education, we offer competitive rates and personalized loan solutions.</p>
+                    <span class="section-badge"><i class="fas fa-concierge-bell me-1"></i> Our Services</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-wf-dark">Comprehensive <span class="text-wf-red">banking solutions</span></h1>
+                    <p class="text-wf-muted text-lg mt-4 max-w-2xl mx-auto">From personal banking to corporate finance, we offer a full suite of services designed to meet your unique needs.</p>
                 </div>
 
-                <!-- Loan Products -->
-                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
-                    <div class="loan-card fade-up">
-                        <div class="loan-icon"><i class="fas fa-home"></i></div>
-                        <h4 class="text-xl font-bold text-wf-dark">Home Mortgage</h4>
-                        <div class="loan-rate">2.99<small>%</small></div>
-                        <p class="text-xs text-wf-muted mt-1">APR (15-year fixed)</p>
-                        <p class="text-sm text-wf-muted mt-3 leading-relaxed">Competitive rates for buying or refinancing your home. Flexible terms from 5 to 30 years with personalized support.</p>
-                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showToast('Mortgage','Our mortgage specialists will contact you shortly.')">Apply Now <i class="fas fa-arrow-right"></i></a>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="service-card fade-up">
+                        <div class="icon-wrap"><i class="fas fa-wallet"></i></div>
+                        <h4 class="text-xl font-bold">Personal Banking</h4>
+                        <p class="text-sm mt-2 leading-relaxed">Checking accounts, high-yield savings, and premium credit cards with exceptional rewards and no hidden fees.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
-                    <div class="loan-card fade-up">
-                        <div class="loan-icon"><i class="fas fa-briefcase"></i></div>
-                        <h4 class="text-xl font-bold text-wf-dark">Business Loan</h4>
-                        <div class="loan-rate">4.49<small>%</small></div>
-                        <p class="text-xs text-wf-muted mt-1">APR (36-month term)</p>
-                        <p class="text-sm text-wf-muted mt-3 leading-relaxed">Fuel your business growth with working capital, equipment financing, or commercial real estate loans. Fast approval and dedicated support.</p>
-                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showToast('Business Loan','A business banking specialist will reach out.')">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    <div class="service-card fade-up">
+                        <div class="icon-wrap"><i class="fas fa-chart-pie"></i></div>
+                        <h4 class="text-xl font-bold">Investment Advisory</h4>
+                        <p class="text-sm mt-2 leading-relaxed">Personalized portfolio management, retirement planning, and tax-efficient investment strategies from certified experts.</p>
+                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showPage('login')">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
-                    <div class="loan-card fade-up">
-                        <div class="loan-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <h4 class="text-xl font-bold text-wf-dark">Personal & Student</h4>
-                        <div class="loan-rate">5.99<small>%</small></div>
-                        <p class="text-xs text-wf-muted mt-1">APR (36-month term)</p>
-                        <p class="text-sm text-wf-muted mt-3 leading-relaxed">Fund your education, consolidate debt, or cover major expenses with flexible personal loans. Competitive rates and no hidden fees.</p>
-                        <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all" onclick="showToast('Personal Loan','A loan advisor will contact you shortly.')">Apply Now <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Loan Calculator -->
-                <div class="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
-                    <h3 class="text-xl font-bold text-wf-dark text-center mb-4">Estimate Your <span class="text-wf-red">Monthly Payment</span></h3>
-                    <p class="text-sm text-wf-muted text-center mb-6">Quickly estimate your monthly loan payments with our simple calculator.</p>
-                    <div class="grid sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="form-label text-xs">Loan Amount ($)</label>
-                            <input type="number" id="loanAmount" class="form-control w-full" value="50000" />
-                        </div>
-                        <div>
-                            <label class="form-label text-xs">Interest Rate (%)</label>
-                            <input type="number" id="loanRate" class="form-control w-full" value="5.99" step="0.01" />
-                        </div>
-                        <div>
-                            <label class="form-label text-xs">Term (months)</label>
-                            <input type="number" id="loanTerm" class="form-control w-full" value="36" />
-                        </div>
-                        <div class="flex items-end">
-                            <button class="btn btn-wf-red w-full py-2.5 text-sm font-semibold rounded-full" onclick="calculateLoan()">Calculate <i class="fas fa-calculator ml-2"></i></button>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <p class="text-sm text-wf-muted">Estimated Monthly Payment:</p>
-                        <p class="text-3xl font-extrabold text-wf-red" id="monthlyPayment">$1,520.00</p>
-                    </div>
-                </div>
-
-                <!-- Loan Rates Table -->
-                <div class="max-w-3xl mx-auto mt-8 bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
-                    <h4 class="text-lg font-bold text-wf-dark text-center mb-4">Current <span class="text-wf-red">Rates</span></h4>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr class="border-b border-gray-200">
-                                    <th class="text-left py-2 font-semibold text-wf-dark">Loan Type</th>
-                                    <th class="text-right py-2 font-semibold text-wf-dark">APR</th>
-                                    <th class="text-right py-2 font-semibold text-wf-dark">Term</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b border-gray-100"><td class="py-2 text-wf-muted">Home Mortgage (Fixed)</td><td class="text-right font-bold text-wf-red">2.99%</td><td class="text-right text-wf-muted">15 years</td></tr>
-                                <tr class="border-b border-gray-100"><td class="py-2 text-wf-muted">Home Mortgage (Adjustable)</td><td class="text-right font-bold text-wf-red">3.25%</td><td class="text-right text-wf-muted">30 years</td></tr>
-                                <tr class="border-b border-gray-100"><td class="py-2 text-wf-muted">Business Loan</td><td class="text-right font-bold text-wf-red">4.49%</td><td class="text-right text-wf-muted">36 months</td></tr>
-                                <tr><td class="py-2 text-wf-muted">Personal Loan</td><td class="text-right font-bold text-wf-red">5.99%</td><td class="text-right text-wf-muted">36 months</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    PAGE: LOGIN
-    ============================================================ -->
-    <section class="page-section" id="page-login">
-        <div class="auth-page" style="min-height:100vh;padding-top:80px;">
-            <div class="auth-card">
-                <div class="auth-logo">
-                    <div class="icon"><i class="fas fa-crown"></i></div>
-                    <h2>WILLS <span>FINANCE</span> BK</h2>
-                    <p>Welcome back • Sign in to your account</p>
-                </div>
-                <form id="loginForm" onsubmit="event.preventDefault(); handleLogin();">
-                    <div class="mb-4">
-                        <label class="form-label">Email Address</label>
-                        <input type="email" id="loginEmail" class="form-control w-full" placeholder="john@example.com" value="johnirwin@gmail.com" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Password</label>
-                        <input type="password" id="loginPassword" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
-                    </div>
-                    <div class="flex items-center justify-between mb-4">
-                        <label class="flex items-center gap-2 text-sm text-wf-muted">
-                            <input type="checkbox" checked /> Remember me
-                        </label>
-                        <a href="#" class="auth-link text-sm" onclick="showToast('Reset Link','Password reset link sent to your email.')">Forgot password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-wf-red w-full py-3 text-sm font-semibold rounded-full">Sign In <i class="fas fa-arrow-right ml-2"></i></button>
-                    <div class="divider">or</div>
-                    <p class="text-center text-sm text-wf-muted">Don't have an account? <a href="#" class="auth-link" onclick="showPage('signup')">Sign Up</a></p>
-                    <p class="text-center text-xs text-wf-muted mt-3 opacity-50">Demo: johnirwin@gmail.com / Killedward2#3</p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    PAGE: SIGNUP
-    ============================================================ -->
-    <section class="page-section" id="page-signup">
-        <div class="auth-page" style="min-height:100vh;padding-top:80px;">
-            <div class="auth-card">
-                <div class="auth-logo">
-                    <div class="icon"><i class="fas fa-crown"></i></div>
-                    <h2>WILLS <span>FINANCE</span> BK</h2>
-                    <p>Create your premium account</p>
-                </div>
-                <form id="signupForm" onsubmit="event.preventDefault(); handleSignup();">
-                    <div class="mb-3">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" id="signupName" class="form-control w-full" placeholder="John Irwin" value="John Irwin" required />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email Address</label>
-                        <input type="email" id="signupEmail" class="form-control w-full" placeholder="john@example.com" value="johnirwin@gmail.com" required />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" id="signupPassword" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Confirm Password</label>
-                        <input type="password" id="signupConfirm" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
-                    </div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <input type="checkbox" id="terms" checked />
-                        <label for="terms" class="text-sm text-wf-muted">I agree to the <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a></label>
-                    </div>
-                    <button type="submit" class="btn btn-wf-gold w-full py-3 text-sm font-semibold rounded-full">Create Account <i class="fas fa-arrow-right ml-2"></i></button>
-                    <div class="divider">or</div>
-                    <p class="text-center text-sm text-wf-muted">Already have an account? <a href="#" class="auth-link" onclick="showPage('login')">Log In</a></p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    PAGE: DASHBOARD — John Irwin
-    ============================================================ -->
-    <section class="page-section" id="page-dashboard">
-        <div class="dashboard-page">
-            <div class="container mx-auto px-4 py-8">
-                <div class="grid lg:grid-cols-4 gap-6">
-                    <!-- Sidebar -->
-                    <div class="lg:col-span-1">
-                        <div class="dashboard-sidebar">
-                            <div class="text-center mb-6">
-                                <div class="user-avatar mx-auto">JI</div>
-                                <div class="user-name">John Irwin</div>
-                                <div class="user-email">johnirwin@gmail.com</div>
-                                <div class="mt-2 inline-flex items-center gap-1.5 bg-wf-red/10 text-wf-red text-xs font-semibold px-3 py-1 rounded-full">
-                                    <i class="fas fa-circle text-[6px]"></i> Premium Client
-                                </div>
-                            </div>
-                            <nav class="flex flex-col gap-1">
-                                <a href="#" class="nav-item active" onclick="event.preventDefault();"><i class="fas fa-th-large"></i> Overview</a>
-                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Transactions','Loading your transaction history...')"><i class="fas fa-exchange-alt"></i> Transactions</a>
-                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Investments','Loading your portfolio...')"><i class="fas fa-chart-pie"></i> Investments</a>
-                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Cards','Managing your cards...')"><i class="fas fa-credit-card"></i> Cards</a>
-                                <a href="#" class="nav-item" onclick="event.preventDefault(); showToast('Settings','Opening settings...')"><i class="fas fa-user-cog"></i> Settings</a>
-                                <div class="logout-btn">
-                                    <a href="#" class="nav-item text-wf-red" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                                </div>
-                            </nav>
-                        </div>
-                    </div>
-
-                    <!-- Main Content -->
-                    <div class="lg:col-span-3">
-                        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-                            <div>
-                                <h2 class="text-2xl font-extrabold text-wf-dark">Welcome back, John 👋</h2>
-                                <p class="text-wf-muted text-sm">Here's your financial overview</p>
-                            </div>
-                            <div class="flex gap-3">
-                                <button class="btn btn-wf-red px-5 py-2 text-sm rounded-full flex items-center gap-2" onclick="showToast('Transfer','Initiate a new transfer')"><i class="fas fa-plus"></i> Transfer</button>
-                                <button class="btn btn-outline-wf px-5 py-2 text-sm rounded-full flex items-center gap-2" onclick="showToast('Export','Preparing your export...')"><i class="fas fa-download"></i> Export</button>
-                            </div>
-                        </div>
-
-                        <!-- Balance Card -->
-                        <div class="balance-card mb-6">
-                            <div class="flex flex-wrap justify-between items-start">
-                                <div>
-                                    <div class="balance-label">Total Balance</div>
-                                    <div class="balance-amount"><span class="currency">$</span>57,000,000.00</div>
-                                </div>
-                                <div class="flex gap-3">
-                                    <a href="#" class="quick-action" onclick="showToast('Transfer','Initiate a new transfer')">
-                                        <div class="qa-icon"><i class="fas fa-paper-plane"></i></div>
-                                        <span class="qa-label">Send</span>
-                                    </a>
-                                    <a href="#" class="quick-action" onclick="showToast('Deposit','Add funds to your account')">
-                                        <div class="qa-icon"><i class="fas fa-arrow-down"></i></div>
-                                        <span class="qa-label">Deposit</span>
-                                    </a>
-                                    <a href="#" class="quick-action" onclick="showToast('Request','Request funds from contacts')">
-                                        <div class="qa-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                                        <span class="qa-label">Request</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="balance-sub">
-                                <div class="sub-item">
-                                    <div class="sub-label">Available Balance</div>
-                                    <div class="sub-value">$57,000,000.00</div>
-                                </div>
-                                <div class="sub-item">
-                                    <div class="sub-label">Today's Change</div>
-                                    <div class="sub-value text-wf-gold">+$124,500.00</div>
-                                </div>
-                                <div class="sub-item">
-                                    <div class="sub-label">Account Number</div>
-                                    <div class="sub-value text-sm opacity-70">•••• 4829</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Stats Row -->
-                        <div class="grid sm:grid-cols-3 gap-4 mb-6">
-                            <div class="dash-card">
-                                <div class="card-label"><i class="fas fa-arrow-up text-wf-red mr-1"></i> Income</div>
-                                <div class="card-value">$342,800.00</div>
-                                <div class="card-change positive">+12.5% this month</div>
-                            </div>
-                            <div class="dash-card">
-                                <div class="card-label"><i class="fas fa-arrow-down text-wf-red mr-1"></i> Expenses</div>
-                                <div class="card-value">$218,300.00</div>
-                                <div class="card-change negative">-3.2% this month</div>
-                            </div>
-                            <div class="dash-card">
-                                <div class="card-label"><i class="fas fa-chart-simple text-wf-red mr-1"></i> Investments</div>
-                                <div class="card-value">$12.4M</div>
-                                <div class="card-change positive">+8.7% this year</div>
-                            </div>
-                        </div>
-
-                        <!-- Recent Transactions -->
-                        <div class="dash-card">
-                            <div class="flex items-center justify-between mb-4">
-                                <h5 class="font-bold text-wf-dark text-lg">Recent Transactions</h5>
-                                <a href="#" class="text-wf-red text-sm font-semibold" onclick="showToast('Transactions','Loading all transactions...')">View All <i class="fas fa-arrow-right ml-1"></i></a>
-                            </div>
-                            <div class="transaction-item">
-                                <div class="tx-icon credit"><i class="fas fa-arrow-down"></i></div>
-                                <div class="tx-info"><div class="tx-name">Salary Deposit — WFB Corp</div><div class="tx-date">Today, 09:32 AM</div></div>
-                                <div class="tx-amount credit">+$24,500.00</div>
-                            </div>
-                            <div class="transaction-item">
-                                <div class="tx-icon debit"><i class="fas fa-arrow-up"></i></div>
-                                <div class="tx-info"><div class="tx-name">Investment — Tech Fund A</div><div class="tx-date">Yesterday, 03:15 PM</div></div>
-                                <div class="tx-amount debit">-$12,000.00</div>
-                            </div>
-                            <div class="transaction-item">
-                                <div class="tx-icon credit"><i class="fas fa-arrow-down"></i></div>
-                                <div class="tx-info"><div class="tx-name">Dividend Payout — Blue Chip</div><div class="tx-date">Jul 18, 2026</div></div>
-                                <div class="tx-amount credit">+$8,750.00</div>
-                            </div>
-                            <div class="transaction-item">
-                                <div class="tx-icon debit"><i class="fas fa-arrow-up"></i></div>
-                                <div class="tx-info"><div class="tx-name">Transfer — Sarah K.</div><div class="tx-date">Jul 17, 2026</div></div>
-                                <div class="tx-amount debit">-$5,300.00</div>
-                            </div>
-                            <div class="transaction-item">
-                                <div class="tx-icon credit"><i class="fas fa-arrow-down"></i></div>
-                                <div class="tx-info"><div class="tx-name">Interest — Premium Savings</div><div class="tx-date">Jul 16, 2026</div></div>
-                                <div class="tx-amount credit">+$1,240.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
-    <footer class="bg-wf-dark text-white/70 pt-12 pb-6 mt-8" id="mainFooter">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <a href="#" class="logo-premium" onclick="showPage('home')">
-                        <span class="logo-icon"><i class="fas fa-crown"></i></span>
-                        <span class="logo-text-group">
-                            <span class="logo-line1 text-white">WILLS<span class="spacer"></span><span class="highlight text-wf-red">FINANCE</span></span>
-                            <span class="logo-line2 text-white/50">BK <span class="gold-dot">•</span> EST. 1992</span>
-                        </span>
-                    </a>
-                    <p class="mt-4 text-sm max-w-xs leading-relaxed opacity-70">Building a better financial future since 1992. Trust, innovation, and human care.</p>
-                    <div class="flex gap-4 mt-6">
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Personal</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link" onclick="showPage('login')">Checking</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Savings</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Credit Cards</a></li><li><a href="#" class="footer-link" onclick="showPage('loans')">Loans</a></li></ul></div>
-                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Business</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link" onclick="showPage('login')">Business Checking</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Merchant Services</a></li><li><a href="#" class="footer-link" onclick="showPage('login')">Payroll</a></li><li><a href="#" class="footer-link" onclick="showPage('loans')">Business Loans</a></li></ul></div>
-                <div>
-                    <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Stay Informed</h5>
-                    <p class="text-sm opacity-70 mb-3">Get financial tips & updates.</p>
-                    <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); showToast('Subscribed','You\'re now on our mailing list!');">
-                        <input type="email" placeholder="Your email" class="px-4 py-2.5 rounded-full bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-wf-gold text-sm transition" required />
-                        <button type="submit" class="btn btn-wf-gold text-sm font-semibold rounded-full py-2.5 flex items-center justify-center gap-2">Subscribe <i class="fas fa-arrow-right"></i></button>
-                    </form>
-                </div>
-            </div>
-            <div class="border-t border-white/10 mt-10 pt-6 flex flex-wrap justify-between text-sm opacity-60"><span>&copy; 2026 WILLS FINANCE BK. All rights reserved. Member FDIC.</span><span><i class="fas fa-globe"></i> English · <i class="fas fa-universal-access"></i> Accessibility</span></div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
-    </script>
-
-    <!-- ============================================================
-    CUSTOM JAVASCRIPT — Complete
-    ============================================================ -->
-    <script>
-        (function() {
-            'use strict';
-
-            // ============================================================
-            // PRELOADER
-            // ============================================================
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    document.getElementById('preloader').classList.add('hidden');
-                }, 2800);
-            });
-
-            // ============================================================
-            // AUTH STATE
-            // ============================================================
-            let isLoggedIn = false;
-            const VALID_EMAIL = 'johnirwin@gmail.com';
-            const VALID_PASSWORD = 'Killedward2#3';
-
-            // DOM refs for nav elements
-            const navLogin = document.getElementById('navLogin');
-            const navSignup = document.getElementById('navSignup');
-            const navDashboard = document.getElementById('navDashboard');
-            const headerLoginBtn = document.getElementById('headerLoginBtn');
-            const headerSignupBtn = document.getElementById('headerSignupBtn');
-            const loggedInActions = document.getElementById('loggedInActions');
-            const mobileLogin = document.getElementById('mobileLogin');
-            const mobileSignup = document.getElementById('mobileSignup');
-            const mobileDashboard = document.getElementById('mobileDashboard');
-            const mobileLoginBtn = document.getElementById('mobileLoginBtn');
-            const mobileSignupBtn = document.getElementById('mobileSignupBtn');
-            const mobileAuthButtons = document.getElementById('mobileAuthButtons');
-            const mobileLoggedInActions = document.getElementById('mobileLoggedInActions');
-
-            // ============================================================
-            // PAGE NAVIGATION
-            // ============================================================
-            const pages = {
-                home: document.getElementById('page-home'),
-                about: document.getElementById('page-about'),
-                loans: document.getElementById('page-loans'),
-                login: document.getElementById('page-login'),
-                signup: document.getElementById('page-signup'),
-                dashboard: document.getElementById('page-dashboard')
-            };
-            const footer = document.getElementById('mainFooter');
-            const navLinks = document.querySelectorAll('#desktopNav .nav-link-premium');
-
-            window.showPage = function(page) {
-                // If trying to access dashboard without login, redirect to login
-                if (page === 'dashboard' && !isLoggedIn) {
-                    showToast('Access Denied', 'Please log in to view your dashboard.');
-                    page = 'login';
-                }
-
-                // Hide all pages
-                Object.values(pages).forEach(p => {
-                    if (p) p.classList.remove('active');
-                });
-                if (pages[page]) pages[page].classList.add('active');
-
-                // Update nav active state
-                navLinks.forEach(link => {
-                    link.classList.remove('active-link');
-                    if (link.dataset.page === page) {
-                        link.classList.add('active-link');
-                    }
-                });
-
-                // Show/hide footer
-                if (page === 'login' || page === 'signup') {
-                    footer.style.display = 'none';
-                } else {
-                    footer.style.display = 'block';
-                }
-
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                // Close mobile nav
-                const mobileNav = document.getElementById('mobileNav');
-                if (mobileNav.classList.contains('show')) {
-                    const bsCollapse = bootstrap.Collapse.getInstance(mobileNav);
-                    if (bsCollapse) bsCollapse.hide();
-                }
-
-                // Trigger animations
-                if (page === 'dashboard') {
-                    animateDashboard();
-                }
-                if (page === 'home') {
-                    triggerHeroCounters();
-                }
-
-                updateNavUI();
-            };
-
-            // ============================================================
-            // UPDATE NAV UI
-            // ============================================================
-            function updateNavUI() {
-                if (isLoggedIn) {
-                    navLogin.style.display = 'none';
-                    navSignup.style.display = 'none';
-                    navDashboard.style.display = 'inline-block';
-                    headerLoginBtn.style.display = 'none';
-                    headerSignupBtn.style.display = 'none';
-                    loggedInActions.style.display = 'flex';
-                    mobileLogin.style.display = 'none';
-                    mobileSignup.style.display = 'none';
-                    mobileDashboard.style.display = 'block';
-                    mobileLoginBtn.style.display = 'none';
-                    mobileSignupBtn.style.display = 'none';
-                    mobileAuthButtons.style.display = 'none';
-                    mobileLoggedInActions.style.display = 'block';
-                } else {
-                    navLogin.style.display = 'inline-block';
-                    navSignup.style.display = 'inline-block';
-                    navDashboard.style.display = 'none';
-                    headerLoginBtn.style.display = 'inline-flex';
-                    headerSignupBtn.style.display = 'inline-flex';
-                    loggedInActions.style.display = 'none';
-                    mobileLogin.style.display = 'block';
-                    mobileSignup.style.display = 'block';
-                    mobileDashboard.style.display = 'none';
-                    mobileLoginBtn.style.display = 'block';
-                    mobileSignupBtn.style.display = 'block';
-                    mobileAuthButtons.style.display = 'flex';
-                    mobileLoggedInActions.style.display = 'none';
-                }
-            }
-
-            // ============================================================
-            // LOGIN HANDLER
-            // ============================================================
-            window.handleLogin = function() {
-                const email = document.getElementById('loginEmail').value.trim();
-                const password = document.getElementById('loginPassword').value.trim();
-
-                if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-                    isLoggedIn = true;
-                    showToast('Welcome Back, John!', 'Redirecting to your dashboard...');
-                    setTimeout(() => {
-                        showPage('dashboard');
-                    }, 1200);
-                } else {
-                    showToast('Login Failed', 'Invalid email or password. Please try again.');
-                    const form = document.getElementById('loginForm');
-                    form.style.animation = 'shake 0.4s ease';
-                    setTimeout(() => form.style.animation = '', 500);
-                }
-            };
-
-            // ============================================================
-            // SIGNUP HANDLER
-            // ============================================================
-            window.handleSignup = function() {
-                const password = document.getElementById('signupPassword').value;
-                const confirm = document.getElementById('signupConfirm').value;
-
-                if (password !== confirm) {
-                    showToast('Error', 'Passwords do not match. Please try again.');
-                    return;
-                }
-
-                if (password.length < 6) {
-                    showToast('Error', 'Password must be at least 6 characters.');
-                    return;
-                }
-
-                showToast('Account Created!', 'Your account has been created. Please log in.');
-                setTimeout(() => {
-                    showPage('login');
-                }, 1500);
-            };
-
-            // ============================================================
-            // LOGOUT
-            // ============================================================
-            window.logout = function() {
-                isLoggedIn = false;
-                showToast('Logged Out', 'You have been successfully logged out.');
-                setTimeout(() => {
-                    showPage('home');
-                    updateNavUI();
-                }, 800);
-            };
-
-            // ============================================================
-            // HERO COUNTERS
-            // ============================================================
-            function triggerHeroCounters() {
-                const counters = document.querySelectorAll('#page-home .hero-stat .number[data-count]');
-                counters.forEach(counter => {
-                    const target = parseFloat(counter.dataset.count);
-                    if (isNaN(target) || counter.dataset.animated) return;
-                    counter.dataset.animated = 'true';
-                    const isFloat = target % 1 !== 0;
-                    let currentVal = 0;
-                    const duration = 1800;
-                    const stepTime = 16;
-                    const steps = duration / stepTime;
-                    const increment = target / steps;
-                    const timer = setInterval(() => {
-                        currentVal += increment;
-                        if (currentVal >= target) {
-                            currentVal = target;
-                            clearInterval(timer);
-                        }
-                        counter.textContent = isFloat ? currentVal.toFixed(1) : Math.floor(currentVal);
-                    }, stepTime);
-                });
-            }
-            setTimeout(triggerHeroCounters, 500);
-
-            // ============================================================
-            // DASHBOARD ANIMATIONS
-            // ============================================================
-            function animateDashboard() {
-                const cards = document.querySelectorAll('#page-dashboard .dash-card, #page-dashboard .balance-card');
-                cards.forEach((card, i) => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100 + i * 80);
-                });
-            }
-
-            // ============================================================
-            // LOAN CALCULATOR
-            // ============================================================
-            window.calculateLoan = function() {
-                const amount = parseFloat(document.getElementById('loanAmount').value) || 0;
-                const rate = parseFloat(document.getElementById('loanRate').value) || 0;
-                const term = parseFloat(document.getElementById('loanTerm').value) || 1;
-
-                if (amount <= 0 || rate <= 0 || term <= 0) {
-                    document.getElementById('monthlyPayment').textContent = '$0.00';
-                    return;
-                }
-
-                const monthlyRate = rate / 100 / 12;
-                const payments = term;
-                const x = Math.pow(1 + monthlyRate, payments);
-                const monthly = amount * monthlyRate * x / (x - 1);
-
-                document.getElementById('monthlyPayment').textContent = '$' + monthly.toFixed(2);
-            };
-            setTimeout(window.calculateLoan, 300);
-
-            // ============================================================
-            // TOAST SYSTEM
-            // ============================================================
-            const toast = document.getElementById('toast');
-            const toastTitle = document.getElementById('toastTitle');
-            const toastMsg = document.getElementById('toastMsg');
-            let toastTimeout;
-
-            window.showToast = function(title, msg) {
-                clearTimeout(toastTimeout);
-                toastTitle.textContent = title || 'Success';
-                toastMsg.textContent = msg || 'Action completed';
-                toast.classList.add('show');
-                toastTimeout = setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 4000);
-            };
-
-            // ============================================================
-            // SCROLL PROGRESS BAR
-            // ============================================================
-            const progress = document.getElementById('scrollProgress');
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                progress.style.width = (scrollTop / docHeight) * 100 + '%';
-            });
-
-            // ============================================================
-            // HEADER SHADOW
-            // ============================================================
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 20);
-            });
-
-            // ============================================================
-            // SIDEBAR NAV ACTIVE STATE
-            // ============================================================
-            document.querySelectorAll('.dashboard-sidebar .nav-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    document.querySelectorAll('.dashboard-sidebar .nav-item').forEach(i => i.classList.remove(
-                    'active'));
-                    this.classList.add('active');
-                });
-            });
-
-            // ============================================================
-            // KEYBOARD SHORTCUT: Escape to home
-            // ============================================================
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    showPage('home');
-                }
-            });
-
-            // ============================================================
-            // FADE-UP OBSERVER
-            // ============================================================
-            const fadeElements = document.querySelectorAll('.fade-up');
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-                fadeElements.forEach(el => observer.observe(el));
-            } else {
-                fadeElements.forEach(el => el.classList.add('visible'));
-            }
-
-            // ============================================================
-            // INIT
-            // ============================================================
-            updateNavUI();
-
-            console.log('🏦 WILLS FINANCE BK — Complete Internet Banking Platform');
-            console.log('👤 Demo: johnirwin@gmail.com / Killedward2#3');
-            console.log('📊 John Irwin Balance: $57,000,000.00');
-            console.log('📋 Pages: Home, About Us, Loans, Login, Sign Up, Dashboard');
-        })();
-    </script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a5af06b940f101d5323a92d/1jtpjma14';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-
-</body>
-</html>
+                    <div class="service-card fade-up">
+                        <div class="icon-wrap"><i class="fas fa-home"></i></div>
+                        <h4 class="text-xl font-bold">Mortgage & Loans</h4>
+                        <p class="text-sm mt-2 leading-relaxed">Competitive home loans, personal loans, and business financing wi
