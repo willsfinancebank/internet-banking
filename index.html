@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WILLS FINANCE BANK — Premium Internet Banking</title>
+    <title>Wills Finance BK — Premium Banking</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23C8102E'/%3E%3Cpath d='M50 18 L28 52 L40 52 L28 82 L72 82 L60 52 L72 52 L50 18Z' fill='%23FFB81C'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%23FFFFFF'/%3E%3Cpath d='M50 34 L44 48 L30 48 L42 58 L37 74 L50 64 L63 74 L58 58 L70 48 L56 48 L50 34Z' fill='%23C8102E'/%3E%3C/svg%3E" />
@@ -20,7 +20,7 @@
 
     <style>
         /* ============================================================
-                   PREMIUM CUSTOM STYLES — WILLS FINANCE BANK
+                   PREMIUM CUSTOM STYLES — WILLS FINANCE BK
                 ============================================================ */
         :root {
             --wf-red: #C8102E;
@@ -50,6 +50,127 @@
             color: var(--wf-text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============================================================
+                   PRELOADER — Premium
+                ============================================================ */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--wf-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            visibility: visible;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #preloader .loader-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 184, 28, 0.1);
+            border-top-color: var(--wf-gold);
+            border-right-color: var(--wf-red);
+            animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            position: relative;
+        }
+        #preloader .loader-ring::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            border-top-color: var(--wf-red);
+            border-left-color: var(--wf-gold);
+            animation: spin 0.7s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        #preloader .loader-logo {
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        #preloader .loader-logo .icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--wf-gold);
+            box-shadow: 0 8px 40px rgba(200, 16, 46, 0.35);
+            animation: pulse-logo 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse-logo {
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 40px rgba(200, 16, 46, 0.35);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 12px 60px rgba(200, 16, 46, 0.55);
+            }
+        }
+        #preloader .loader-logo .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.1em;
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+        #preloader .loader-logo .name span {
+            color: var(--wf-gold);
+        }
+        #preloader .loader-bar {
+            width: 160px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        #preloader .loader-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red));
+            border-radius: 4px;
+            animation: load-fill 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes load-fill {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+        #preloader .loader-text {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 14px;
+            font-weight: 500;
         }
 
         /* Color utilities */
@@ -91,28 +212,6 @@
         }
         .border-wf-gold {
             border-color: var(--wf-gold);
-        }
-
-        /* Scroll Progress Bar */
-        #scrollProgress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red), var(--wf-gold));
-            background-size: 200% 100%;
-            z-index: 9999;
-            width: 0%;
-            transition: width 0.1s;
-            animation: shimmer 2s infinite linear;
-        }
-        @keyframes shimmer {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 200% 0%;
-            }
         }
 
         /* Buttons */
@@ -183,20 +282,9 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
         }
-        .btn-outline-dark {
-            border: 2px solid var(--wf-dark);
-            color: var(--wf-dark);
-            background: transparent;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-outline-dark:hover {
-            background: var(--wf-dark);
-            color: #fff;
-            transform: translateY(-3px);
-        }
 
         /* ============================================================
-                   HEADER — Premium with WILLS FINANCE BANK logo
+                   HEADER — Premium Logo
                 ============================================================ */
         #header {
             background: rgba(255, 255, 255, 0.85);
@@ -204,29 +292,34 @@
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid rgba(0, 0, 0, 0.04);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
         }
         #header.scrolled {
             box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06);
             background: rgba(255, 255, 255, 0.92);
         }
-
-        /* === PREMIUM LOGO: WILLS FINANCE BANK === */
+        /* PREMIUM LOGO — New Design */
         .logo-premium {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            position: relative;
         }
         .logo-premium .logo-icon {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--wf-gold);
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             box-shadow: 0 4px 20px rgba(200, 16, 46, 0.30);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             flex-shrink: 0;
@@ -244,21 +337,20 @@
             transform: rotate(-6deg) scale(1.06);
             box-shadow: 0 6px 30px rgba(200, 16, 46, 0.45);
         }
-
         .logo-premium .logo-text-group {
             display: flex;
             flex-direction: column;
-            line-height: 1.1;
+            line-height: 1.05;
         }
         .logo-premium .logo-line1 {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 900;
             letter-spacing: 0.04em;
             color: var(--wf-dark);
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .logo-premium .logo-line1 .highlight {
             color: var(--wf-red);
@@ -272,9 +364,9 @@
             margin: 0 2px;
         }
         .logo-premium .logo-line2 {
-            font-size: 0.62rem;
+            font-size: 0.6rem;
             font-weight: 600;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.18em;
             color: var(--wf-muted);
             text-transform: uppercase;
             margin-top: -1px;
@@ -282,48 +374,1260 @@
         .logo-premium .logo-line2 .gold-dot {
             color: var(--wf-gold);
         }
-
-        /* Logo divider */
         .logo-premium .logo-divider {
             width: 1px;
-            height: 32px;
+            height: 30px;
             background: rgba(0, 0, 0, 0.08);
             margin: 0 2px 0 4px;
         }
 
-        /* Nav links */
-        .nav-link-premium {
-            position: relative;
-            font-weight: 500;
-            color: var(--wf-dark);
-            opacity: 0.7;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 0.875rem;
-            padding: 0.5rem 0;
+        /* ============================================================
+                   PAGE SECTIONS — Show/Hide
+                ============================================================ */
+        .page-section {
+            display: none;
+            animation: fadeSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .nav-link-premium::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--wf-red);
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 2px;
+        .page-section.active {
+            display: block;
         }
-        .nav-link-premium:hover {
-            opacity: 1;
-            color: var(--wf-red);
-        }
-        .nav-link-premium:hover::after {
-            width: 100%;
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ============================================================
-                   HERO — Premium
+                   AUTH PAGES — Premium
                 ============================================================ */
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background: var(--wf-light);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-page::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 20%, rgba(200, 16, 46, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse at 70% 80%, rgba(255, 184, 28, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .auth-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 32px;
+            padding: 3rem 2.5rem;
+            max-width: 440px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 30px 80px rgba(0, 40, 86, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        .auth-card .auth-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .auth-card .auth-logo .icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(145deg, var(--wf-red), var(--wf-red-dark));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--wf-gold);
+            box-shadow: 0 4px 24px rgba(200, 16, 46, 0.25);
+        }
+        .auth-card .auth-logo h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--wf-dark);
+            margin-top: 10px;
+        }
+        .auth-card .auth-logo h2 span {
+            color: var(--wf-red);
+        }
+        .auth-card .auth-logo p {
+            font-size: 0.8rem;
+            color: var(--wf-muted);
+            margin-top: 2px;
+            letter-spacing: 0.05em;
+        }
+        .auth-card .form-control {
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .auth-card .form-control:focus {
+            border-color: var(--wf-red);
+            box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.08);
+            background: #fff;
+        }
+        .auth-card .form-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--wf-dark);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .auth-card .auth-link {
+            color: var(--wf-red);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+        .auth-card .auth-link:hover {
+            color: var(--wf-red-dark);
+            text-decoration: underline;
+        }
+        .auth-card .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--wf-muted);
+            font-size: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        .auth-card .divider::before,
+        .auth-card .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        /* ============================================================
+                   DASHBOARD — Premium
+                ============================================================ */
+        .dashboard-page {
+            min-height: 100vh;
+            background: var(--wf-light);
+            padding-top: 80px;
+        }
+        .dashboard-sidebar {
+            background: #fff;
+            border-radius: 24px;
+            padding: 1.5rem 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: var(--wf-shadow);
+            position: sticky;
+            top: 100px;
+        }
+        .dashboard-sidebar .user-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(200, 16, 46, 0.25);
+            margin: 0 auto 8px;
+        }
+        .dashboard-sidebar .user-name {
+            font-weight: 700;
+            color: var(--wf-dark);
+            text-align: center;
+            font-size: 1rem;
+        }
+        .dashboard-sidebar .user-email {
+            font-size: 0.75rem;
+            color: var(--wf-muted);
+            text-align: center;
+        }
+        .dashboard-sidebar .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.7rem 1rem;
+            border-radius: 12px;
+            color: var(--wf-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .dashboard-sidebar .nav-item:hover {
+            background: rgba(200, 16, 46, 0.04);
+            color: var(--wf-red);
+        }
+        .dashboard-sidebar .nav-item.active {
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.08), rgba(200, 16, 46, 0.02));
+            color: var(--wf-red);
+            font-weight: 600;
+        }
+        .dashboard-sidebar .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+        .dashboard-sidebar .logout-btn {
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Dashboard Cards */
+        .dash-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: var(--wf-shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dash-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--wf-shadow-hover);
+        }
+        .dash-card .card-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--wf-muted);
+        }
+        .dash-card .card-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--wf-dark);
+            margin-top: 4px;
+        }
+        .dash-card .card-change {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .dash-card .card-change.positive {
+            color: #0f973d;
+        }
+        .dash-card .card-change.negative {
+            color: var(--wf-red);
+        }
+
+        .balance-card {
+            background: linear-gradient(145deg, var(--wf-dark), #001b3f);
+            border-radius: 24px;
+            padding: 2rem;
+            color: #fff;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(255, 184, 28, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .balance-card .balance-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.6;
+        }
+        .balance-card .balance-amount {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-top: 4px;
+        }
+        .balance-card .balance-amount .currency {
+            font-size: 1.5rem;
+            font-weight: 700;
+            opacity: 0.6;
+            margin-right: 4px;
+        }
+        .balance-card .balance-sub {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .balance-card .balance-sub .sub-item .sub-label {
+            font-size: 0.65rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .balance-card .balance-sub .sub-item .sub-value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Transaction list */
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        .transaction-item .tx-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .transaction-item .tx-icon.credit {
+            background: rgba(15, 151, 61, 0.08);
+            color: #0f973d;
+        }
+        .transaction-item .tx-icon.debit {
+            background: rgba(200, 16, 46, 0.08);
+            color: var(--wf-red);
+        }
+        .transaction-item .tx-info {
+            flex: 1;
+        }
+        .transaction-item .tx-info .tx-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--wf-dark);
+        }
+        .transaction-item .tx-info .tx-date {
+            font-size: 0.7rem;
+            color: var(--wf-muted);
+        }
+        .transaction-item .tx-amount {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .transaction-item .tx-amount.credit {
+            color: #0f973d;
+        }
+        .transaction-item .tx-amount.debit {
+            color: var(--wf-red);
+        }
+
+        /* Quick action buttons */
+        .quick-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 1rem 0.5rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+        }
+        .quick-action:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+            color: var(--wf-gold);
+        }
+        .quick-action .qa-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .quick-action:hover .qa-icon {
+            background: rgba(255, 184, 28, 0.15);
+            color: var(--wf-gold);
+        }
+        .quick-action .qa-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                ============================================================ */
+        @media (max-width: 992px) {
+            .dashboard-sidebar {
+                position: relative;
+                top: 0;
+                margin-bottom: 1.5rem;
+            }
+            .auth-card {
+                padding: 2rem 1.5rem;
+                max-width: 400px;
+            }
+            .balance-card .balance-amount {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .logo-premium .logo-line1 {
+                font-size: 1rem;
+            }
+            .logo-premium .logo-line2 {
+                font-size: 0.5rem;
+            }
+            .logo-premium .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                border-radius: 10px;
+            }
+            .logo-premium .logo-divider {
+                display: none;
+            }
+            .logo-premium {
+                gap: 8px;
+            }
+            .auth-card {
+                padding: 1.5rem 1.2rem;
+                border-radius: 24px;
+            }
+            .balance-card .balance-amount {
+                font-size: 1.8rem;
+            }
+            .balance-card .balance-sub {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .auth-card {
+                padding: 1.2rem 1rem;
+            }
+            .dash-card .card-value {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Bootstrap toggler fix */
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,40,86,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        ::selection {
+            background: var(--wf-red);
+            color: #fff;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--wf-light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--wf-red), var(--wf-gold));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--wf-red);
+        }
+
+        /* Scroll Progress Bar */
+        #scrollProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--wf-gold), var(--wf-red), var(--wf-gold));
+            background-size: 200% 100%;
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 200% 0%;
+            }
+        }
+
+        /* Toast notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--wf-dark);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9998;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .toast-notification .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 184, 28, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--wf-gold);
+            font-size: 1rem;
+        }
+        .toast-notification .toast-content .toast-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .toast-notification .toast-content .toast-msg {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    PRELOADER — Premium
+    ============================================================ -->
+    <div id="preloader">
+        <div class="loader-logo">
+            <div class="icon"><i class="fas fa-crown"></i></div>
+            <div class="name">WILLS <span>FINANCE</span> BK</div>
+        </div>
+        <div class="loader-ring"></div>
+        <div class="loader-bar"><div class="fill"></div></div>
+        <div class="loader-text">Loading your experience</div>
+    </div>
+
+    <!-- ============================================================
+    SCROLL PROGRESS BAR
+    ============================================================ -->
+    <div id="scrollProgress"></div>
+
+    <!-- ============================================================
+    TOAST NOTIFICATION
+    ============================================================ -->
+    <div class="toast-notification" id="toast">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">Success</div>
+            <div class="toast-msg" id="toastMsg">Action completed successfully</div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    HEADER — Premium
+    ============================================================ -->
+    <header id="header">
+        <div class="container mx-auto px-4 lg:px-6 flex items-center justify-between h-20">
+            <!-- Premium Logo -->
+            <a href="#" class="logo-premium" onclick="showPage('home')">
+                <span class="logo-icon"><i class="fas fa-crown"></i></span>
+                <span class="logo-divider"></span>
+                <span class="logo-text-group">
+                    <span class="logo-line1">
+                        WILLS<span class="spacer"></span><span class="highlight">FINANCE</span>
+                    </span>
+                    <span class="logo-line2">BK <span class="gold-dot">•</span> EST. 1992</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8" id="desktopNav">
+                <a href="#" class="nav-link-premium" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link-premium" onclick="showPage('login')">Login</a>
+                <a href="#" class="nav-link-premium" onclick="showPage('signup')">Sign Up</a>
+                <!-- Dashboard link only visible when logged in -->
+                <a href="#" class="nav-link-premium" id="dashNavLink" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <a href="#" class="hidden sm:inline-flex btn btn-outline-wf px-5 py-2 text-sm font-semibold rounded-full items-center gap-2" onclick="showPage('login')">
+                    <i class="fas fa-lock"></i> Log In
+                </a>
+                <a href="#" class="btn btn-wf-red px-6 py-2 text-sm font-semibold rounded-full shadow-md flex items-center gap-2" onclick="showPage('signup')">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+                <!-- Logout button (hidden by default) -->
+                <a href="#" class="btn btn-outline-white px-4 py-2 text-sm font-semibold rounded-full" id="logoutBtn" style="display:none;" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <button class="navbar-toggler lg:hidden border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-expanded="false">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div class="collapse lg:hidden bg-white/98 backdrop-blur-lg border-t border-gray-100" id="mobileNav">
+            <div class="container mx-auto px-4 py-6 flex flex-col gap-3 text-sm font-medium">
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('home')">Home</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('login')">Login</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" onclick="showPage('signup')">Sign Up</a>
+                <a href="#" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition" id="mobileDashLink" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
+                <div class="pt-4 flex flex-col gap-3">
+                    <a href="#" class="btn btn-outline-wf w-full text-center rounded-full py-2.5" onclick="showPage('login')"><i class="fas fa-lock"></i> Log In</a>
+                    <a href="#" class="btn btn-wf-red w-full text-center rounded-full py-2.5" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Sign Up</a>
+                    <a href="#" class="btn btn-outline-white w-full text-center rounded-full py-2.5 bg-wf-red/10 text-wf-red border-wf-red" id="mobileLogoutBtn" style="display:none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    PAGE: HOME
+    ============================================================ -->
+    <section class="page-section active" id="page-home">
+        <!-- Hero -->
+        <section class="relative w-full h-screen max-h-[900px] min-h-[600px] mt-20 overflow-hidden" id="hero">
+            <div class="relative w-full h-full" id="heroSlides">
+                <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1600&q=80');">
+                    <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
+                        <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-white/10 mb-4"><i class="fas fa-crown"></i> Premium Banking</span>
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-4">Banking <span class="text-wf-gold">redefined</span> for you</h1>
+                        <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6 leading-relaxed">Experience the future of finance with WILLS FINANCE BK — secure, intelligent, and built for your success.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('signup')"><i class="fas fa-arrow-right"></i> Get Started</a>
+                            <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('login')"><i class="fas fa-sign-in-alt"></i> Log In</a>
+                        </div>
+                        <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
+                            <div class="hero-stat"><span class="number" data-count="12">0</span><span class="number text-2xl">M+</span><p class="label">Active Users</p></div>
+                            <div class="hero-stat"><span class="number" data-count="8.2">0</span><span class="number text-2xl">B</span><p class="label">Total Assets</p></div>
+                            <div class="hero-stat"><span class="number" data-count="4.9">0</span><span class="number text-2xl">★</span><p class="label">App Store Rating</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Banner -->
+        <div class="trust-banner py-4 border-b border-gray-200/60 bg-white/80 backdrop-blur-sm">
+            <div class="container mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+                <span class="trust-item"><i class="fas fa-shield-alt"></i> FDIC Insured</span>
+                <span class="trust-item"><i class="fas fa-lock"></i> 256-bit SSL</span>
+                <span class="trust-item"><i class="fas fa-robot"></i> AI Fraud Protection</span>
+                <span class="trust-item"><i class="fas fa-clock"></i> 24/7 Support</span>
+                <span class="trust-item"><i class="fas fa-mobile-alt"></i> #1 Mobile Banking</span>
+                <span class="trust-item"><i class="fas fa-star text-wf-gold"></i> 4.9★ App Store</span>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <section class="py-20 bg-wf-light">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-star"></i> Premium Features</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Everything you need to <span class="text-wf-red">succeed</span></h2>
+                    <p class="text-wf-muted mt-4 text-lg">From smart savings to global transfers, we've got you covered.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="service-card fade-up">
+                        <div class="icon-wrap"><i class="fas fa-wallet"></i></div>
+                        <h4 class="text-xl font-bold text-wf-dark">Smart Savings</h4>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Earn up to <span class="text-wf-red font-bold">4.50% APY</span> with our high-yield savings accounts. Zero monthly fees.</p>
+                    </div>
+                    <div class="service-card fade-up">
+                        <div class="icon-wrap"><i class="fas fa-globe-americas"></i></div>
+                        <h4 class="text-xl font-bold text-wf-dark">Global Transfers</h4>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Send money to <span class="text-wf-red font-bold">200+ countries</span> with transparent FX rates and low fees.</p>
+                    </div>
+                    <div class="service-card fade-up">
+                        <div class="icon-wrap"><i class="fas fa-chart-line"></i></div>
+                        <h4 class="text-xl font-bold text-wf-dark">Wealth Management</h4>
+                        <p class="text-wf-muted text-sm mt-2 leading-relaxed">Expert guidance and <span class="text-wf-red font-bold">AI-powered insights</span> to grow your portfolio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-20 bg-wf-red text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-5xl font-extrabold">Ready to take control of your <span class="text-wf-gold">financial future</span>?</h2>
+                <p class="text-white/80 text-lg mt-4 max-w-2xl mx-auto">Join millions of satisfied clients and experience the WILLS FINANCE BK difference.</p>
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <a href="#" class="btn btn-wf-gold px-10 py-4 text-lg font-semibold rounded-full shadow-lg flex items-center gap-2" onclick="showPage('signup')"><i class="fas fa-user-plus"></i> Open an Account</a>
+                    <a href="#" class="btn btn-outline-white px-10 py-4 text-lg font-semibold rounded-full flex items-center gap-2" onclick="showPage('login')"><i class="fas fa-arrow-right"></i> Log In</a>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- ============================================================
+    PAGE: LOGIN
+    ============================================================ -->
+    <section class="page-section" id="page-login">
+        <div class="auth-page" style="min-height:100vh;padding-top:80px;">
+            <div class="auth-card">
+                <div class="auth-logo">
+                    <div class="icon"><i class="fas fa-crown"></i></div>
+                    <h2>WILLS <span>FINANCE</span> BK</h2>
+                    <p>Welcome back • Sign in to your account</p>
+                </div>
+                <form id="loginForm" onsubmit="event.preventDefault(); handleLogin();">
+                    <div class="mb-4">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-control w-full" placeholder="john@example.com" value="johnirwin@gmail.com" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="loginPassword" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <label class="flex items-center gap-2 text-sm text-wf-muted">
+                            <input type="checkbox" checked /> Remember me
+                        </label>
+                        <a href="#" class="auth-link text-sm">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-wf-red w-full py-3 text-sm font-semibold rounded-full">Sign In <i class="fas fa-arrow-right ml-2"></i></button>
+                    <div class="divider">or</div>
+                    <p class="text-center text-sm text-wf-muted">Don't have an account? <a href="#" class="auth-link" onclick="showPage('signup')">Sign Up</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PAGE: SIGNUP
+    ============================================================ -->
+    <section class="page-section" id="page-signup">
+        <div class="auth-page" style="min-height:100vh;padding-top:80px;">
+            <div class="auth-card">
+                <div class="auth-logo">
+                    <div class="icon"><i class="fas fa-crown"></i></div>
+                    <h2>WILLS <span>FINANCE</span> BK</h2>
+                    <p>Create your premium account</p>
+                </div>
+                <form id="signupForm" onsubmit="event.preventDefault(); handleSignup();">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control w-full" placeholder="John Irwin" value="John Irwin" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="signupEmail" class="form-control w-full" placeholder="john@example.com" value="johnirwin@gmail.com" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="signupPassword" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control w-full" placeholder="••••••••" value="Killedward2#3" required />
+                    </div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <input type="checkbox" id="terms" checked />
+                        <label for="terms" class="text-sm text-wf-muted">I agree to the <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" class="btn btn-wf-gold w-full py-3 text-sm font-semibold rounded-full">Create Account <i class="fas fa-arrow-right ml-2"></i></button>
+                    <div class="divider">or</div>
+                    <p class="text-center text-sm text-wf-muted">Already have an account? <a href="#" class="auth-link" onclick="showPage('login')">Log In</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PAGE: DASHBOARD — John Irwin
+    ============================================================ -->
+    <section class="page-section" id="page-dashboard">
+        <div class="dashboard-page">
+            <div class="container mx-auto px-4 py-8">
+                <div class="grid lg:grid-cols-4 gap-6">
+                    <!-- Sidebar -->
+                    <div class="lg:col-span-1">
+                        <div class="dashboard-sidebar">
+                            <div class="text-center mb-6">
+                                <div class="user-avatar mx-auto">JI</div>
+                                <div class="user-name">John Irwin</div>
+                                <div class="user-email">johnirwin@gmail.com</div>
+                                <div class="mt-2 inline-flex items-center gap-1.5 bg-wf-red/10 text-wf-red text-xs font-semibold px-3 py-1 rounded-full">
+                                    <i class="fas fa-circle text-[6px]"></i> Premium Client
+                                </div>
+                            </div>
+                            <nav class="flex flex-col gap-1">
+                                <a href="#" class="nav-item active"><i class="fas fa-th-large"></i> Overview</a>
+                                <a href="#" class="nav-item"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                                <a href="#" class="nav-item"><i class="fas fa-chart-pie"></i> Investments</a>
+                                <a href="#" class="nav-item"><i class="fas fa-credit-card"></i> Cards</a>
+                                <a href="#" class="nav-item"><i class="fas fa-user-cog"></i> Settings</a>
+                                <div class="logout-btn">
+                                    <a href="#" class="nav-item text-wf-red" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="lg:col-span-3">
+                        <!-- Welcome + Balance -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-wf-dark">Welcome back, John 👋</h2>
+                                <p class="text-wf-muted text-sm">Here's your financial overview</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="btn btn-wf-red px-5 py-2 text-sm rounded-full flex items-center gap-2" onclick="showToast('Transfer','Initiate a new transfer')"><i class="fas fa-plus"></i> Transfer</button>
+                                <button class="btn btn-outline-wf px-5 py-2 text-sm rounded-full flex items-center gap-2" onclick="showToast('Export','Preparing your export...')"><i class="fas fa-download"></i> Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Balance Card -->
+                        <div class="balance-card mb-6">
+                            <div class="flex flex-wrap justify-between items-start">
+                                <div>
+                                    <div class="balance-label">Total Balance</div>
+                                    <div class="balance-amount"><span class="currency">$</span>57,000,000.00</div>
+                                </div>
+                                <div class="flex gap-3">
+                                    <a href="#" class="quick-action" onclick="showToast('Transfer','Initiate a new transfer')">
+                                        <div class="qa-icon"><i class="fas fa-paper-plane"></i></div>
+                                        <span class="qa-label">Send</span>
+                                    </a>
+                                    <a href="#" class="quick-action" onclick="showToast('Deposit','Add funds to your account')">
+                                        <div class="qa-icon"><i class="fas fa-arrow-down"></i></div>
+                                        <span class="qa-label">Deposit</span>
+                                    </a>
+                                    <a href="#" class="quick-action" onclick="showToast('Request','Request funds from contacts')">
+                                        <div class="qa-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                                        <span class="qa-label">Request</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="balance-sub">
+                                <div class="sub-item">
+                                    <div class="sub-label">Available Balance</div>
+                                    <div class="sub-value">$57,000,000.00</div>
+                                </div>
+                                <div class="sub-item">
+                                    <div class="sub-label">Today's Change</div>
+                                    <div class="sub-value text-wf-gold">+$124,500.00</div>
+                                </div>
+                                <div class="sub-item">
+                                    <div class="sub-label">Account Number</div>
+                                    <div class="sub-value text-sm opacity-70">•••• 4829</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Row -->
+                        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+                            <div class="dash-card">
+                                <div class="card-label"><i class="fas fa-arrow-up text-wf-red mr-1"></i> Income</div>
+                                <div class="card-value">$342,800.00</div>
+                                <div class="card-change positive">+12.5% this month</div>
+                            </div>
+                            <div class="dash-card">
+                                <div class="card-label"><i class="fas fa-arrow-down text-wf-red mr-1"></i> Expenses</div>
+                                <div class="card-value">$218,300.00</div>
+                                <div class="card-change negative">-3.2% this month</div>
+                            </div>
+                            <div class="dash-card">
+                                <div class="card-label"><i class="fas fa-chart-simple text-wf-red mr-1"></i> Investments</div>
+                                <div class="card-value">$12.4M</div>
+                                <div class="card-change positive">+8.7% this year</div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div class="dash-card">
+                            <div class="flex items-center justify-between mb-4">
+                                <h5 class="font-bold text-wf-dark text-lg">Recent Transactions</h5>
+                                <a href="#" class="text-wf-red text-sm font-semibold" onclick="showToast('Transactions','Loading all transactions...')">View All <i class="fas fa-arrow-right ml-1"></i></a>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="tx-icon credit"><i class="fas fa-arrow-down"></i></div>
+                                <div class="tx-info"><div class="tx-name">Salary Deposit — WFB Corp</div><div class="tx-date">Today, 09:32 AM</div></div>
+                                <div class="tx-amount credit">+$24,500.00</div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="tx-icon debit"><i class="fas fa-arrow-up"></i></div>
+                                <div class="tx-info"><div class="tx-name">Investment — Tech Fund A</div><div class="tx-date">Yesterday, 03:15 PM</div></div>
+                                <div class="tx-amount debit">-$12,000.00</div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="tx-icon credit"><i class="fas fa-arrow-down"></i></div>
+                                <div class="tx-info"><div class="tx-name">Dividend Payout — Blue Chip</div><div class="tx-date">Jul 18, 2026</div></div>
+                                <div class="tx-amount credit">+$8,750.00</div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="tx-icon debit"><i class="fas fa-arrow-up"></i></div>
+                                <div class="tx-info"><div class="tx-name">Transfer — Sarah K.</div><div class="tx-date">Jul 17, 2026</div></div>
+                                <div class="tx-amount debit">-$5,300.00</div>
+                            </div>
+                            <div class="transaction-item">
+                                <div class="tx-icon credit"><i class="fas fa-arrow-down"></i></div>
+                                <div class="tx-info"><div class="tx-name">Interest — Premium Savings</div><div class="tx-date">Jul 16, 2026</div></div>
+                                <div class="tx-amount credit">+$1,240.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="bg-wf-dark text-white/70 pt-12 pb-6 mt-8" id="mainFooter">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="logo-premium" onclick="showPage('home')">
+                        <span class="logo-icon"><i class="fas fa-crown"></i></span>
+                        <span class="logo-text-group">
+                            <span class="logo-line1 text-white">WILLS<span class="spacer"></span><span class="highlight text-wf-red">FINANCE</span></span>
+                            <span class="logo-line2 text-white/50">BK <span class="gold-dot">•</span> EST. 1992</span>
+                        </span>
+                    </a>
+                    <p class="mt-4 text-sm max-w-xs leading-relaxed opacity-70">Building a better financial future since 1992.</p>
+                </div>
+                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Personal</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Checking</a></li><li><a href="#" class="footer-link">Savings</a></li><li><a href="#" class="footer-link">Credit Cards</a></li><li><a href="#" class="footer-link">Loans</a></li></ul></div>
+                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Business</h5><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Business Checking</a></li><li><a href="#" class="footer-link">Merchant Services</a></li><li><a href="#" class="footer-link">Payroll</a></li><li><a href="#" class="footer-link">Business Loans</a></li></ul></div>
+                <div>
+                    <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Stay Informed</h5>
+                    <p class="text-sm opacity-70 mb-3">Get financial tips & updates.</p>
+                    <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); showToast('Subscribed','You\'re now on our mailing list!');">
+                        <input type="email" placeholder="Your email" class="px-4 py-2.5 rounded-full bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-wf-gold text-sm transition" required />
+                        <button type="submit" class="btn btn-wf-gold text-sm font-semibold rounded-full py-2.5 flex items-center justify-center gap-2">Subscribe <i class="fas fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-10 pt-6 flex flex-wrap justify-between text-sm opacity-60"><span>&copy; 2026 WILLS FINANCE BK. All rights reserved. Member FDIC.</span><span><i class="fas fa-globe"></i> English · <i class="fas fa-universal-access"></i> Accessibility</span></div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- ============================================================
+    CUSTOM JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // PRELOADER
+            // ============================================================
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    document.getElementById('preloader').classList.add('hidden');
+                }, 2800);
+            });
+
+            // ============================================================
+            // AUTH STATE
+            // ============================================================
+            let isLoggedIn = false;
+            const VALID_EMAIL = 'johnirwin@gmail.com';
+            const VALID_PASSWORD = 'Killedward2#3';
+
+            // DOM refs for nav links
+            const dashNavLink = document.getElementById('dashNavLink');
+            const mobileDashLink = document.getElementById('mobileDashLink');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+            // ============================================================
+            // PAGE NAVIGATION
+            // ============================================================
+            const pages = {
+                home: document.getElementById('page-home'),
+                login: document.getElementById('page-login'),
+                signup: document.getElementById('page-signup'),
+                dashboard: document.getElementById('page-dashboard')
+            };
+
+            const footer = document.getElementById('mainFooter');
+
+            window.showPage = function(page) {
+                // If trying to access dashboard without login, redirect to login
+                if (page === 'dashboard' && !isLoggedIn) {
+                    showToast('Access Denied', 'Please log in to view your dashboard.');
+                    page = 'login';
+                }
+
+                // Hide all pages
+                Object.values(pages).forEach(p => p.classList.remove('active'));
+                // Show target
+                if (pages[page]) pages[page].classList.add('active');
+
+                // Show/hide footer
+                if (page === 'login' || page === 'signup') {
+                    footer.style.display = 'none';
+                } else {
+                    footer.style.display = 'block';
+                }
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Close mobile nav
+                const mobileNav = document.getElementById('mobileNav');
+                if (mobileNav.classList.contains('show')) {
+                    const bsCollapse = bootstrap.Collapse.getInstance(mobileNav);
+                    if (bsCollapse) bsCollapse.hide();
+                }
+
+                // Trigger animations
+                if (page === 'dashboard') {
+                    animateDashboard();
+                }
+                if (page === 'home') {
+                    triggerHeroCounters();
+                }
+
+                // Update UI based on login state
+                updateNavUI();
+            };
+
+            // ============================================================
+            // UPDATE NAV UI
+            // ============================================================
+            function updateNavUI() {
+                if (isLoggedIn) {
+                    dashNavLink.style.display = 'inline-block';
+                    mobileDashLink.style.display = 'block';
+                    logoutBtn.style.display = 'inline-flex';
+                    mobileLogoutBtn.style.display = 'block';
+                    // Hide login/signup nav links (optional)
+                    document.querySelectorAll('#desktopNav .nav-link-premium').forEach(el => {
+                        if (el.textContent.trim() === 'Login' || el.textContent.trim() === 'Sign Up') {
+                            el.style.display = 'none';
+                        }
+                    });
+                } else {
+                    dashNavLink.style.display = 'none';
+                    mobileDashLink.style.display = 'none';
+                    logoutBtn.style.display = 'none';
+                    mobileLogoutBtn.style.display = 'none';
+                    document.querySelectorAll('#desktopNav .nav-link-premium').forEach(el => {
+                        if (el.textContent.trim() === 'Login' || el.textContent.trim() === 'Sign Up') {
+                            el.style.display = 'inline-block';
+                        }
+                    });
+                }
+            }
+
+            // ============================================================
+            // LOGIN HANDLER
+            // ============================================================
+            window.handleLogin = function() {
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+                    isLoggedIn = true;
+                    showToast('Welcome Back!', 'Redirecting to your dashboard...');
+                    setTimeout(() => {
+                        showPage('dashboard');
+                    }, 1200);
+                } else {
+                    showToast('Login Failed', 'Invalid email or password. Please try again.');
+                    // shake effect (optional)
+                    const form = document.getElementById('loginForm');
+                    form.style.animation = 'shake 0.4s ease';
+                    setTimeout(() => form.style.animation = '', 500);
+                }
+            };
+
+            // ============================================================
+            // SIGNUP HANDLER
+            // ============================================================
+            window.handleSignup = function() {
+                const email = document.getElementById('signupEmail').value.trim();
+                // For demo, we allow signup but then we redirect to login and show a message
+                // But we can also auto-login if they use the same credentials? Let's just show a message.
+                showToast('Account Created!', 'Your account has been created. Please log in with your credentials.');
+                setTimeout(() => {
+                    showPage('login');
+                }, 1500);
+            };
+
+            // ============================================================
+            // LOGOUT
+            // ============================================================
+            window.logout = function() {
+                isLoggedIn = false;
+                showToast('Logged Out', 'You have been successfully logged out.');
+                setTimeout(() => {
+                    showPage('home');
+                    updateNavUI();
+                }, 800);
+            };
+
+            // ============================================================
+            // HERO COUNTERS
+            // ============================================================
+            function triggerHeroCounters() {
+                const counters = document.querySelectorAll('#page-home .hero-stat .number[data-count]');
+                counters.forEach(counter => {
+                    const target = parseFloat(counter.dataset.count);
+                    if (isNaN(target) || counter.dataset.animated) return;
+                    counter.dataset.animated = 'true';
+                    const isFloat = target % 1 !== 0;
+                    let currentVal = 0;
+                    const duration = 1800;
+                    const stepTime = 16;
+                    const steps = duration / stepTime;
+                    const increment = target / steps;
+                    const timer = setInterval(() => {
+                        currentVal += increment;
+                        if (currentVal >= target) {
+                            currentVal = target;
+                            clearInterval(timer);
+                        }
+                        counter.textContent = isFloat ? currentVal.toFixed(1) : Math.floor(currentVal);
+                    }, stepTime);
+                });
+            }
+            setTimeout(triggerHeroCounters, 500);
+
+            // ============================================================
+            // DASHBOARD ANIMATIONS
+            // ============================================================
+            function animateDashboard() {
+                const cards = document.querySelectorAll('#page-dashboard .dash-card, #page-dashboard .balance-card');
+                cards.forEach((card, i) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100 + i * 80);
+                });
+            }
+
+            // ============================================================
+            // TOAST SYSTEM
+            // ============================================================
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMsg = document.getElementById('toastMsg');
+            let toastTimeout;
+
+            window.showToast = function(title, msg) {
+                clearTimeout(toastTimeout);
+                toastTitle.textContent = title || 'Success';
+                toastMsg.textContent = msg || 'Action completed';
+                toast.classList.add('show');
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4000);
+            };
+
+            // ============================================================
+            // SCROLL PROGRESS BAR
+            // ============================================================
+            const progress = document.getElementById('scrollProgress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                progress.style.width = (scrollTop / docHeight) * 100 + '%';
+            });
+
+            // ============================================================
+            // HEADER SHADOW
+            // ============================================================
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 20);
+            });
+
+            // ============================================================
+            // SIDEBAR NAV ACTIVE STATE
+            // ============================================================
+            document.querySelectorAll('.dashboard-sidebar .nav-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    document.querySelectorAll('.dashboard-sidebar .nav-item').forEach(i => i.classList.remove(
+                        'active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // ============================================================
+            // KEYBOARD SHORTCUT: Escape to home
+            // ============================================================
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    showPage('home');
+                }
+            });
+
+            // ============================================================
+            // ADD SHAKE ANIMATION
+            // ============================================================
+            const style = document.createElement('style');
+            style.textContent = `
+                        @keyframes shake {
+                            0%, 100% { transform: translateX(0); }
+                            25% { transform: translateX(-8px); }
+                            75% { transform: translateX(8px); }
+                        }
+                    `;
+            document.head.appendChild(style);
+
+            // Init UI
+            updateNavUI();
+
+            console.log('🏦 WILLS FINANCE BK — Premium Banking Platform');
+            console.log('👤 Demo credentials: johnirwin@gmail.com / Killedward2#3');
+            console.log('🔒 Only these credentials can access the dashboard.');
+        })();
+    </script>
+
+    <!-- Additional hero slideshow styles -->
+    <style>
         .hero-slide {
             background-size: cover;
             background-position: center;
@@ -346,13 +1650,6 @@
             background: linear-gradient(135deg, rgba(0, 40, 86, 0.82) 0%, rgba(200, 16, 46, 0.35) 100%);
             z-index: 1;
         }
-        .hero-slide::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 20% 50%, rgba(255, 184, 28, 0.08) 0%, transparent 70%);
-            z-index: 1;
-        }
         .hero-content {
             position: relative;
             z-index: 2;
@@ -368,63 +1665,6 @@
                 transform: translateY(0);
             }
         }
-
-        .hero-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .hero-arrow:hover {
-            background: rgba(255, 255, 255, 0.18);
-            transform: translateY(-50%) scale(1.08);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-        .hero-arrow.prev {
-            left: 28px;
-        }
-        .hero-arrow.next {
-            right: 28px;
-        }
-        .hero-indicators {
-            position: absolute;
-            bottom: 36px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex;
-            gap: 14px;
-        }
-        .hero-indicators button {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            background: transparent;
-            padding: 0;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .hero-indicators button.active {
-            background: var(--wf-gold);
-            border-color: var(--wf-gold);
-            transform: scale(1.3);
-            box-shadow: 0 0 20px rgba(255, 184, 28, 0.3);
-        }
         .hero-stat .number {
             font-size: 2rem;
             font-weight: 900;
@@ -436,10 +1676,6 @@
             opacity: 0.7;
             margin-top: 2px;
         }
-
-        /* ============================================================
-                   TRUST BANNER
-                ============================================================ */
         .trust-banner {
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
@@ -463,10 +1699,6 @@
             color: var(--wf-red);
             font-size: 0.9rem;
         }
-
-        /* ============================================================
-                   CARDS
-                ============================================================ */
         .service-card {
             background: #ffffff;
             border-radius: 20px;
@@ -514,87 +1746,34 @@
             transform: scale(1.05);
             box-shadow: 0 8px 24px rgba(200, 16, 46, 0.2);
         }
-
-        .insight-card {
-            background: #ffffff;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .insight-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--wf-shadow-hover);
-            border-color: rgba(255, 184, 28, 0.2);
-        }
-        .insight-card img {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .insight-card:hover img {
-            transform: scale(1.04);
-        }
-
-        /* ============================================================
-                   PHONE MOCKUP
-                ============================================================ */
-        .phone-mockup {
-            background: var(--wf-dark);
-            border-radius: 48px;
-            padding: 20px 12px;
-            max-width: 260px;
-            box-shadow: 0 30px 80px rgba(0, 40, 86, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .phone-mockup .screen {
-            background: #ffffff;
-            border-radius: 32px;
-            padding: 20px 16px;
-            min-height: 400px;
+        .nav-link-premium {
             position: relative;
-            overflow: hidden;
+            font-weight: 500;
+            color: var(--wf-dark);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.875rem;
+            padding: 0.5rem 0;
         }
-        .phone-mockup .screen .notch {
+        .nav-link-premium::after {
+            content: '';
             position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 20px;
-            background: var(--wf-dark);
-            border-radius: 20px;
-            z-index: 5;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--wf-red);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
         }
-
-        /* ============================================================
-                   RATES
-                ============================================================ */
-        .rate-card {
-            background: var(--wf-light);
-            border-radius: 16px;
-            padding: 1.75rem 1.5rem;
-            text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .rate-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--wf-shadow);
-            border-color: var(--wf-gold);
-        }
-        .rate-card .rate-number {
-            font-size: 2.75rem;
-            font-weight: 900;
+        .nav-link-premium:hover {
+            opacity: 1;
             color: var(--wf-red);
-            letter-spacing: -0.02em;
         }
-        .rate-card .rate-number small {
-            font-size: 1.25rem;
-            font-weight: 700;
+        .nav-link-premium:hover::after {
+            width: 100%;
         }
-
-        /* ============================================================
-                   FOOTER
-                ============================================================ */
         .footer-link {
             color: rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
@@ -605,10 +1784,6 @@
             color: var(--wf-gold);
             transform: translateX(4px);
         }
-
-        /* ============================================================
-                   SCROLL ANIMATIONS
-                ============================================================ */
         .fade-up {
             opacity: 0;
             transform: translateY(40px);
@@ -618,681 +1793,11 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* ============================================================
-                   BACK TO TOP
-                ============================================================ */
-        #backToTop {
-            position: fixed;
-            bottom: 32px;
-            right: 32px;
-            z-index: 999;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--wf-red), var(--wf-red-dark));
-            color: #fff;
-            border: none;
-            box-shadow: 0 8px 32px rgba(200, 16, 46, 0.35);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px) scale(0.8);
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #backToTop.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-        #backToTop:hover {
-            transform: translateY(-4px) scale(1.06);
-            box-shadow: 0 12px 40px rgba(200, 16, 46, 0.45);
-        }
-        #backToTop:active {
-            transform: scale(0.92);
-        }
-
-        /* ============================================================
-                   RESPONSIVE
-                ============================================================ */
-        @media (max-width: 992px) {
-            .hero-arrow {
-                width: 40px;
-                height: 40px;
-                font-size: 0.9rem;
-            }
-            .hero-arrow.prev {
-                left: 16px;
-            }
-            .hero-arrow.next {
-                right: 16px;
-            }
-        }
-        @media (max-width: 768px) {
-            .hero-arrow {
-                display: none;
-            }
-            .hero-indicators {
-                bottom: 24px;
-                gap: 10px;
-            }
-            .hero-indicators button {
-                width: 8px;
-                height: 8px;
-            }
-            .phone-mockup {
-                max-width: 200px;
-                padding: 14px 8px;
-                border-radius: 36px;
-            }
-            .phone-mockup .screen {
-                min-height: 300px;
-                padding: 16px 12px;
-                border-radius: 24px;
-            }
-            .phone-mockup .screen .notch {
-                width: 60px;
-                height: 16px;
-                top: 6px;
-            }
-            .logo-premium .logo-line1 {
-                font-size: 1rem;
-            }
-            .logo-premium .logo-line2 {
-                font-size: 0.5rem;
-            }
-            .logo-premium .logo-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-                border-radius: 10px;
-            }
-            .logo-premium .logo-divider {
-                display: none;
-            }
-            .logo-premium {
-                gap: 8px;
-            }
-        }
-        @media (max-width: 576px) {
-            .hero-stat .number {
-                font-size: 1.5rem;
-            }
-            .hero-stat .label {
-                font-size: 0.65rem;
-            }
-            .rate-card .rate-number {
-                font-size: 2rem;
-            }
-        }
-
-        /* Bootstrap toggler fix */
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,40,86,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        ::selection {
-            background: var(--wf-red);
-            color: #fff;
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--wf-light);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--wf-red), var(--wf-gold));
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--wf-red);
-        }
     </style>
-</head>
-<body>
 
-    <!-- ============================================================
-    SCROLL PROGRESS BAR
-    ============================================================ -->
-    <div id="scrollProgress"></div>
-
-    <!-- ============================================================
-    HEADER — Premium with WILLS FINANCE BANK logo
-    ============================================================ -->
-    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="header">
-        <div class="container mx-auto px-4 lg:px-6 flex items-center justify-between h-20">
-            <!-- Premium Logo: WILLS FINANCE BANK -->
-            <a href="#" class="logo-premium">
-                <span class="logo-icon"><i class="fas fa-crown"></i></span>
-                <span class="logo-divider"></span>
-                <span class="logo-text-group">
-                    <span class="logo-line1">
-                        WILLS<span class="spacer"></span><span class="highlight">FINANCE</span>
-                    </span>
-                    <span class="logo-line2">BANK <span class="gold-dot">•</span> EST. 1992</span>
-                </span>
-            </a>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center gap-8">
-                <a href="#products" class="nav-link-premium">Products</a>
-                <a href="#rates" class="nav-link-premium">Rates</a>
-                <a href="#security" class="nav-link-premium">Security</a>
-                <a href="#insights" class="nav-link-premium">Insights</a>
-                <a href="#contact" class="nav-link-premium">Contact</a>
-            </nav>
-
-            <!-- Actions -->
-            <div class="flex items-center gap-3">
-                <a href="#" class="hidden sm:inline-flex btn btn-outline-wf px-5 py-2 text-sm font-semibold rounded-full items-center gap-2">
-                    <i class="fas fa-lock"></i> Log In
-                </a>
-                <a href="#" class="btn btn-wf-red px-6 py-2 text-sm font-semibold rounded-full shadow-md flex items-center gap-2">
-                    <i class="fas fa-user-plus"></i> Sign Up
-                </a>
-                <button class="navbar-toggler lg:hidden border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-expanded="false">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Nav -->
-        <div class="collapse lg:hidden bg-white/98 backdrop-blur-lg border-t border-gray-100" id="mobileNav">
-            <div class="container mx-auto px-4 py-6 flex flex-col gap-3 text-sm font-medium">
-                <a href="#products" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition">Products</a>
-                <a href="#rates" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition">Rates</a>
-                <a href="#security" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition">Security</a>
-                <a href="#insights" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition">Insights</a>
-                <a href="#contact" class="text-wf-dark/70 hover:text-wf-red py-3 border-b border-gray-50 transition">Contact</a>
-                <div class="pt-4 flex flex-col gap-3">
-                    <a href="#" class="btn btn-outline-wf w-full text-center rounded-full py-2.5"><i class="fas fa-lock"></i> Log In</a>
-                    <a href="#" class="btn btn-wf-red w-full text-center rounded-full py-2.5"><i class="fas fa-user-plus"></i> Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- ============================================================
-    HERO SLIDESHOW
-    ============================================================ -->
-    <section class="relative w-full h-screen max-h-[1000px] min-h-[600px] mt-20 overflow-hidden" id="hero">
-        <div class="relative w-full h-full" id="heroSlides">
-            <!-- Slide 1 -->
-            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1600&q=80');">
-                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
-                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-white/10 mb-4"><i class="fas fa-mobile-alt"></i> Mobile First</span>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-4">Banking that moves <br /><span class="text-wf-gold">with you</span></h1>
-                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6 leading-relaxed">Seamless banking across every device. Real-time balances, instant transfers, and AI-driven insights.</p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-arrow-right"></i> Open Account</a>
-                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-play-circle"></i> See Demo</a>
-                    </div>
-                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
-                        <div class="hero-stat"><span class="number" data-count="12">0</span><span class="number text-2xl">M+</span><p class="label">Active Users</p></div>
-                        <div class="hero-stat"><span class="number" data-count="8.2">0</span><span class="number text-2xl">B</span><p class="label">Total Assets</p></div>
-                        <div class="hero-stat"><span class="number" data-count="4.9">0</span><span class="number text-2xl">★</span><p class="label">App Store Rating</p></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 2 -->
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80');">
-                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
-                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-white/10 mb-4"><i class="fas fa-chart-line"></i> Wealth Management</span>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-4">Grow your <span class="text-wf-gold">financial future</span></h1>
-                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6 leading-relaxed">Expert guidance, premium portfolios, and tools designed to help you reach your goals.</p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-arrow-right"></i> Start Investing</a>
-                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-calculator"></i> Plan Now</a>
-                    </div>
-                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
-                        <div class="hero-stat"><span class="number" data-count="15">0</span><span class="number text-2xl">%</span><p class="label">Avg. Portfolio Growth</p></div>
-                        <div class="hero-stat"><span class="number" data-count="200">0</span><span class="number text-2xl">+</span><p class="label">Investment Options</p></div>
-                        <div class="hero-stat"><span class="number" data-count="24">0</span><span class="number text-2xl">/7</span><p class="label">Expert Support</p></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=80');">
-                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
-                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-white/10 mb-4"><i class="fas fa-shield-alt"></i> Bank-Grade Security</span>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-4">Payments you can <span class="text-wf-gold">trust</span></h1>
-                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6 leading-relaxed">Multi-layer encryption, AI fraud detection, and zero-liability protection.</p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-arrow-right"></i> Explore Cards</a>
-                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-lock"></i> Security Center</a>
-                    </div>
-                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
-                        <div class="hero-stat"><span class="number" data-count="256">0</span><span class="number text-2xl">-bit</span><p class="label">Encryption</p></div>
-                        <div class="hero-stat"><span class="number" data-count="99.99">0</span><span class="number text-2xl">%</span><p class="label">Uptime</p></div>
-                        <div class="hero-stat"><span class="number">FDIC</span><p class="label">Insured</p></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 4 -->
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80');">
-                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
-                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-white/10 mb-4"><i class="fas fa-globe-americas"></i> Global Reach</span>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-4">Banking without <span class="text-wf-gold">borders</span></h1>
-                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6 leading-relaxed">Send and receive in 40+ currencies with competitive rates and zero hidden fees.</p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-arrow-right"></i> Global Transfer</a>
-                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-flag"></i> View Rates</a>
-                    </div>
-                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
-                        <div class="hero-stat"><span class="number" data-count="200">0</span><span class="number text-2xl">+</span><p class="label">Countries</p></div>
-                        <div class="hero-stat"><span class="number" data-count="40">0</span><span class="number text-2xl">+</span><p class="label">Currencies</p></div>
-                        <div class="hero-stat"><span class="number" data-count="0">0</span><span class="number text-2xl">%</span><p class="label">Hidden Fees</p></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Slide 5 -->
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1600&q=80');">
-                <div class="container mx-auto px-4 lg:px-8 hero-content text-white">
-                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-wf-gold border border-white/10 mb-4"><i class="fas fa-piggy-bank"></i> Smart Savings</span>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-4">Save smarter, <span class="text-wf-gold">earn more</span></h1>
-                    <p class="text-lg md:text-xl max-w-xl opacity-90 mb-6 leading-relaxed">High-yield savings with AI-powered goals, automatic round-ups, and 4.50% APY.</p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="btn btn-wf-gold px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-arrow-right"></i> Start Saving</a>
-                        <a href="#" class="btn btn-outline-white px-8 py-3 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-chart-bar"></i> Compare Rates</a>
-                    </div>
-                    <div class="flex flex-wrap gap-8 mt-10 pt-6 border-t border-white/10">
-                        <div class="hero-stat"><span class="number" data-count="4.50">0</span><span class="number text-2xl">%</span><p class="label">APY</p></div>
-                        <div class="hero-stat"><span class="number" data-count="0">0</span><span class="number text-2xl">$</span><p class="label">Monthly Fees</p></div>
-                        <div class="hero-stat"><span class="number" data-count="24">0</span><span class="number text-2xl">/7</span><p class="label">Access</p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Arrows -->
-        <button class="hero-arrow prev" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
-        <button class="hero-arrow next" id="heroNext"><i class="fas fa-chevron-right"></i></button>
-
-        <!-- Indicators -->
-        <div class="hero-indicators" id="heroIndicators"></div>
-    </section>
-
-    <!-- ============================================================
-    TRUST BANNER
-    ============================================================ -->
-    <div class="trust-banner py-4 border-b border-gray-200/60">
-        <div class="container mx-auto px-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-            <span class="trust-item"><i class="fas fa-shield-alt"></i> FDIC Insured</span>
-            <span class="trust-item"><i class="fas fa-lock"></i> 256-bit SSL</span>
-            <span class="trust-item"><i class="fas fa-robot"></i> AI Fraud Protection</span>
-            <span class="trust-item"><i class="fas fa-clock"></i> 24/7 Support</span>
-            <span class="trust-item"><i class="fas fa-mobile-alt"></i> #1 Mobile Banking</span>
-            <span class="trust-item"><i class="fas fa-star text-wf-gold"></i> 4.9★ App Store</span>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    PRODUCTS & SERVICES
-    ============================================================ -->
-    <section class="py-24 bg-wf-light" id="products">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-star"></i> Premium Products</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Comprehensive <span class="text-wf-red">banking solutions</span></h2>
-                <p class="text-wf-muted mt-4 text-lg max-w-2xl mx-auto">From everyday checking to wealth management, we provide the tools and expertise to help you thrive.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="service-card fade-up">
-                    <div class="icon-wrap"><i class="fas fa-wallet"></i></div>
-                    <h4 class="text-xl font-bold text-wf-dark">Checking & Savings</h4>
-                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Our premium checking accounts offer zero monthly fees, early paycheck access, and 1.5% cashback on purchases. Pair it with our high-yield savings account earning <span class="text-wf-red font-bold">4.50% APY</span>.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="icon-wrap"><i class="fas fa-credit-card"></i></div>
-                    <h4 class="text-xl font-bold text-wf-dark">Credit Cards & Rewards</h4>
-                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Earn unlimited <span class="text-wf-red font-bold">5% cashback</span> in rotating categories, 2% on dining and travel, and 1% on all other purchases. <span class="text-wf-red font-bold">0% introductory APR</span> for 15 months.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="icon-wrap"><i class="fas fa-home"></i></div>
-                    <h4 class="text-xl font-bold text-wf-dark">Home & Personal Loans</h4>
-                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Competitive fixed and adjustable-rate mortgages with personalized support. Unlock <span class="text-wf-red font-bold">low APR</span> options tailored to your needs.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="icon-wrap"><i class="fas fa-chart-pie"></i></div>
-                    <h4 class="text-xl font-bold text-wf-dark">Wealth & Investment</h4>
-                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Certified financial planners provide tailored investment strategies, retirement planning, and tax-efficient portfolio management with <span class="text-wf-red font-bold">AI-powered insights</span>.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="icon-wrap"><i class="fas fa-exchange-alt"></i></div>
-                    <h4 class="text-xl font-bold text-wf-dark">Global Transfers & FX</h4>
-                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Send money to <span class="text-wf-red font-bold">200+ countries</span> with transparent FX rates, low fees, and fast settlement. 24/7 tracking and secure transfers.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
-                </div>
-                <div class="service-card fade-up">
-                    <div class="icon-wrap"><i class="fas fa-building"></i></div>
-                    <h4 class="text-xl font-bold text-wf-dark">Business Banking</h4>
-                    <p class="text-wf-muted text-sm mt-2 leading-relaxed">Comprehensive solutions including business checking, merchant services, payroll management, and commercial lending with <span class="text-wf-red font-bold">dedicated relationship managers</span>.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 hover:gap-3 transition-all">Learn More <i class="fas fa-arrow-right text-xs"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    RATES & OFFERS
-    ============================================================ -->
-    <section class="py-24 bg-white" id="rates">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-percent"></i> Competitive Rates</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Earn more, <span class="text-wf-red">pay less</span></h2>
-                <p class="text-wf-muted mt-4 text-lg">Transparent, competitive rates across all our products to help you maximize your money.</p>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <div class="rate-card fade-up"><div class="rate-number">4.50<small>%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Premium Savings APY</p><p class="text-xs text-wf-muted mt-1">No monthly maintenance fees</p></div>
-                <div class="rate-card fade-up"><div class="rate-number">0.25<small>%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Checking APY</p><p class="text-xs text-wf-muted mt-1">With early direct deposit</p></div>
-                <div class="rate-card fade-up"><div class="rate-number">5.99<small>%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Personal Loan APR</p><p class="text-xs text-wf-muted mt-1">Fixed rates for 36 months</p></div>
-                <div class="rate-card fade-up"><div class="rate-number">2.99<small>%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Mortgage APR</p><p class="text-xs text-wf-muted mt-1">15-year fixed rate</p></div>
-                <div class="rate-card fade-up"><div class="rate-number">0<small>%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Intro APR on Balance Transfers</p><p class="text-xs text-wf-muted mt-1">For the first 15 months</p></div>
-                <div class="rate-card fade-up"><div class="rate-number">1.5<small>%</small></div><p class="text-wf-muted mt-1 text-sm font-medium">Cashback on All Purchases</p><p class="text-xs text-wf-muted mt-1">Unlimited with Elite Card</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    SECURITY & TRUST
-    ============================================================ -->
-    <section class="py-24 bg-wf-dark text-white" id="security">
-        <div class="container mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="inline-block text-wf-gold font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-shield-alt"></i> Security First</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">Bank-grade protection you can <span class="text-wf-gold">count on</span></h2>
-                    <p class="text-white/70 text-lg mt-4 max-w-lg">At WILLS FINANCE BANK, your security is our top priority. We use advanced technology and rigorous protocols to ensure your money and data are always safe.</p>
-                    <div class="grid gap-5 mt-8">
-                        <div class="flex gap-4 items-start group"><div class="w-11 h-11 bg-wf-gold/10 rounded-xl flex items-center justify-center text-wf-gold text-lg group-hover:bg-wf-gold/20 transition"><i class="fas fa-fingerprint"></i></div><div><h5 class="font-bold text-white">Biometric Authentication</h5><p class="text-white/60 text-sm">Secure access with Face ID, Touch ID, and voice recognition.</p></div></div>
-                        <div class="flex gap-4 items-start group"><div class="w-11 h-11 bg-wf-gold/10 rounded-xl flex items-center justify-center text-wf-gold text-lg group-hover:bg-wf-gold/20 transition"><i class="fas fa-robot"></i></div><div><h5 class="font-bold text-white">AI-Powered Fraud Shield</h5><p class="text-white/60 text-sm">Real-time transaction monitoring with machine learning anomaly detection.</p></div></div>
-                        <div class="flex gap-4 items-start group"><div class="w-11 h-11 bg-wf-gold/10 rounded-xl flex items-center justify-center text-wf-gold text-lg group-hover:bg-wf-gold/20 transition"><i class="fas fa-lock"></i></div><div><h5 class="font-bold text-white">256-bit SSL Encryption</h5><p class="text-white/60 text-sm">Military-grade encryption protecting all your data and communications.</p></div></div>
-                        <div class="flex gap-4 items-start group"><div class="w-11 h-11 bg-wf-gold/10 rounded-xl flex items-center justify-center text-wf-gold text-lg group-hover:bg-wf-gold/20 transition"><i class="fas fa-user-shield"></i></div><div><h5 class="font-bold text-white">Zero-Liability Guarantee</h5><p class="text-white/60 text-sm">You are fully protected from unauthorized transactions on your accounts.</p></div></div>
-                    </div>
-                    <a href="#" class="btn btn-wf-gold mt-8 px-8 py-3 text-lg font-semibold rounded-full inline-flex items-center gap-2"><i class="fas fa-arrow-right"></i> Visit Security Center</a>
-                </div>
-                <div class="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/5"><img src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?w=800&q=80" alt="Security" class="w-full h-80 object-cover" /></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    TESTIMONIALS
-    ============================================================ -->
-    <section class="py-24 bg-wf-cream" id="testimonials">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-quote-left"></i> Testimonials</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">What our <span class="text-wf-red">clients say</span></h2>
-                <p class="text-wf-muted mt-4 text-lg">Real stories from individuals and businesses who trust WILLS FINANCE BANK.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
-                    <div class="text-wf-gold text-lg"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote class="text-wf-dark/80 text-base mt-3 leading-relaxed">"The mobile app is incredible — I can manage everything from my phone. The savings rate is unbeatable."</blockquote>
-                    <div class="flex items-center gap-4 mt-4"><div class="w-10 h-10 rounded-full bg-wf-red flex items-center justify-center text-white font-bold">JD</div><div><h6 class="font-bold text-sm">James Delaney</h6><p class="text-xs text-wf-muted">Premium Savings Client</p></div></div>
-                </div>
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
-                    <div class="text-wf-gold text-lg"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote class="text-wf-dark/80 text-base mt-3 leading-relaxed">"Their wealth management team helped me grow my portfolio by 22% in just one year. Outstanding."</blockquote>
-                    <div class="flex items-center gap-4 mt-4"><div class="w-10 h-10 rounded-full bg-wf-red flex items-center justify-center text-white font-bold">SK</div><div><h6 class="font-bold text-sm">Sarah Kim</h6><p class="text-xs text-wf-muted">Wealth Management Client</p></div></div>
-                </div>
-                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100/50 fade-up">
-                    <div class="text-wf-gold text-lg"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote class="text-wf-dark/80 text-base mt-3 leading-relaxed">"International transfers are so fast and the rates are transparent. I've switched all my banking."</blockquote>
-                    <div class="flex items-center gap-4 mt-4"><div class="w-10 h-10 rounded-full bg-wf-red flex items-center justify-center text-white font-bold">MR</div><div><h6 class="font-bold text-sm">Miguel Rojas</h6><p class="text-xs text-wf-muted">Global Transfers Client</p></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    MOBILE APP
-    ============================================================ -->
-    <section class="py-24 bg-white" id="mobile">
-        <div class="container mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-mobile-alt"></i> Mobile Banking</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Banking in your <span class="text-wf-red">pocket</span></h2>
-                    <p class="text-wf-muted text-lg mt-4 max-w-lg">Download the WILLS FINANCE BANK app and take control of your finances anywhere, anytime. Secure, fast, and intuitive.</p>
-                    <ul class="space-y-3 mt-6">
-                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Check balances & transaction history</li>
-                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Deposit checks with your camera</li>
-                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Send & receive money instantly</li>
-                        <li class="flex items-center gap-3 text-wf-dark"><i class="fas fa-check-circle text-wf-red text-xl"></i> Manage bills and set up auto-pay</li>
-                    </ul>
-                    <div class="flex flex-wrap gap-4 mt-8">
-                        <a href="#" class="btn btn-wf-dark px-6 py-3 text-sm font-semibold rounded-full flex items-center gap-2"><i class="fab fa-apple text-xl"></i> App Store</a>
-                        <a href="#" class="btn btn-wf-dark px-6 py-3 text-sm font-semibold rounded-full flex items-center gap-2"><i class="fab fa-google-play text-xl"></i> Google Play</a>
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <div class="phone-mockup">
-                        <div class="screen">
-                            <div class="notch"></div>
-                            <div class="flex justify-between text-xs text-wf-muted font-semibold mt-4"><span>9:41</span><span><i class="fas fa-wifi"></i> <i class="fas fa-battery-three-quarters"></i></span></div>
-                            <div class="text-center mt-3"><div class="text-xs text-wf-muted">Total Balance</div><div class="text-2xl font-extrabold text-wf-dark">$47,058.50</div></div>
-                            <div class="grid grid-cols-3 gap-2 mt-4">
-                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium hover:bg-wf-red/5 transition"><i class="fas fa-paper-plane block text-wf-red text-lg"></i> Send</div>
-                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium hover:bg-wf-red/5 transition"><i class="fas fa-arrow-down block text-wf-red text-lg"></i> Deposit</div>
-                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium hover:bg-wf-red/5 transition"><i class="fas fa-receipt block text-wf-red text-lg"></i> Bills</div>
-                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium hover:bg-wf-red/5 transition"><i class="fas fa-exchange-alt block text-wf-red text-lg"></i> Transfer</div>
-                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium hover:bg-wf-red/5 transition"><i class="fas fa-chart-line block text-wf-red text-lg"></i> Invest</div>
-                                <div class="bg-wf-light rounded-xl p-3 text-center text-xs font-medium hover:bg-wf-red/5 transition"><i class="fas fa-credit-card block text-wf-red text-lg"></i> Cards</div>
-                            </div>
-                            <div class="mt-4 bg-wf-light rounded-xl p-3 flex justify-between text-xs"><span>Last transaction</span><span class="font-bold text-wf-dark">+$4,250.00</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    INSIGHTS & EDUCATION
-    ============================================================ -->
-    <section class="py-24 bg-wf-light" id="insights">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <span class="inline-block text-wf-red font-semibold text-xs tracking-[0.15em] uppercase mb-2"><i class="fas fa-newspaper"></i> Insights</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-wf-dark">Financial <span class="text-wf-red">intelligence</span></h2>
-                <p class="text-wf-muted mt-4 text-lg">Expert advice, market updates, and tips to help you make smarter financial decisions.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="insight-card fade-up"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Investing" class="w-full h-52 object-cover" /><div class="p-6"><span class="text-xs font-bold text-wf-red uppercase tracking-wider">Investing</span><h5 class="text-lg font-bold mt-2">5 Smart Investment Strategies for 2026</h5><p class="text-wf-muted text-sm mt-2 leading-relaxed">From AI-powered portfolios to ESG investing, discover how to build a resilient portfolio.</p><a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right"></i></a></div></div>
-                <div class="insight-card fade-up"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80" alt="Security" class="w-full h-52 object-cover" /><div class="p-6"><span class="text-xs font-bold text-wf-red uppercase tracking-wider">Security</span><h5 class="text-lg font-bold mt-2">How to Spot a Phishing Scam</h5><p class="text-wf-muted text-sm mt-2 leading-relaxed">Protect yourself from online fraud with these simple but powerful security habits.</p><a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right"></i></a></div></div>
-                <div class="insight-card fade-up"><img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&q=80" alt="Savings" class="w-full h-52 object-cover" /><div class="p-6"><span class="text-xs font-bold text-wf-red uppercase tracking-wider">Savings</span><h5 class="text-lg font-bold mt-2">Maximize Your Savings with High-Yield Accounts</h5><p class="text-wf-muted text-sm mt-2 leading-relaxed">How to take advantage of 4.50% APY and other strategies to grow your wealth.</p><a href="#" class="inline-flex items-center gap-2 text-wf-red font-semibold mt-4 text-sm hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right"></i></a></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    CTA BANNER
-    ============================================================ -->
-    <section class="py-24 bg-wf-red text-white" id="contact">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-5xl font-extrabold">Ready to take control of your <span class="text-wf-gold">financial future</span>?</h2>
-            <p class="text-white/80 text-lg mt-4 max-w-2xl mx-auto">Join millions of satisfied clients and experience the WILLS FINANCE BANK difference. Open your account in minutes.</p>
-            <div class="flex flex-wrap justify-center gap-4 mt-8">
-                <a href="#" class="btn btn-wf-gold px-10 py-4 text-lg font-semibold rounded-full shadow-lg flex items-center gap-2"><i class="fas fa-user-plus"></i> Open an Account</a>
-                <a href="#" class="btn btn-outline-white px-10 py-4 text-lg font-semibold rounded-full flex items-center gap-2"><i class="fas fa-phone-alt"></i> Contact Us</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
-    <footer class="bg-wf-dark text-white/70 pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-10">
-                <div>
-                    <a href="#" class="logo-premium">
-                        <span class="logo-icon"><i class="fas fa-crown"></i></span>
-                        <span class="logo-text-group">
-                            <span class="logo-line1 text-white">WILLS<span class="spacer"></span><span class="highlight text-wf-red">FINANCE</span></span>
-                            <span class="logo-line2 text-white/50">BANK <span class="gold-dot">•</span> EST. 1992</span>
-                        </span>
-                    </a>
-                    <p class="mt-4 text-sm max-w-xs leading-relaxed opacity-70">Building a better financial future since 1992. Trust, innovation, and human care.</p>
-                    <div class="flex gap-4 mt-6">
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-wf-gold hover:text-wf-dark transition-all"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Personal</h5><ul class="space-y-2.5 text-sm"><li><a href="#" class="footer-link">Checking</a></li><li><a href="#" class="footer-link">Savings</a></li><li><a href="#" class="footer-link">Credit Cards</a></li><li><a href="#" class="footer-link">Loans</a></li><li><a href="#" class="footer-link">Investments</a></li></ul></div>
-                <div><h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Business</h5><ul class="space-y-2.5 text-sm"><li><a href="#" class="footer-link">Business Checking</a></li><li><a href="#" class="footer-link">Merchant Services</a></li><li><a href="#" class="footer-link">Payroll</a></li><li><a href="#" class="footer-link">Business Loans</a></li><li><a href="#" class="footer-link">Treasury</a></li></ul></div>
-                <div>
-                    <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Stay Informed</h5>
-                    <p class="text-sm opacity-70 mb-3">Get financial tips & updates.</p>
-                    <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
-                        <input type="email" placeholder="Your email" class="px-4 py-2.5 rounded-full bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-wf-gold text-sm transition" required />
-                        <button type="submit" class="btn btn-wf-gold text-sm font-semibold rounded-full py-2.5 flex items-center justify-center gap-2">Subscribe <i class="fas fa-arrow-right"></i></button>
-                    </form>
-                </div>
-            </div>
-            <div class="border-t border-white/10 mt-12 pt-8 flex flex-wrap justify-between text-sm opacity-60"><span>&copy; 2026 WILLS FINANCE BANK. All rights reserved. Member FDIC.</span><span><i class="fas fa-globe"></i> English · <i class="fas fa-universal-access"></i> Accessibility</span></div>
-        </div>
-    </footer>
-
-    <!-- ============================================================
-    BACK TO TOP
-    ============================================================ -->
-    <button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
-    </script>
-
-    <!-- ============================================================
-    CUSTOM JAVASCRIPT
-    ============================================================ -->
+    <!-- Intersection Observer for fade-up elements -->
     <script>
-        (function() {
-            'use strict';
-
-            // ============================================================
-            // 1. HERO SLIDESHOW
-            // ============================================================
-            const slides = document.querySelectorAll('.hero-slide');
-            const indicators = document.getElementById('heroIndicators');
-            const prevBtn = document.getElementById('heroPrev');
-            const nextBtn = document.getElementById('heroNext');
-            let current = 0,
-                interval;
-
-            slides.forEach((_, i) => {
-                const dot = document.createElement('button');
-                if (i === 0) dot.classList.add('active');
-                dot.dataset.index = i;
-                dot.addEventListener('click', () => goTo(i));
-                indicators.appendChild(dot);
-            });
-            const dots = indicators.querySelectorAll('button');
-
-            function goTo(index) {
-                slides.forEach((s, i) => { s.classList.toggle('active', i === index); });
-                dots.forEach((d, i) => { d.classList.toggle('active', i === index); });
-                current = index;
-                resetInterval();
-                triggerCounters();
-            }
-
-            function next() { goTo((current + 1) % slides.length); }
-
-            function prev() { goTo((current - 1 + slides.length) % slides.length); }
-
-            function resetInterval() { clearInterval(interval);
-                interval = setInterval(next, 6500); }
-
-            prevBtn.addEventListener('click', prev);
-            nextBtn.addEventListener('click', next);
-            document.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') prev(); if (e.key === 'ArrowRight')
-                    next(); });
-            const hero = document.getElementById('hero');
-            hero.addEventListener('mouseenter', () => clearInterval(interval));
-            hero.addEventListener('mouseleave', resetInterval);
-            resetInterval();
-
-            // ============================================================
-            // 2. COUNTER ANIMATION
-            // ============================================================
-            function triggerCounters() {
-                const counters = document.querySelectorAll('.hero-slide.active .number[data-count]');
-                counters.forEach(counter => {
-                    const target = parseFloat(counter.dataset.count);
-                    if (isNaN(target)) return;
-                    const isFloat = target % 1 !== 0;
-                    let currentVal = 0;
-                    const duration = 1800;
-                    const stepTime = 16;
-                    const steps = duration / stepTime;
-                    const increment = target / steps;
-                    let elapsed = 0;
-                    const timer = setInterval(() => {
-                        elapsed += stepTime;
-                        currentVal += increment;
-                        if (currentVal >= target) {
-                            currentVal = target;
-                            clearInterval(timer);
-                        }
-                        counter.textContent = isFloat ? currentVal.toFixed(1) : Math.floor(currentVal);
-                    }, stepTime);
-                });
-            }
-            setTimeout(triggerCounters, 300);
-
-            // ============================================================
-            // 3. SCROLL PROGRESS BAR
-            // ============================================================
-            const progress = document.getElementById('scrollProgress');
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                progress.style.width = (scrollTop / docHeight) * 100 + '%';
-            });
-
-            // ============================================================
-            // 4. HEADER SHADOW
-            // ============================================================
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 20);
-            });
-
-            // ============================================================
-            // 5. BACK TO TOP
-            // ============================================================
-            const backBtn = document.getElementById('backToTop');
-            window.addEventListener('scroll', () => {
-                backBtn.classList.toggle('visible', window.scrollY > 500);
-            });
-            backBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // ============================================================
-            // 6. SCROLL ANIMATIONS
-            // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
             const fadeElements = document.querySelectorAll('.fade-up');
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
@@ -1306,43 +1811,8 @@
             } else {
                 fadeElements.forEach(el => el.classList.add('visible'));
             }
-
-            // ============================================================
-            // 7. SMOOTH SCROLL for anchor links
-            // ============================================================
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        const mobileNav = document.getElementById('mobileNav');
-                        if (mobileNav.classList.contains('show')) {
-                            const bsCollapse = bootstrap.Collapse.getInstance(mobileNav);
-                            if (bsCollapse) bsCollapse.hide();
-                        }
-                    }
-                });
-            });
-
-            // ============================================================
-            // 8. PARALLAX EFFECT
-            // ============================================================
-            const heroSection = document.getElementById('hero');
-            window.addEventListener('scroll', () => {
-                const scrolled = window.scrollY;
-                if (scrolled < heroSection.offsetHeight) {
-                    const offset = scrolled * 0.15;
-                    const activeSlides = document.querySelectorAll('.hero-slide.active');
-                    activeSlides.forEach(slide => {
-                        slide.style.transform = `translateY(${offset}px)`;
-                    });
-                }
-            });
-
-            console.log('🏦 WILLS FINANCE BANK — Premium Banking Landing Page');
-            console.log('🔒 Built with Tailwind + Bootstrap + vanilla JS');
-        })();
+        });
     </script>
+
 </body>
 </html>
