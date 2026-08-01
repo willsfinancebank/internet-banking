@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wills Finance — Admin Login</title>
+
+    <!-- Google Fonts (Inter & Playfair Display) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        /* ─── RESET & BASE ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #080e1a;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ─── ANIMATED BACKGROUND ─── */
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-canvas .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.3;
+            animation: orbFloat 20s ease-in-out infinite alternate;
+        }
+
+        .bg-canvas .orb:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            background: #C8102E;
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .bg-canvas .orb:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: #FFB81C;
+            bottom: -200px;
+            left: -100px;
+            animation-delay: -7s;
+        }
+
+        .bg-canvas .orb:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            background: #1a7fc1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+            opacity: 0.15;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(60px, -40px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 50px) scale(0.9);
+            }
+            100% {
+                transform: translate(20px, -20px) scale(1.05);
+            }
+        }
+
+        /* ─── GRID OVERLAY ─── */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* ─── LOGIN CONTAINER ─── */
+        .login-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 1.5rem;
+        }
+
+        /* ─── GLASS CARD ─── */
+        .login-card {
+            background: rgba(22, 32, 51, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            padding: 2.5rem 2.25rem;
+            transition: all 0.4s ease;
+        }
+
+        .login-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        /* ─── LOGO ─── */
+        .login-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2.25rem;
+        }
+
+        .login-logo .logo-mark {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            margin-bottom: 0.75rem;
+        }
+
+        .login-logo .logo-mark .shield-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, #C8102E, #a00f24);
+            border-radius: 20px;
+            transform: rotate(8deg);
+            box-shadow: 0 12px 40px rgba(200, 16, 46, 0.35);
+            transition: transform 0.4s ease;
+        }
+
+        .login-logo:hover .logo-mark .shield-bg {
+            transform: rotate(8deg) scale(1.04);
+        }
+
+        .login-logo .logo-mark .shield-inner {
+            position: absolute;
+            inset: 5px;
+            background: #0a1628;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 184, 28, 0.12);
+        }
+
+        .login-logo .logo-mark .shield-inner i {
+            font-size: 2rem;
+            color: #FFB81C;
+            filter: drop-shadow(0 0 20px rgba(255, 184, 28, 0.15));
+        }
+
+        .login-logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.04em;
+        }
+
+        .login-logo h1 span {
+            color: #C8102E;
+        }
+
+        .login-logo .subtitle {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            margin-top: 0.15rem;
+        }
+
+        .login-logo .subtitle .gold {
+            color: #FFB81C;
+        }
+
+        /* ─── FORM ─── */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group label i {
+            font-size: 0.65rem;
+            opacity: 0.5;
+        }
+
+        .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrap:focus-within {
+            border-color: #C8102E;
+            box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .input-wrap .input-icon {
+            position: absolute;
+            left: 1rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.95rem;
+            pointer-events: none;
+            transition: color 0.3s ease;
+        }
+
+        .input-wrap:focus-within .input-icon {
+            color: #C8102E;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 0.85rem 1rem 0.85rem 2.8rem;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            font-weight: 500;
+        }
+
+        .input-wrap input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 400;
+        }
+
+        .input-wrap .toggle-password {
+            position: absolute;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .input-wrap .toggle-password:hover {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ─── REMEMBER ME ─── */
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.15rem 0;
+        }
+
+        .form-options .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            transition: color 0.2s;
+            user-select: none;
+        }
+
+        .form-options .remember:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-options .remember input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .form-options .remember input[type="checkbox"]:checked {
+            background: #C8102E;
+            border-color: #C8102E;
+        }
+
+        .form-options .remember input[type="checkbox"]:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.6rem;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .form-options .forgot-link {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .form-options .forgot-link:hover {
+            color: #FFB81C;
+        }
+
+        /* ─── SUBMIT BUTTON ─── */
+        .btn-login {
+            margin-top: 0.25rem;
+            padding: 0.95rem;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #C8102E, #a00f24);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.08) 100%);
+            pointer-events: none;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(200, 16, 46, 0.35);
+        }
+
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-login .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .btn-login.loading .spinner {
+            display: block;
+        }
+
+        .btn-login.loading .btn-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ─── ERROR MESSAGE ─── */
+        .error-message {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            background: rgba(220, 38, 38, 0.08);
+            border: 1px solid rgba(220, 38, 38, 0.15);
+            color: #f87171;
+            font-size: 0.8rem;
+            font-weight: 500;
+            animation: shake 0.4s ease;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-message i {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        /* ─── FOOTER ─── */
+        .login-footer {
+            text-align: center;
+            margin-top: 1.75rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .login-footer p {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.04em;
+        }
+
+        .login-footer .version {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.1);
+            margin-top: 0.25rem;
+            font-family: monospace;
+        }
+
+        /* ─── SHIMMER LINE ─── */
+        .shimmer-line {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, #C8102E, #FFB81C, #C8102E);
+            background-size: 200% 100%;
+            border-radius: 4px;
+            margin: 0 auto 1.5rem;
+            animation: shimmerLine 3s infinite linear;
+        }
+
+        @keyframes shimmerLine {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+                border-radius: 24px;
+            }
+
+            .login-logo .logo-mark {
+                width: 60px;
+                height: 60px;
+            }
+
+            .login-logo .logo-mark .shield-inner i {
+                font-size: 1.5rem;
+            }
+
+            .login-logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .input-wrap input {
+                font-size: 0.85rem;
+                padding: 0.75rem 1rem 0.75rem 2.6rem;
+            }
+
+            .form-options {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .form-options .remember {
+                font-size: 0.75rem;
+            }
+
+            .btn-login {
+                padding: 0.85rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .login-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .login-logo h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ─── SUCCESS STATE ─── */
+        .login-card.success {
+            border-color: rgba(5, 150, 105, 0.3);
+            box-shadow: 0 0 60px rgba(5, 150, 105, 0.05);
+        }
+
+        /* ─── CURSOR GLOW ─── */
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 16, 46, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── ANIMATED BACKGROUND ─── -->
+    <div class="bg-canvas">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <!-- ─── CURSOR GLOW ─── -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- ─── LOGIN WRAPPER ─── -->
+    <div class="login-wrapper">
+
+        <div class="login-card" id="loginCard">
+
+            <!-- Logo -->
+            <div class="login-logo">
+                <div class="logo-mark">
+                    <div class="shield-bg"></div>
+                    <div class="shield-inner">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
+                <h1>WILLS <span>FINANCE</span></h1>
+                <div class="subtitle">Administrative <span class="gold">•</span> Command Center</div>
+                <div class="shimmer-line"></div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText">Invalid username or password. Please try again.</span>
+            </div>
+
+            <!-- Form -->
+            <form class="login-form" id="loginForm" autocomplete="off">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <div class="input-wrap">
+                        <span class="input-icon"><i class="fas fa-user"></i></span>
+                        <input type="text" id="usernameInput" placeholder="Enter your username" value="admin" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <div class="input-wrap">
+                        <span class="input-icon"><i class="fas fa-key"></i></span>
+                        <input type="password" id="passwordInput" placeholder="Enter your password" value="magamustpay123" required />
+                        <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember">
+                        <input type="checkbox" checked />
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-link" onclick="showToast('Reset Link Sent', 'A password reset link has been sent to your registered email.')">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <span class="spinner"></span>
+                    <span class="btn-text"><i class="fas fa-arrow-right-to-bracket"></i> Sign In</span>
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="login-footer">
+                <p>Secured &bull; Encrypted &bull; Protected</p>
+                <div class="version">v3.2.1 &bull; Wills Finance Bank</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ─── TOAST (for demo) ─── -->
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 p-4 rounded-2xl bg-[#162033] border border-white/10 text-white flex items-center gap-4 shadow-2xl max-w-md w-[92%] z-[9999] transition-all duration-400 transform translate-y-4 opacity-0 pointer-events-none">
+        <div id="toastIcon" class="w-10 h-10 rounded-xl flex items-center justify-center bg-yellow-500/10 text-yellow-500 flex-shrink-0">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+            <h4 id="toastTitle" class="font-bold text-sm">Notification</h4>
+            <p id="toastMessage" class="text-xs text-white/50 truncate"></p>
+        </div>
+        <div class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#C8102E] to-[#FFB81C] rounded-b-2xl toast-progress"></div>
+    </div>
+
+    <style>
+        #toast {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #toast.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #toast .toast-progress {
+            animation: toastProgress 4.5s linear forwards;
+        }
+        @keyframes toastProgress {
+            from {
+                width: 100%;
+            }
+            to {
+                width: 0%;
+            }
+        }
+    </style>
+
+    <script>
+        // ============================================================
+        // CREDENTIALS
+        // ============================================================
+        const ADMIN_USERNAME = 'admin';
+        const ADMIN_PASSWORD = 'magamustpay123';
+
+        // ============================================================
+        // DOM REFS
+        // ============================================================
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('usernameInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const loginCard = document.getElementById('loginCard');
+        const togglePassword = document.getElementById('togglePassword');
+        const cursorGlow = document.getElementById('cursorGlow');
+
+        // ============================================================
+        // TOAST SYSTEM
+        // ============================================================
+        let toastTimeout = null;
+
+        function showToast(title, message, icon = 'fa-info-circle', color = 'text-yellow-500') {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            clearTimeout(toastTimeout);
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            toastIcon.className =
+                `w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 ${color} flex-shrink-0`;
+            toastIcon.querySelector('i').className = `fas ${icon}`;
+
+            // Reset progress bar
+            const progress = toast.querySelector('.toast-progress');
+            progress.style.animation = 'none';
+            requestAnimationFrame(() => {
+                progress.style.animation = 'toastProgress 4.5s linear forwards';
+            });
+
+            toast.classList.add('show');
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 4500);
+        }
+
+        // ============================================================
+        // PASSWORD TOGGLE
+        // ============================================================
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePassword.querySelector('i').className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+
+        // ============================================================
+        // CURSOR GLOW
+        // ============================================================
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // ============================================================
+        // SHOW ERROR
+        // ============================================================
+        function showError(message) {
+            errorText.textContent = message || 'Invalid username or password. Please try again.';
+            errorMessage.classList.add('show');
+            loginCard.style.borderColor = 'rgba(220, 38, 38, 0.2)';
+            setTimeout(() => {
+                loginCard.style.borderColor = '';
+            }, 1000);
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        // ============================================================
+        // LOGIN HANDLER
+        // ============================================================
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideError();
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // Basic validation
+            if (!username || !password) {
+                showError('Please enter both username and password.');
+                return;
+            }
+
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.disabled = true;
+
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            // Check credentials
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                // Success
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+
+                // Success animation
+                loginCard.classList.add('success');
+                showToast('Welcome Back', 'Redirecting to the Admin Dashboard...', 'fa-check-circle', 'text-emerald-500');
+
+                // Store session in localStorage
+                localStorage.setItem('wf_admin_session', JSON.stringify({
+                    username: username,
+                    loggedInAt: new Date().toISOString()
+                }));
+
+                // Redirect after a moment
+                setTimeout(() => {
+                    // If we're on the admin page, just reload it
+                    if (window.location.pathname.includes('admin.html') || window.location.pathname.includes('admin')) {
+                        window.location.reload();
+                    } else {
+                        // Redirect to admin dashboard
+                        window.location.href = 'admin.html';
+                    }
+                }, 1500);
+
+            } else {
+                // Failed
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+                showError('Invalid username or password. Please try again.');
+
+                // Shake the card
+                loginCard.style.animation = 'shake 0.4s ease';
+                setTimeout(() => {
+                    loginCard.style.animation = '';
+                }, 500);
+
+                // Clear password field for security
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        });
+
+        // ============================================================
+        // AUTO-FOCUS ON PASSWORD ENTER
+        // ============================================================
+        usernameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                passwordInput.focus();
+            }
+        });
+
+        // ============================================================
+        // CLEAR ERROR ON INPUT
+        // ============================================================
+        usernameInput.addEventListener('input', hideError);
+        passwordInput.addEventListener('input', hideError);
+
+        // ============================================================
+        // CHECK FOR EXISTING SESSION
+        // ============================================================
+        (function checkSession() {
+            try {
+                const session = JSON.parse(localStorage.getItem('wf_admin_session'));
+                if (session && session.username === ADMIN_USERNAME) {
+                    // Session exists, but let's verify it's not too old (> 24 hours)
+                    const loginTime = new Date(session.loggedInAt);
+                    const now = new Date();
+                    const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                    if (hoursDiff < 24) {
+                        // Auto-redirect to dashboard if we're on the login page
+                        if (!window.location.pathname.includes('admin.html') && !window.location.pathname.includes('admin')) {
+                            // But don't auto-redirect on the login page itself
+                            // Actually, if we're on the login page, we want to stay here
+                            // The user can click the login button manually
+                        }
+                        // Pre-fill username
+                        usernameInput.value = ADMIN_USERNAME;
+                        // passwordInput.value = ADMIN_PASSWORD; // Don't auto-fill password for security
+                    } else {
+                        localStorage.removeItem('wf_admin_session');
+                    }
+                }
+            } catch (e) { /* ignore */ }
+        })();
+
+        // ============================================================
+        // KEYBOARD SHORTCUT: Ctrl+Enter to submit
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // ============================================================
+        // DEMO: Click on the "Forgot password?" link shows toast
+        // ============================================================
+        document.querySelector('.forgot-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast('Reset Link Sent', 'A password reset link has been sent to admin@wills.com', 'fa-envelope',
+                'text-yellow-500');
+        });
+
+        console.log('🏦 Wills Finance — Admin Login');
+        console.log('👤 Username: admin');
+        console.log('🔑 Password: password');
+        console.log('💡 Tip: Use Ctrl+Enter to submit quickly.');
+    </script>
+</body>
+</html>
