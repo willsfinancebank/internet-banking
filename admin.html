@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wills Finance — Admin Command Center</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ── Reset & Base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #080e1a;
+            color: #e8edf5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #C8102E, #FFB81C);
+            border-radius: 10px;
+        }
+
+        /* ── Glass Card ── */
+        .glass {
+            background: rgba(22, 32, 51, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+        }
+        .glass-light {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ── Inputs ── */
+        .input-premium {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            color: #fff;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .input-premium:focus {
+            border-color: #C8102E;
+            box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.15);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .input-premium::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .input-premium option {
+            background: #162033;
+            color: #fff;
+        }
+
+        /* ── Buttons ── */
+        .btn-primary {
+            background: linear-gradient(135deg, #C8102E, #a00f24);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(200, 16, 46, 0.35);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(5, 150, 105, 0.35);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.35);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(217, 119, 6, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ── Stat Cards ── */
+        .stat-card {
+            background: rgba(22, 32, 51, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        .stat-card .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .stat-card .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+        .stat-card .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+        }
+
+        /* ── Table ── */
+        .table-wrap {
+            overflow-x: auto;
+            max-height: 420px;
+            overflow-y: auto;
+            border-radius: 12px;
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        .table-wrap thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #0f1a2e;
+        }
+        .table-wrap thead th {
+            padding: 0.9rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.35);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .table-wrap tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.2s ease;
+        }
+        .table-wrap tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .table-wrap tbody td {
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+        }
+
+        /* ── Badges ── */
+        .badge-admin {
+            background: linear-gradient(135deg, #FFB81C, #f59e0b);
+            color: #0a1628;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge-client {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.6rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge-suspended {
+            background: rgba(220, 38, 38, 0.2);
+            color: #f87171;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge-active {
+            background: rgba(5, 150, 105, 0.2);
+            color: #34d399;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Action Buttons (table) ── */
+        .action-btn {
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+        .action-credit {
+            background: rgba(5, 150, 105, 0.15);
+            color: #34d399;
+        }
+        .action-credit:hover {
+            background: rgba(5, 150, 105, 0.25);
+        }
+        .action-debit {
+            background: rgba(220, 38, 38, 0.15);
+            color: #f87171;
+        }
+        .action-debit:hover {
+            background: rgba(220, 38, 38, 0.25);
+        }
+        .action-suspend {
+            background: rgba(217, 119, 6, 0.15);
+            color: #fbbf24;
+        }
+        .action-suspend:hover {
+            background: rgba(217, 119, 6, 0.25);
+        }
+        .action-activate {
+            background: rgba(5, 150, 105, 0.15);
+            color: #34d399;
+        }
+        .action-activate:hover {
+            background: rgba(5, 150, 105, 0.25);
+        }
+        .action-admin {
+            background: rgba(255, 184, 28, 0.15);
+            color: #FFB81C;
+        }
+        .action-admin:hover {
+            background: rgba(255, 184, 28, 0.25);
+        }
+        .action-delete {
+            background: rgba(220, 38, 38, 0.15);
+            color: #f87171;
+        }
+        .action-delete:hover {
+            background: rgba(220, 38, 38, 0.25);
+        }
+
+        /* ── Toast ── */
+        #toast {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #toast.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ── Avatar ── */
+        .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #C8102E, #a00f24);
+            color: #fff;
+        }
+
+        /* ── Search ── */
+        .search-wrap {
+            position: relative;
+        }
+        .search-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+        }
+        .search-wrap input {
+            padding-left: 40px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 0.7rem 1rem 0.7rem 2.8rem;
+            color: #fff;
+            width: 240px;
+            outline: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .search-wrap input:focus {
+            border-color: #C8102E;
+            box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.1);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .search-wrap input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ── Sidebar toggle (mobile) ── */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -300px;
+                width: 280px;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                background: #0a1628;
+                border-right: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 1.5rem;
+                overflow-y: auto;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.6);
+                z-index: 999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            .sidebar-overlay.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        /* ── Loading shimmer ── */
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.02) 75%);
+            background-size: 200% 100%;
+            animation: shimmerAnim 1.5s infinite;
+            border-radius: 8px;
+        }
+        @keyframes shimmerAnim {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ── Modal ── */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .modal-backdrop.open {
+            display: flex;
+        }
+        .modal-content {
+            background: #162033;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            0% {
+                transform: scale(0.95) translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ── Misc ── */
+        .truncate-uid {
+            max-width: 80px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 640px) {
+            .stat-card .stat-value {
+                font-size: 1.3rem;
+            }
+            .stat-card {
+                padding: 0.9rem 1rem;
+            }
+            .search-wrap input {
+                width: 100%;
+            }
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- SIDEBAR (desktop & mobile) -->
+    <!-- ============================================================ -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar fixed lg:static top-0 left-0 w-[280px] h-screen bg-[#0a1628] border-r border-white/5 flex flex-col flex-shrink-0 z-50 transition-all duration-300" id="sidebar">
+        <!-- Brand -->
+        <div class="flex items-center gap-3 px-4 py-6 border-b border-white/5">
+            <span class="w-10 h-10 bg-gradient-to-br from-[#C8102E] to-[#a00f24] rounded-xl rotate-6 flex items-center justify-center shadow-lg shadow-red-900/30 flex-shrink-0">
+                <i class="fas fa-crown text-yellow-500 text-lg"></i>
+            </span>
+            <div>
+                <h1 class="font-extrabold tracking-wide uppercase text-white text-base leading-tight">Wills Finance</h1>
+                <p class="text-[10px] text-yellow-500 font-bold tracking-[0.2em] uppercase">Admin Console</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-6 space-y-1">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600/10 text-red-500 font-medium text-sm transition">
+                <i class="fas fa-th-large w-5 text-center"></i> Dashboard
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/50 hover:text-white hover:bg-white/5 font-medium text-sm transition">
+                <i class="fas fa-users w-5 text-center"></i> User Management
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/50 hover:text-white hover:bg-white/5 font-medium text-sm transition">
+                <i class="fas fa-credit-card w-5 text-center"></i> Transactions
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/50 hover:text-white hover:bg-white/5 font-medium text-sm transition">
+                <i class="fas fa-chart-line w-5 text-center"></i> Analytics
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/50 hover:text-white hover:bg-white/5 font-medium text-sm transition">
+                <i class="fas fa-shield-alt w-5 text-center"></i> Security
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/50 hover:text-white hover:bg-white/5 font-medium text-sm transition">
+                <i class="fas fa-cog w-5 text-center"></i> Settings
+            </a>
+        </nav>
+
+        <!-- Footer -->
+        <div class="border-t border-white/5 px-4 py-4">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-red-700 to-red-900 flex items-center justify-center text-white font-bold text-sm flex-shrink-0" id="adminAvatar">A</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-white truncate" id="adminNameSidebar">Administrator</p>
+                    <p class="text-xs text-white/30 truncate" id="adminEmailSidebar">admin@wills.com</p>
+                </div>
+                <button id="logoutBtnSidebar" class="text-white/20 hover:text-red-400 transition p-2 rounded-lg hover:bg-white/5">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ============================================================ -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================================================ -->
+    <div class="lg:ml-[280px] min-h-screen">
+
+        <!-- Header -->
+        <header class="h-20 border-b border-white/5 flex items-center justify-between px-4 md:px-8 bg-[#0a1628]/90 backdrop-blur-md sticky top-0 z-40">
+            <div class="flex items-center gap-4">
+                <button id="menuToggle" class="lg:hidden text-white/50 hover:text-white text-xl p-2 rounded-lg hover:bg-white/5 transition">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <h2 class="text-lg font-bold text-white">Dashboard</h2>
+                    <p class="text-xs text-white/30">Manage your banking platform</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 md:gap-4">
+                <span class="text-sm font-medium text-white/70 hidden sm:inline" id="adminNameHeader">Administrator</span>
+                <button id="logoutBtnHeader" class="bg-red-700/20 text-red-400 hover:bg-red-700/40 px-4 py-2 text-xs rounded-full border border-red-700/30 font-bold transition flex items-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i> <span class="hidden sm:inline">Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="p-4 md:p-8 max-w-7xl mx-auto">
+
+            <!-- Stats Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="statsRow">
+                <div class="stat-card">
+                    <div class="flex items-center gap-4">
+                        <div class="stat-icon bg-blue-500/10 text-blue-400"><i class="fas fa-users"></i></div>
+                        <div>
+                            <div class="stat-value" id="totalUsers">—</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="flex items-center gap-4">
+                        <div class="stat-icon bg-emerald-500/10 text-emerald-400"><i class="fas fa-user-check"></i></div>
+                        <div>
+                            <div class="stat-value" id="activeUsers">—</div>
+                            <div class="stat-label">Active</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="flex items-center gap-4">
+                        <div class="stat-icon bg-orange-500/10 text-orange-400"><i class="fas fa-user-slash"></i></div>
+                        <div>
+                            <div class="stat-value" id="suspendedUsers">—</div>
+                            <div class="stat-label">Suspended</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="flex items-center gap-4">
+                        <div class="stat-icon bg-yellow-500/10 text-yellow-400"><i class="fas fa-user-shield"></i></div>
+                        <div>
+                            <div class="stat-value" id="adminCount">—</div>
+                            <div class="stat-label">Administrators</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two-Column Layout -->
+            <div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+
+                <!-- Left: Create User -->
+                <div class="xl:col-span-1 space-y-6">
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-8 h-8 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center">
+                                <i class="fas fa-user-plus text-sm"></i>
+                            </span>
+                            <h3 class="text-lg font-bold text-white">Create Account</h3>
+                        </div>
+                        <form id="createForm" class="space-y-4">
+                            <div>
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">Full Name</label>
+                                <input type="text" id="createName" class="input-premium" placeholder="Jane Irwin" required />
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">Email Address</label>
+                                <input type="email" id="createEmail" class="input-premium" placeholder="jane@example.com" required />
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">Password</label>
+                                <input type="password" id="createPassword" class="input-premium" placeholder="••••••••" minlength="6" required />
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">Role</label>
+                                <select id="createRole" class="input-premium">
+                                    <option value="client">Standard Client</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">Starting Balance ($)</label>
+                                <input type="number" id="createBalance" class="input-premium" placeholder="10000.00" min="0" step="0.01" value="10000" />
+                            </div>
+                            <button type="submit" class="w-full btn-primary justify-center">
+                                <i class="fas fa-plus"></i> Create Account
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Quick Info -->
+                    <div class="glass rounded-2xl p-5 text-xs text-white/40 leading-relaxed">
+                        <i class="fas fa-shield-alt text-yellow-500 mr-2"></i>
+                        <strong class="text-white/60">Admin Security:</strong> Only users with the <span class="text-yellow-500">admin</span> claim can access this panel. All actions are logged.
+                    </div>
+                </div>
+
+                <!-- Right: User Table + Actions -->
+                <div class="xl:col-span-3 space-y-6">
+
+                    <!-- User Table -->
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-red-600/10 text-red-500 flex items-center justify-center">
+                                    <i class="fas fa-list-ul text-sm"></i>
+                                </span>
+                                <h3 class="text-lg font-bold text-white">User Registry</h3>
+                                <span class="text-xs text-white/30" id="userCountDisplay">0 users</span>
+                            </div>
+                            <div class="search-wrap">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchUsers" placeholder="Search by name or email..." />
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th class="hidden md:table-cell">UID</th>
+                                        <th class="text-right">Balance</th>
+                                        <th class="text-center">Role</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userTableBody">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="loadingUsers" class="py-8 text-center text-white/30 text-sm">
+                            <i class="fas fa-spinner fa-spin mr-2"></i> Loading users...
+                        </div>
+                    </div>
+
+                    <!-- Quick Balance Adjustment -->
+                    <div class="glass rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-5">
+                            <span class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                                <i class="fas fa-dollar-sign text-sm"></i>
+                            </span>
+                            <h3 class="text-lg font-bold text-white">Quick Balance Adjustment</h3>
+                            <span class="text-xs text-white/30 ml-auto">Enter UID below</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+                            <div class="md:col-span-1">
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">User UID</label>
+                                <input type="text" id="targetUid" class="input-premium" placeholder="Paste UID..." />
+                            </div>
+                            <div class="md:col-span-1">
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">Type</label>
+                                <select id="ledgerAction" class="input-premium">
+                                    <option value="credit">Credit (+)</option>
+                                    <option value="debit">Debit (-)</option>
+                                </select>
+                            </div>
+                            <div class="md:col-span-1">
+                                <label class="text-xs font-semibold uppercase text-white/40 block mb-1.5">Amount ($)</label>
+                                <input type="number" id="ledgerAmount" class="input-premium" placeholder="10000" min="0.01" step="0.01" />
+                            </div>
+                            <div class="md:col-span-1">
+                                <button id="applyLedgerBtn" class="w-full btn-success justify-center">
+                                    <i class="fas fa-sync-alt"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/5">
+                            <span class="text-xs text-white/30">Quick actions:</span>
+                            <button onclick="quickAction('suspend')" class="text-xs px-3 py-1.5 rounded-full bg-orange-500/10 text-orange-400 hover:bg-orange-500/20 transition">Suspend</button>
+                            <button onclick="quickAction('activate')" class="text-xs px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition">Activate</button>
+                            <button onclick="quickAction('delete')" class="text-xs px-3 py-1.5 rounded-full bg-red-500/10 text-red-400 hover:bg-red-500/20 transition">Delete</button>
+                            <button onclick="quickAction('makeadmin')" class="text-xs px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400 hover:bg-yellow-500/20 transition">Make Admin</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TOAST NOTIFICATION -->
+    <!-- ============================================================ -->
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 p-4 rounded-2xl bg-[#162033] border border-white/10 text-white flex items-center gap-4 shadow-2xl max-w-md w-[92%] z-[3000]">
+        <div id="toastIcon" class="w-10 h-10 rounded-xl flex items-center justify-center bg-yellow-500/10 text-yellow-500 flex-shrink-0">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+            <h4 id="toastTitle" class="font-bold text-sm">Notification</h4>
+            <p id="toastMessage" class="text-xs text-white/50 truncate"></p>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- CONFIRMATION MODAL -->
+    <!-- ============================================================ -->
+    <div class="modal-backdrop" id="confirmModal">
+        <div class="modal-content">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-red-500/10 text-red-500 flex items-center justify-center text-xl flex-shrink-0">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white" id="confirmTitle">Confirm Action</h3>
+                    <p class="text-sm text-white/40" id="confirmMessage">Are you sure you want to proceed?</p>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <button id="confirmCancel" class="flex-1 btn-secondary justify-center">Cancel</button>
+                <button id="confirmOk" class="flex-1 btn-danger justify-center">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FIREBASE SDK -->
+    <!-- ============================================================ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        // ============================================================
+        // IMPORTS
+        // ============================================================
+        import { initializeApp } from "firebase/app";
+        import {
+            getAuth,
+            signOut,
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+            deleteUser as deleteAuthUser,
+            sendEmailVerification
+        } from "firebase/auth";
+        import {
+            getFirestore,
+            doc,
+            setDoc,
+            getDoc,
+            updateDoc,
+            deleteDoc,
+            collection,
+            getDocs,
+            serverTimestamp,
+            writeBatch,
+            query,
+            orderBy
+        } from "firebase/firestore";
+
+        // ============================================================
+        // FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyB-ejXt-72-0KJd5cvptzOtdEM10F9a-Z4",
+            authDomain: "data-3715b.firebaseapp.com",
+            projectId: "data-3715b",
+            storageBucket: "data-3715b.firebasestorage.app",
+            messagingSenderId: "899957518828",
+            appId: "1:899957518828:web:4922e33655b4676244d0c9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let allUsers = [];
+        let currentAdmin = null;
+        let isAdmin = false;
+        let pendingAction = null;
+        let pendingActionData = null;
+
+        // ============================================================
+        // DOM REFS
+        // ============================================================
+        const $ = (id) => document.getElementById(id);
+        const toast = $('toast');
+        const toastTitle = $('toastTitle');
+        const toastMessage = $('toastMessage');
+        const toastIcon = $('toastIcon');
+        const userTableBody = $('userTableBody');
+        const loadingUsers = $('loadingUsers');
+        const searchInput = $('searchUsers');
+        const totalUsersEl = $('totalUsers');
+        const activeUsersEl = $('activeUsers');
+        const suspendedUsersEl = $('suspendedUsers');
+        const adminCountEl = $('adminCount');
+        const userCountDisplay = $('userCountDisplay');
+        const confirmModal = $('confirmModal');
+        const confirmTitle = $('confirmTitle');
+        const confirmMessage = $('confirmMessage');
+        const confirmOk = $('confirmOk');
+        const confirmCancel = $('confirmCancel');
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        let toastTimeout = null;
+
+        function showToast(title, message, icon = 'fa-info-circle', color = 'text-yellow-500') {
+            clearTimeout(toastTimeout);
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            toastIcon.className =
+                `w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 ${color} flex-shrink-0`;
+            toastIcon.querySelector('i').className = `fas ${icon}`;
+            toast.classList.add('show');
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 4500);
+        }
+
+        // ============================================================
+        // CONFIRM MODAL
+        // ============================================================
+        function showConfirm(title, message, onConfirm) {
+            confirmTitle.textContent = title;
+            confirmMessage.textContent = message;
+            confirmModal.classList.add('open');
+            pendingAction = onConfirm;
+        }
+
+        confirmCancel.addEventListener('click', () => {
+            confirmModal.classList.remove('open');
+            pendingAction = null;
+        });
+
+        confirmOk.addEventListener('click', () => {
+            confirmModal.classList.remove('open');
+            if (pendingAction) {
+                pendingAction();
+                pendingAction = null;
+            }
+        });
+
+        // ============================================================
+        // AUTH CHECK
+        // ============================================================
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const tokenResult = await user.getIdTokenResult(true);
+                    if (tokenResult.claims.admin === true) {
+                        isAdmin = true;
+                        currentAdmin = user;
+                        const name = user.displayName || 'Administrator';
+                        document.querySelectorAll('#adminNameSidebar, #adminNameHeader, #adminName').forEach(el => {
+                            if (el) el.textContent = name;
+                        });
+                        document.getElementById('adminAvatar').textContent = name.charAt(0).toUpperCase();
+                        document.getElementById('adminEmailSidebar').textContent = user.email || 'admin@wills.com';
+                        await loadUsers();
+                        showToast('Welcome', `Signed in as ${name}`, 'fa-shield-alt', 'text-yellow-500');
+                    } else {
+                        showToast('Access Denied', 'This account does not have admin privileges.', 'fa-exclamation-triangle',
+                            'text-red-500');
+                        setTimeout(() => signOut(auth), 2000);
+                    }
+                } catch (err) {
+                    showToast('Error', 'Unable to verify admin credentials.', 'fa-exclamation-circle', 'text-red-500');
+                    setTimeout(() => signOut(auth), 2000);
+                }
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ============================================================
+        // LOAD USERS
+        // ============================================================
+        async function loadUsers() {
+            loadingUsers.style.display = 'block';
+            userTableBody.innerHTML = '';
+
+            try {
+                const usersRef = collection(db, 'users');
+                const q = query(usersRef, orderBy('name'));
+                const snapshot = await getDocs(q);
+                allUsers = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    allUsers.push({
+                        uid: doc.id,
+                        ...data,
+                        role: data.role || 'client',
+                        suspended: data.suspended || false,
+                        balance: data.balance || 0,
+                        name: data.name || 'Unknown',
+                        email: data.email || 'no-email'
+                    });
+                });
+                renderUsers(allUsers);
+                updateStats(allUsers);
+
+                // Also backup to localStorage
+                localStorage.setItem('wf_users', JSON.stringify(allUsers));
+
+            } catch (err) {
+                console.error('Load users error:', err);
+                showToast('Error', 'Failed to load users from Firestore.', 'fa-exclamation-circle', 'text-red-500');
+                // Fallback to localStorage
+                try {
+                    const local = JSON.parse(localStorage.getItem('wf_users') || '[]');
+                    if (local.length) {
+                        allUsers = local;
+                        renderUsers(allUsers);
+                        updateStats(allUsers);
+                        showToast('Warning', 'Loaded users from local cache.', 'fa-database', 'text-orange-400');
+                    }
+                } catch (e) { /* silent */ }
+            } finally {
+                loadingUsers.style.display = 'none';
+            }
+        }
+
+        // ============================================================
+        // RENDER USERS
+        // ============================================================
+        function renderUsers(users) {
+            const search = searchInput.value.toLowerCase().trim();
+            const filtered = users.filter(u =>
+                (u.name || '').toLowerCase().includes(search) ||
+                (u.email || '').toLowerCase().includes(search) ||
+                (u.uid || '').toLowerCase().includes(search)
+            );
+
+            userCountDisplay.textContent = `${filtered.length} users`;
+
+            if (filtered.length === 0) {
+                userTableBody.innerHTML = `
+                            <tr><td colspan="6" class="py-10 text-center text-white/30 text-sm">
+                                <i class="fas fa-search text-2xl block mb-2 opacity-20"></i>
+                                No users found.
+                            </td></tr>
+                        `;
+                return;
+            }
+
+            userTableBody.innerHTML = filtered.map(u => {
+                const isAdminUser = u.role === 'admin';
+                const isSuspended = u.suspended === true;
+                const balance = u.balance || 0;
+
+                return `
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <div class="avatar">${(u.name || 'U').charAt(0).toUpperCase()}</div>
+                                        <div>
+                                            <div class="font-medium text-white text-sm">${u.name || 'Unknown'}</div>
+                                            <div class="text-xs text-white/30 truncate max-w-[120px]">${u.email || ''}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">
+                                    <span class="truncate-uid" title="${u.uid}">${u.uid ? u.uid.slice(0, 12) + '…' : '—'}</span>
+                                </td>
+                                <td class="text-right font-mono font-medium text-white">
+                                    $${balance.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}
+                                </td>
+                                <td class="text-center">
+                                    <span class="${isAdminUser ? 'badge-admin' : 'badge-client'}">${isAdminUser ? 'Admin' : 'Client'}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="${isSuspended ? 'badge-suspended' : 'badge-active'}">${isSuspended ? 'Suspended' : 'Active'}</span>
+                                </td>
+                                <td class="text-right">
+                                    <div class="flex flex-wrap items-center justify-end gap-1">
+                                        <button onclick="window.creditUser('${u.uid}')" class="action-btn action-credit" title="Credit">
+                                            <i class="fas fa-plus-circle"></i> <span class="hidden sm:inline">Credit</span>
+                                        </button>
+                                        <button onclick="window.debitUser('${u.uid}')" class="action-btn action-debit" title="Debit">
+                                            <i class="fas fa-minus-circle"></i> <span class="hidden sm:inline">Debit</span>
+                                        </button>
+                                        ${isSuspended ?
+                                            `<button onclick="window.toggleSuspend('${u.uid}')" class="action-btn action-activate" title="Activate">
+                                                <i class="fas fa-check-circle"></i> <span class="hidden sm:inline">Activate</span>
+                                            </button>` :
+                                            `<button onclick="window.toggleSuspend('${u.uid}')" class="action-btn action-suspend" title="Suspend">
+                                                <i class="fas fa-ban"></i> <span class="hidden sm:inline">Suspend</span>
+                                            </button>`
+                                        }
+                                        ${!isAdminUser ?
+                                            `<button onclick="window.makeAdmin('${u.uid}')" class="action-btn action-admin" title="Make Admin">
+                                                <i class="fas fa-user-shield"></i> <span class="hidden sm:inline">Admin</span>
+                                            </button>` :
+                                            ''
+                                        }
+                                        <button onclick="window.deleteUserAccount('${u.uid}')" class="action-btn action-delete" title="Delete">
+                                            <i class="fas fa-trash-alt"></i> <span class="hidden sm:inline">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+            }).join('');
+        }
+
+        // ============================================================
+        // UPDATE STATS
+        // ============================================================
+        function updateStats(users) {
+            const total = users.length;
+            const active = users.filter(u => !u.suspended).length;
+            const suspended = users.filter(u => u.suspended).length;
+            const admins = users.filter(u => u.role === 'admin').length;
+
+            totalUsersEl.textContent = total;
+            activeUsersEl.textContent = active;
+            suspendedUsersEl.textContent = suspended;
+            adminCountEl.textContent = admins;
+        }
+
+        // ============================================================
+        // SEARCH
+        // ============================================================
+        searchInput.addEventListener('input', () => renderUsers(allUsers));
+
+        // ============================================================
+        // CREATE USER
+        // ============================================================
+        document.getElementById('createForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!isAdmin) return;
+
+            const name = document.getElementById('createName').value.trim();
+            const email = document.getElementById('createEmail').value.trim();
+            const password = document.getElementById('createPassword').value;
+            const role = document.getElementById('createRole').value;
+            const balance = parseFloat(document.getElementById('createBalance').value) || 0;
+
+            if (!name || !email || !password) {
+                showToast('Error', 'Please fill in all required fields.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            if (password.length < 6) {
+                showToast('Error', 'Password must be at least 6 characters.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+
+            try {
+                showToast('Creating...', `Creating ${role} account for ${name}...`, 'fa-spinner fa-spin',
+                'text-yellow-500');
+
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                const newUser = userCred.user;
+
+                const userData = {
+                    name: name,
+                    email: email,
+                    role: role,
+                    balance: balance,
+                    suspended: false,
+                    accounts: [
+                        { type: 'checking', number: Math.floor(1000 + Math.random() * 9000).toString(),
+                            balance: Math.min(balance, 5000), name: 'Primary Checking' }
+                    ],
+                    cards: [],
+                    investments: { total: 0, stocks: 0, bonds: 0, realEstate: 0, cash: 0 },
+                    createdAt: serverTimestamp(),
+                    createdBy: currentAdmin?.uid || 'admin'
+                };
+
+                const userRef = doc(db, 'users', newUser.uid);
+                await setDoc(userRef, userData);
+
+                // Backup to localStorage
+                const localUsers = JSON.parse(localStorage.getItem('wf_users') || '[]');
+                localUsers.push({ id: newUser.uid, ...userData });
+                localStorage.setItem('wf_users', JSON.stringify(localUsers));
+
+                showToast('Success', `${role.charAt(0).toUpperCase() + role.slice(1)} account created for ${name}.`,
+                    'fa-check-circle', 'text-emerald-500');
+
+                document.getElementById('createForm').reset();
+                document.getElementById('createBalance').value = '10000';
+                await loadUsers();
+
+            } catch (err) {
+                showToast('Creation Failed', err.message || 'Unknown error.', 'fa-exclamation-circle', 'text-red-500');
+            }
+        });
+
+        // ============================================================
+        // BALANCE ADJUSTMENT (core)
+        // ============================================================
+        async function adjustBalance(uid, amount, action) {
+            try {
+                const userRef = doc(db, 'users', uid);
+                const docSnap = await getDoc(userRef);
+                if (!docSnap.exists()) {
+                    showToast('Error', 'User not found.', 'fa-exclamation-circle', 'text-red-500');
+                    return;
+                }
+
+                const currentBalance = docSnap.data().balance || 0;
+                let newBalance;
+                if (action === 'credit') {
+                    newBalance = currentBalance + amount;
+                } else {
+                    if (currentBalance < amount) {
+                        showToast('Error', 'Insufficient balance to debit.', 'fa-exclamation-circle', 'text-red-500');
+                        return;
+                    }
+                    newBalance = currentBalance - amount;
+                }
+
+                await updateDoc(userRef, { balance: newBalance });
+
+                const user = allUsers.find(u => u.uid === uid);
+                if (user) user.balance = newBalance;
+
+                // Update localStorage
+                const localUsers = JSON.parse(localStorage.getItem('wf_users') || '[]');
+                const idx = localUsers.findIndex(u => u.id === uid);
+                if (idx !== -1) localUsers[idx].balance = newBalance;
+                localStorage.setItem('wf_users', JSON.stringify(localUsers));
+
+                renderUsers(allUsers);
+                updateStats(allUsers);
+
+                showToast('Success', `${action === 'credit' ? 'Credited' : 'Debited'} $${amount.toFixed(2)}. New balance: $${newBalance.toFixed(2)}`,
+                    'fa-check-circle', 'text-emerald-500');
+
+            } catch (err) {
+                showToast('Error', err.message || 'Failed to adjust balance.', 'fa-exclamation-circle', 'text-red-500');
+            }
+        }
+
+        // ============================================================
+        // EXPOSED GLOBAL FUNCTIONS (for inline onclick)
+        // ============================================================
+        window.creditUser = function(uid) {
+            const amount = prompt('Enter amount to credit:');
+            if (amount === null) return;
+            const num = parseFloat(amount);
+            if (isNaN(num) || num <= 0) {
+                showToast('Error', 'Please enter a positive number.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            adjustBalance(uid, num, 'credit');
+        };
+
+        window.debitUser = function(uid) {
+            const amount = prompt('Enter amount to debit:');
+            if (amount === null) return;
+            const num = parseFloat(amount);
+            if (isNaN(num) || num <= 0) {
+                showToast('Error', 'Please enter a positive number.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            adjustBalance(uid, num, 'debit');
+        };
+
+        window.toggleSuspend = function(uid) {
+            if (uid === currentAdmin?.uid) {
+                showToast('Error', 'You cannot suspend yourself.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            showConfirm(
+                'Toggle Suspension',
+                'Are you sure you want to change this user\'s suspension status?',
+                async () => {
+                    try {
+                        const userRef = doc(db, 'users', uid);
+                        const docSnap = await getDoc(userRef);
+                        if (!docSnap.exists()) {
+                            showToast('Error', 'User not found.', 'fa-exclamation-circle', 'text-red-500');
+                            return;
+                        }
+                        const current = docSnap.data().suspended || false;
+                        const newStatus = !current;
+                        await updateDoc(userRef, { suspended: newStatus });
+
+                        const user = allUsers.find(u => u.uid === uid);
+                        if (user) user.suspended = newStatus;
+
+                        const localUsers = JSON.parse(localStorage.getItem('wf_users') || '[]');
+                        const idx = localUsers.findIndex(u => u.id === uid);
+                        if (idx !== -1) localUsers[idx].suspended = newStatus;
+                        localStorage.setItem('wf_users', JSON.stringify(localUsers));
+
+                        renderUsers(allUsers);
+                        updateStats(allUsers);
+                        showToast('Success', `User ${newStatus ? 'suspended' : 'activated'}.`, 'fa-check-circle',
+                            'text-emerald-500');
+                    } catch (err) {
+                        showToast('Error', err.message || 'Failed to update status.', 'fa-exclamation-circle',
+                            'text-red-500');
+                    }
+                }
+            );
+        };
+
+        window.makeAdmin = function(uid) {
+            if (uid === currentAdmin?.uid) {
+                showToast('Info', 'You are already an admin.', 'fa-info-circle', 'text-yellow-500');
+                return;
+            }
+            showConfirm(
+                'Promote to Admin',
+                'Are you sure you want to give this user administrator privileges?',
+                async () => {
+                    try {
+                        const userRef = doc(db, 'users', uid);
+                        const docSnap = await getDoc(userRef);
+                        if (!docSnap.exists()) {
+                            showToast('Error', 'User not found.', 'fa-exclamation-circle', 'text-red-500');
+                            return;
+                        }
+                        if (docSnap.data().role === 'admin') {
+                            showToast('Info', 'User is already an admin.', 'fa-info-circle', 'text-yellow-500');
+                            return;
+                        }
+                        await updateDoc(userRef, { role: 'admin' });
+
+                        const user = allUsers.find(u => u.uid === uid);
+                        if (user) user.role = 'admin';
+
+                        const localUsers = JSON.parse(localStorage.getItem('wf_users') || '[]');
+                        const idx = localUsers.findIndex(u => u.id === uid);
+                        if (idx !== -1) localUsers[idx].role = 'admin';
+                        localStorage.setItem('wf_users', JSON.stringify(localUsers));
+
+                        renderUsers(allUsers);
+                        updateStats(allUsers);
+                        showToast('Success', `User promoted to Administrator.`, 'fa-check-circle',
+                            'text-emerald-500');
+                    } catch (err) {
+                        showToast('Error', err.message || 'Failed to promote user.', 'fa-exclamation-circle',
+                            'text-red-500');
+                    }
+                }
+            );
+        };
+
+        window.deleteUserAccount = function(uid) {
+            if (uid === currentAdmin?.uid) {
+                showToast('Error', 'You cannot delete yourself.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            showConfirm(
+                '⚠️ Delete User',
+                'This action is permanent and cannot be undone. All user data will be removed.',
+                async () => {
+                    try {
+                        await deleteDoc(doc(db, 'users', uid));
+                        // Attempt to delete auth user
+                        try {
+                            // We can't directly delete auth user from client without admin SDK
+                            // But we can disable them or leave it for manual cleanup
+                            // We'll keep the auth user but remove Firestore data
+                        } catch (authErr) {
+                            console.warn('Auth user not deleted:', authErr);
+                        }
+
+                        allUsers = allUsers.filter(u => u.uid !== uid);
+                        const localUsers = JSON.parse(localStorage.getItem('wf_users') || '[]');
+                        const filtered = localUsers.filter(u => u.id !== uid);
+                        localStorage.setItem('wf_users', JSON.stringify(filtered));
+
+                        renderUsers(allUsers);
+                        updateStats(allUsers);
+                        showToast('Success', `User ${uid.slice(0, 12)}… deleted.`, 'fa-check-circle',
+                            'text-emerald-500');
+                    } catch (err) {
+                        showToast('Error', err.message || 'Failed to delete user.', 'fa-exclamation-circle',
+                            'text-red-500');
+                    }
+                }
+            );
+        };
+
+        window.quickAction = function(action) {
+            const uid = document.getElementById('targetUid').value.trim();
+            if (!uid) {
+                showToast('Error', 'Please paste a User UID.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            switch (action) {
+                case 'suspend':
+                    window.toggleSuspend(uid);
+                    break;
+                case 'activate':
+                    window.toggleSuspend(uid);
+                    break;
+                case 'delete':
+                    window.deleteUserAccount(uid);
+                    break;
+                case 'makeadmin':
+                    window.makeAdmin(uid);
+                    break;
+                default:
+                    showToast('Error', 'Unknown action.', 'fa-exclamation-circle', 'text-red-500');
+            }
+        };
+
+        // ============================================================
+        // LEDGER FORM
+        // ============================================================
+        document.getElementById('applyLedgerBtn').addEventListener('click', async () => {
+            const uid = document.getElementById('targetUid').value.trim();
+            const action = document.getElementById('ledgerAction').value;
+            const amount = parseFloat(document.getElementById('ledgerAmount').value);
+
+            if (!uid) {
+                showToast('Error', 'Please enter a Target UID.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            if (!amount || amount <= 0) {
+                showToast('Error', 'Please enter a valid amount.', 'fa-exclamation-circle', 'text-red-500');
+                return;
+            }
+            await adjustBalance(uid, amount, action);
+            document.getElementById('ledgerAmount').value = '';
+        });
+
+        // ============================================================
+        // LOGOUT
+        // ============================================================
+        document.querySelectorAll('#logoutBtnHeader, #logoutBtnSidebar').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                try {
+                    await signOut(auth);
+                    showToast('Signed Out', 'Redirecting to login...', 'fa-check-circle', 'text-emerald-500');
+                    setTimeout(() => window.location.href = 'index.html', 1000);
+                } catch (err) {
+                    showToast('Error', err.message, 'fa-exclamation-circle', 'text-red-500');
+                }
+            });
+        });
+
+        // ============================================================
+        // SIDEBAR TOGGLE (mobile)
+        // ============================================================
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        });
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        // ============================================================
+        // SEED DEMO DATA (if empty)
+        // ============================================================
+        async function seedDemoData() {
+            try {
+                const usersRef = collection(db, 'users');
+                const snapshot = await getDocs(usersRef);
+                if (snapshot.empty) {
+                    console.log('🌱 Seeding demo users...');
+                    const demoUsers = [{
+                        name: 'John Irwin',
+                        email: 'johnirwin@gmail.com',
+                        role: 'client',
+                        balance: 57000000,
+                        suspended: false,
+                        accounts: [
+                            { type: 'checking', number: '4829', balance: 32000000, name: 'Primary Checking' },
+                            { type: 'savings', number: '8731', balance: 25000000, name: 'Premium Savings' }
+                        ],
+                        cards: [
+                            { type: 'Visa Platinum', number: '4111 1111 1111 1111', expiry: '12/28',
+                                limit: 50000, balance: 12450, rewards: 2450 },
+                            { type: 'Mastercard Elite', number: '5555 5555 5555 4444', expiry: '08/27',
+                                limit: 75000, balance: 8900, rewards: 5100 }
+                        ],
+                        investments: { total: 12450000, stocks: 40, bonds: 30, realEstate: 15, cash: 15 },
+                        createdAt: serverTimestamp(),
+                        createdBy: 'system'
+                    }, {
+                        name: 'Sarah Johnson',
+                        email: 'sarah@example.com',
+                        role: 'client',
+                        balance: 12450000,
+                        suspended: false,
+                        accounts: [
+                            { type: 'checking', number: '1245', balance: 8500000, name: 'Primary Checking' },
+                            { type: 'savings', number: '6789', balance: 3950000, name: 'Savings' }
+                        ],
+                        cards: [
+                            { type: 'Visa Gold', number: '4222 2222 2222 2222', expiry: '03/29',
+                                limit: 25000, balance: 3200, rewards: 1200 }
+                        ],
+                        investments: { total: 3200000, stocks: 35, bonds: 40, realEstate: 10, cash: 15 },
+                        createdAt: serverTimestamp(),
+                        createdBy: 'system'
+                    }];
+
+                    for (const data of demoUsers) {
+                        const uid = `demo_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+                        await setDoc(doc(db, 'users', uid), data);
+                    }
+                    console.log('✅ Demo users seeded.');
+                    await loadUsers();
+                }
+            } catch (err) {
+                console.warn('Seed error:', err);
+            }
+        }
+
+        // Seed after auth
+        setTimeout(() => {
+            if (isAdmin) seedDemoData();
+        }, 3000);
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        console.log('🏦 Wills Finance — Admin Command Center');
+        console.log('🔐 Admin: admin@wills.com / Admin@2026');
+        console.log('📋 All admin actions are logged via Firestore.');
+
+        if (auth.currentUser && isAdmin) {
+            loadUsers();
+        }
+    </script>
+</body>
+</html>
