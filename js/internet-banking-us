@@ -1,0 +1,32 @@
+willsfinancebank/
+│
+├── index.php
+├── login.php
+├── register.php
+├── dashboard.php
+├── logout.php
+│
+├── config/
+│   ├── config.php
+│   └── auth.php
+│
+├── includes/
+│   ├── header.php
+│   ├── footer.php
+│   └── navbar.php
+│
+├── assets/
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+├── admin/
+│   ├── index.php
+│   ├── dashboard.php
+│   ├── users.php
+│   ├── transactions.php
+│   ├── settings.php
+│   └── logout.php
+│
+└── database/
+    └── bank.sql
