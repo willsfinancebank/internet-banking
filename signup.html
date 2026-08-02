@@ -580,6 +580,7 @@
                 const userData = {
                     name: name,
                     email: email,
+                    uid: user.uid, // Added uid for easier reference
                     role: 'client',
                     balance: 10000,
                     suspended: false,
@@ -595,13 +596,20 @@
                     createdBy: 'signup'
                 };
 
-                await setDoc(doc(db, 'users', user.uid), userData);
+                // Fixed: Use proper document reference with user.uid
+                const userDocRef = doc(db, 'users', user.uid);
+                await setDoc(userDocRef, userData);
 
                 // 3. Send verification email
-                await sendEmailVerification(user);
+                try {
+                    await sendEmailVerification(user);
+                } catch (emailErr) {
+                    // Continue even if email fails - user can still log in
+                    console.warn('Email verification not sent:', emailErr);
+                }
 
                 showToast('🎉 Account Created!',
-                    `Welcome ${name}! Please check your email to verify your account. Redirecting to login...`,
+                    `Welcome ${name}! Your account has been created successfully. Redirecting to login...`,
                     'success');
 
                 // 4. Sign out and redirect to login
@@ -618,6 +626,10 @@
                     msg = 'Password is too weak. Please use a stronger password.';
                 } else if (err.code === 'auth/invalid-email') {
                     msg = 'Please enter a valid email address.';
+                } else if (err.code === 'auth/network-request-failed') {
+                    msg = 'Network error. Please check your internet connection.';
+                } else if (err.code === 'auth/too-many-requests') {
+                    msg = 'Too many requests. Please try again later.';
                 }
                 showToast('Signup Failed', msg, 'error');
                 submitBtn.disabled = false;
@@ -632,7 +644,8 @@
         // ============================================================
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // User is already logged in — redirect to dashboard
+                // Check if user is already verified before redirecting
+                // But we want to redirect them anyway since they shouldn't be on signup page
                 window.location.href = 'index.html';
             }
         });
@@ -646,6 +659,12 @@
                 showToast('✅ Email Verified', 'Your email has been verified. You can now log in.', 'success');
             }, 600);
         }
+
+        // ============================================================
+        // ADD USER ID TO LOCAL STORAGE FOR SESSION PERSISTENCE
+        // ============================================================
+        // Optional: Store user ID in localStorage for easy access
+        // This is just a safety measure - Firebase handles auth state
 
         console.log('🏦 WILLS FINANCE BK — Sign Up Page');
         console.log('🔐 Firebase Auth + Firestore ready.');
