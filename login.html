@@ -383,7 +383,7 @@
             </button>
             <div class="divider">or</div>
             <p class="text-center text-sm text-wf-muted">
-                Don't have an account? <a href="signup.html" class="auth-link">Sign Up</a>
+                Don't have an account? <a href="signup.html" class="auth-link" id="signupLink">Sign Up</a>
             </p>
         </form>
     </div>
@@ -437,6 +437,7 @@
         const rememberCheck = document.getElementById('rememberMe');
         const submitBtn = document.getElementById('loginBtn');
         const forgotLink = document.getElementById('forgotLink');
+        const signupLink = document.getElementById('signupLink');
 
         // ============================================================
         // TOAST
@@ -462,26 +463,19 @@
         }
 
         // ============================================================
-        // SESSION PERSISTENCE
-        // ============================================================
-        // By default Firebase uses local persistence. We can honor "remember me"
-        // by using session vs local, but we'll just use default.
-
-        // ============================================================
         // REDIRECT IF ALREADY LOGGED IN
         // ============================================================
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // User is already logged in — check if admin and redirect
                 try {
                     const tokenResult = await user.getIdTokenResult();
                     if (tokenResult.claims.admin === true) {
-                        window.location.href = 'index.html'; // admin dashboard
+                        // User is admin, redirect to dashboard
+                        window.location.href = 'dashboard.html';
                     } else {
-                        // Non-admin user — you could redirect to a user dashboard or show a message
+                        // Non-admin user - show message and sign out
                         showToast('Access Restricted', 'This account does not have admin privileges.', 'info');
-                        // Optionally sign them out
-                        // await signOut(auth);
+                        await signOut(auth);
                     }
                 } catch (err) {
                     console.warn('Error checking admin claim:', err);
@@ -515,20 +509,18 @@
                 // Check admin claim
                 const tokenResult = await user.getIdTokenResult(true);
                 if (tokenResult.claims.admin === true) {
-                    showToast('Welcome back!', `Redirecting to admin dashboard...`, 'success');
+                    showToast('Welcome back!', 'Redirecting to dashboard...', 'success');
                     setTimeout(() => {
-                        window.location.href = 'index.html';
+                        window.location.href = 'dashboard.html';
                     }, 1200);
                 } else {
-                    // Logged in but not admin — show info, maybe redirect to user dashboard or sign out
                     showToast('Access Restricted', 'This account is not an administrator.', 'info');
-                    // Optionally sign out to prevent access
                     await signOut(auth);
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Sign In';
                 }
             } catch (err) {
-                let msg = err.message || 'Login failed. Please try again.';
+                let msg = 'Login failed. Please try again.';
                 if (err.code === 'auth/user-not-found') {
                     msg = 'No account found with this email.';
                 } else if (err.code === 'auth/wrong-password') {
@@ -562,12 +554,25 @@
                 await sendPasswordResetEmail(auth, email);
                 showToast('Password Reset Sent', `We've sent a reset link to ${email}`, 'info');
             } catch (err) {
-                let msg = err.message || 'Could not send reset email.';
+                let msg = 'Could not send reset email.';
                 if (err.code === 'auth/user-not-found') {
                     msg = 'No account found with this email.';
                 }
                 showToast('Reset Failed', msg, 'error');
             }
+        });
+
+        // ============================================================
+        // SIGNUP LINK - Create a simple signup redirect with instructions
+        // ============================================================
+        signupLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Since we don't have a signup page, show instructions
+            showToast(
+                'Admin Registration',
+                'To create an admin account, use Firebase Console or contact system administrator.',
+                'info'
+            );
         });
 
         // ============================================================
@@ -582,6 +587,7 @@
         console.log('🏦 WILLS FINANCE BK — Login Page');
         console.log('🔐 Admin credentials: admin@wills.com / Admin@2026');
         console.log('🔒 Only admin users can access the dashboard.');
+        console.log('📝 To create admin users, use Firebase Console or set custom claims.');
     </script>
 
 </body>
