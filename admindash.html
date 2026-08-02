@@ -612,7 +612,7 @@
                     <label><i class="fas fa-user"></i> Username</label>
                     <div class="input-wrap">
                         <span class="input-icon"><i class="fas fa-user"></i></span>
-                        <input type="text" id="usernameInput" placeholder="Enter your username" value="admin" required />
+                        <input type="text" id="usernameInput" placeholder="Enter your username" required />
                     </div>
                 </div>
 
@@ -620,7 +620,7 @@
                     <label><i class="fas fa-lock"></i> Password</label>
                     <div class="input-wrap">
                         <span class="input-icon"><i class="fas fa-key"></i></span>
-                        <input type="password" id="passwordInput" placeholder="Enter your password" value="magamustpay123" required />
+                        <input type="password" id="passwordInput" placeholder="Enter your password" required />
                         <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -632,7 +632,7 @@
                         <input type="checkbox" checked />
                         <span>Remember me</span>
                     </label>
-                    <a href="#" class="forgot-link" onclick="showToast('Reset Link Sent', 'A password reset link has been sent to your registered email.')">Forgot password?</a>
+                    <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn-login" id="loginBtn">
@@ -650,40 +650,78 @@
         </div>
     </div>
 
-    <!-- ─── TOAST (for demo) ─── -->
-    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 p-4 rounded-2xl bg-[#162033] border border-white/10 text-white flex items-center gap-4 shadow-2xl max-w-md w-[92%] z-[9999] transition-all duration-400 transform translate-y-4 opacity-0 pointer-events-none">
-        <div id="toastIcon" class="w-10 h-10 rounded-xl flex items-center justify-center bg-yellow-500/10 text-yellow-500 flex-shrink-0">
+    <!-- ─── TOAST ─── -->
+    <div id="toast">
+        <div id="toastIcon">
             <i class="fas fa-info-circle"></i>
         </div>
-        <div class="flex-1 min-w-0">
-            <h4 id="toastTitle" class="font-bold text-sm">Notification</h4>
-            <p id="toastMessage" class="text-xs text-white/50 truncate"></p>
+        <div>
+            <h4 id="toastTitle">Notification</h4>
+            <p id="toastMessage"></p>
         </div>
-        <div class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#C8102E] to-[#FFB81C] rounded-b-2xl toast-progress"></div>
+        <div class="toast-progress"></div>
     </div>
 
     <style>
         #toast {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(20px) scale(0.95);
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px) scale(0.95);
+            background: #162033;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            max-width: 420px;
+            width: 90%;
+            z-index: 9999;
             opacity: 0;
             pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         #toast.show {
-            transform: translateY(0) scale(1);
             opacity: 1;
             pointer-events: auto;
+            transform: translateX(-50%) translateY(0) scale(1);
         }
         #toast .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #C8102E, #FFB81C);
+            border-radius: 0 0 1rem 1rem;
+            width: 100%;
             animation: toastProgress 4.5s linear forwards;
         }
         @keyframes toastProgress {
-            from {
-                width: 100%;
-            }
-            to {
-                width: 0%;
-            }
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        #toastIcon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(255,184,28,0.1);
+            color: #FFB81C;
+        }
+        #toastTitle {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        #toastMessage {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            margin: 0;
         }
     </style>
 
@@ -706,6 +744,7 @@
         const loginCard = document.getElementById('loginCard');
         const togglePassword = document.getElementById('togglePassword');
         const cursorGlow = document.getElementById('cursorGlow');
+        const forgotLink = document.getElementById('forgotLink');
 
         // ============================================================
         // TOAST SYSTEM
@@ -721,8 +760,7 @@
             clearTimeout(toastTimeout);
             toastTitle.textContent = title;
             toastMessage.textContent = message;
-            toastIcon.className =
-                `w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 ${color} flex-shrink-0`;
+            toastIcon.className = `w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 ${color} flex-shrink-0`;
             toastIcon.querySelector('i').className = `fas ${icon}`;
 
             // Reset progress bar
@@ -810,13 +848,7 @@
 
                 // Redirect after a moment
                 setTimeout(() => {
-                    // If we're on the admin page, just reload it
-                    if (window.location.pathname.includes('admin.html') || window.location.pathname.includes('admin')) {
-                        window.location.reload();
-                    } else {
-                        // Redirect to admin dashboard
-                        window.location.href = 'admin.html';
-                    }
+                    window.location.href = 'admin.html';
                 }, 1500);
 
             } else {
@@ -860,20 +892,12 @@
             try {
                 const session = JSON.parse(localStorage.getItem('wf_admin_session'));
                 if (session && session.username === ADMIN_USERNAME) {
-                    // Session exists, but let's verify it's not too old (> 24 hours)
                     const loginTime = new Date(session.loggedInAt);
                     const now = new Date();
                     const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
                     if (hoursDiff < 24) {
-                        // Auto-redirect to dashboard if we're on the login page
-                        if (!window.location.pathname.includes('admin.html') && !window.location.pathname.includes('admin')) {
-                            // But don't auto-redirect on the login page itself
-                            // Actually, if we're on the login page, we want to stay here
-                            // The user can click the login button manually
-                        }
                         // Pre-fill username
                         usernameInput.value = ADMIN_USERNAME;
-                        // passwordInput.value = ADMIN_PASSWORD; // Don't auto-fill password for security
                     } else {
                         localStorage.removeItem('wf_admin_session');
                     }
@@ -891,14 +915,16 @@
         });
 
         // ============================================================
-        // DEMO: Click on the "Forgot password?" link shows toast
+        // FORGOT PASSWORD LINK
         // ============================================================
-        document.querySelector('.forgot-link').addEventListener('click', (e) => {
+        forgotLink.addEventListener('click', (e) => {
             e.preventDefault();
-            showToast('Reset Link Sent', 'A password reset link has been sent to admin@wills.com', 'fa-envelope',
-                'text-yellow-500');
+            showToast('Reset Link Sent', 'A password reset link has been sent to admin@wills.com', 'fa-envelope', 'text-yellow-500');
         });
 
+        // ============================================================
+        // CONSOLE INFO
+        // ============================================================
         console.log('🏦 Wills Finance — Admin Login');
         console.log('👤 Username: admin');
         console.log('🔑 Password: magamustpay123');
